@@ -55,18 +55,18 @@ public class DatuKargatzailea {
         Map<Integer, Talde> taldeak = new HashMap<>();
         // ID, Izena, Irudia, Estadioa, JokalariZerrenda, Hiria, Aktibo
         Object[][] datuak = {
-            { 1, "Barça Futsal", "/resources/images/barcelona.png", "Palau Blaugrana", new ArrayList<Jokalari>(), "Barcelona", true },
-            { 2, "ElPozo Murcia", "/resources/images/elpozo.png", "Palacio de Deportes", new ArrayList<Jokalari>(), "Murcia", true },
-            { 3, "Inter Movistar", "/resources/images/inter.png", "Jorge Garbajosa", new ArrayList<Jokalari>(), "Torrejon", true },
-            { 4, "Mallorca Palma Futsal", "/resources/images/baleares.png", "Son Moix", new ArrayList<Jokalari>(), "Palma", true },
-            { 5, "Jaén Paraíso Interior", "/resources/images/jaen.png", "Olivo Arena", new ArrayList<Jokalari>(), "Jaen", true },
-            { 6, "Viña Albali Valdepeñas", "/resources/images/valdepenas.png", "Virgen de la Cabeza", new ArrayList<Jokalari>(), "Valdepeñas", true },
-            { 7, "Jimbee Cartagena", "/resources/images/cartagena.png", "Palacio Deportes", new ArrayList<Jokalari>(), "Cartagena", true },
-            { 8, "Aspil-Jumpers Ribera", "/resources/images/ribera.png", "Ciudad de Tudela", new ArrayList<Jokalari>(), "Tudela", true },
-            { 9, "Industrias Santa Coloma", "/resources/images/industrias.png", "Pavelló Nou", new ArrayList<Jokalari>(), "Sta Coloma", true },
-            { 10, "Xota FS", "/resources/images/xota.png", "Anaitasuna", new ArrayList<Jokalari>(), "Pamplona", true },
-            { 11, "Córdoba Patrimonio", "/resources/images/cordoba.png", "Vista Alegre", new ArrayList<Jokalari>(), "Córdoba", true },
-            { 12, "Noia Portus Apostoli", "/resources/images/noia.png", "Agustín Mourís", new ArrayList<Jokalari>(), "Noia", true }
+            { 1, "Barça Futsal", "/images/barcelona.png", "Palau Blaugrana", new ArrayList<Jokalari>(), "Barcelona", true },
+            { 2, "ElPozo Murcia", "/images/elpozo.png", "Palacio de Deportes", new ArrayList<Jokalari>(), "Murcia", true },
+            { 3, "Inter Movistar", "/images/inter.png", "Jorge Garbajosa", new ArrayList<Jokalari>(), "Torrejon", true },
+            { 4, "Mallorca Palma Futsal", "/images/baleares.png", "Son Moix", new ArrayList<Jokalari>(), "Palma", true },
+            { 5, "Jaén Paraíso Interior", "/images/jaen.png", "Olivo Arena", new ArrayList<Jokalari>(), "Jaen", true },
+            { 6, "Viña Albali Valdepeñas", "/images/valdepenas.png", "Virgen de la Cabeza", new ArrayList<Jokalari>(), "Valdepeñas", true },
+            { 7, "Jimbee Cartagena", "/images/cartagena.png", "Palacio Deportes", new ArrayList<Jokalari>(), "Cartagena", true },
+            { 8, "Aspil-Jumpers Ribera", "/images/ribera.png", "Ciudad de Tudela", new ArrayList<Jokalari>(), "Tudela", true },
+            { 9, "Industrias Santa Coloma", "/images/industrias.png", "Pavelló Nou", new ArrayList<Jokalari>(), "Sta Coloma", true },
+            { 10, "Xota FS", "/images/xota.png", "Anaitasuna", new ArrayList<Jokalari>(), "Pamplona", true },
+            { 11, "Córdoba Patrimonio", "/images/cordoba.png", "Vista Alegre", new ArrayList<Jokalari>(), "Córdoba", true },
+            { 12, "Noia Portus Apostoli", "/images/noia.png", "Agustín Mourís", new ArrayList<Jokalari>(), "Noia", true }
         };
 
         for (Object[] d : datuak) {

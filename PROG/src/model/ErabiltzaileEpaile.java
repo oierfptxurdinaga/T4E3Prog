@@ -1,10 +1,14 @@
 package model;
 
+import javax.persistence.Entity;
+
 /**
  * Epaile motako erabiltzailea.
  * Erabiltzaile honek jokatutako partiduen emaitzak 
  * sisteman sartu ahal ditu.
  */
+
+@Entity
 public class ErabiltzaileEpaile extends Erabiltzaile {
 	
 	/** Objektuaren bertsioa serializazioan kontrolatzeko identifikatzailea */

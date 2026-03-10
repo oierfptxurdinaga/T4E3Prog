@@ -1,0 +1,16 @@
+package db;
+
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import java.sql.Connection;
+
+public class DBConnection {
+    private static final String URL = "jdbc:mysql://localhost:3306/Federazioa";
+    private static final String USER = "root";
+    private static final String PASSWORD = "";
+    
+    public static Connection obtenerConexion() throws SQLException {
+        return DriverManager.getConnection(URL, USER, PASSWORD);
+    }
+}

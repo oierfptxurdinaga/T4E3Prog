@@ -1,5 +1,6 @@
 package model;
 
+import javax.persistence.Entity;
 import javax.swing.JOptionPane;
 
 /**
@@ -7,6 +8,8 @@ import javax.swing.JOptionPane;
  * Erabiltzaile honek jokalariak talde
  * batetik bestera transferitu ahal ditu.
  */
+
+@Entity
 public class ErabiltzaileAdministraria extends Erabiltzaile {
 	
 	/** Objektuaren bertsioa serializazioan kontrolatzeko identifikatzailea */

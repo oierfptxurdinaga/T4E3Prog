@@ -72,31 +72,18 @@ public class Login extends JFrame {
 
         // --- LOGIKA ---
         btnLogin.addActionListener(e -> {
-            String u = txtUser.getText();
-            String p = new String(txtPass.getPassword());
-            
-            // Orain erabiltzaileak FEDERAZIOATIK lortzen ditugu
-            ArrayList<Erabiltzaile> erabiltzaileak = federazioa.getErabiltzaileak();
-            
-            boolean aurkitua = false;
-            
-            if (erabiltzaileak != null) {
-                for (Erabiltzaile user : erabiltzaileak) {
-                	if (user.getErabiltzaile().equals(u) && user.getPasahitza().equals(p)) {
-                	    
-                	    utils.LogKudeatzailea.gehituLog("Saioa hasi da: " + user.getErabiltzaile() + " (" + user.getClass().getSimpleName() + ")");
+        	String u = txtUser.getText();
+        	String p = new String(txtPass.getPassword());
 
-                	    new APP(user, federazioa).setVisible(true);
-                	    dispose();
-                	    aurkitua = true;
-                	    break;
-                	}
-                }
-            }
+        	Erabiltzaile userLogueado = utils.BDOOKudeatzailea.login(u, p);
 
-            if (!aurkitua) {
-                JOptionPane.showMessageDialog(null, "Datu okerrak, saiatu berriro.", "Errorea", JOptionPane.ERROR_MESSAGE);
-            }
+        	if (userLogueado != null) {
+        	    utils.LogKudeatzailea.gehituLog("Saioa hasi da: " + userLogueado.getErabiltzaile());
+        	    new APP(userLogueado, federazioa).setVisible(true);
+        	    dispose();
+        	} else {
+        	    JOptionPane.showMessageDialog(null, "Datu okerrak, saiatu berriro.", "Errorea", JOptionPane.ERROR_MESSAGE);
+        	}
         });
     }
 

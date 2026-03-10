@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+import javax.persistence.Entity;
 import javax.swing.JOptionPane;
 
 /**
@@ -10,6 +11,8 @@ import javax.swing.JOptionPane;
  * Erabiltzaile mota honek sisteman pribilegio gehienak ditu,
  * normalean kudeaketa orokorreko funtzioak betetzeko erabiltzen da.
  */
+
+@Entity
 public class ErabiltzailePresi extends Erabiltzaile {
 
 	/** Objektuaren bertsioa serializazioan kontrolatzeko identifikatzailea */
