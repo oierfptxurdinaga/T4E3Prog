@@ -215,4 +215,39 @@ public class PanelTaldeak extends JPanel {
         g2.dispose();
         return new ImageIcon(imagen);
     }
+    
+    public void eguneratuTaldeak(ArrayList<Talde> taldeakBerriak, int urteaBerria) {
+        this.urtea = urteaBerria;
+        
+        // Entzulea kendu une batez bikoizketak edo erroreak saihesteko
+        java.awt.event.ActionListener[] listeners = comboTaldeak.getActionListeners();
+        for (java.awt.event.ActionListener al : listeners) {
+            comboTaldeak.removeActionListener(al);
+        }
+
+        comboTaldeak.removeAllItems(); // Desplegablea hustu
+        
+        if (taldeakBerriak != null) {
+            for (Talde t : taldeakBerriak) {
+                comboTaldeak.addItem(t); // Talde berriak sartu
+            }
+        }
+
+        // Entzulea berriro jarri
+        for (java.awt.event.ActionListener al : listeners) {
+            comboTaldeak.addActionListener(al);
+        }
+
+        // Lehenengoa aukeratu eta pantaila eguneratu zerbait badago
+        if (comboTaldeak.getItemCount() > 0) {
+            comboTaldeak.setSelectedIndex(0);
+            kargatuDatuak(); 
+        } else {
+            panelJokalariak.removeAll();
+            panelInfoTaldea.removeAll();
+            panelJokalariak.revalidate();
+            panelJokalariak.repaint();
+            panelInfoTaldea.repaint();
+        }
+    }
 }

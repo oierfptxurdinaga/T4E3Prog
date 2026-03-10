@@ -158,4 +158,29 @@ public class Denboraldia implements Serializable {
         // Zerrenda itzuli
         return new ArrayList<>(statsMap.values());
     }
+    
+    public void gehituPartiduaJardunaldira(int jardunaldiZenbakia, Partidua p) {
+        if (this.ligakoJardunaldi == null) {
+            this.ligakoJardunaldi = new ArrayList<>();
+        }
+
+        Jardunaldi aurkitutakoa = null;
+        
+        // Bilatu ea jardunaldia existitzen den zerrendan
+        for (Jardunaldi j : this.ligakoJardunaldi) {
+            if (j.getJardunaldiZbk() == jardunaldiZenbakia) {
+                aurkitutakoa = j;
+                break;
+            }
+        }
+
+        // Ez bada existitzen, berria sortu
+        if (aurkitutakoa == null) {
+            aurkitutakoa = new Jardunaldi(jardunaldiZenbakia);
+            this.ligakoJardunaldi.add(aurkitutakoa);
+        }
+
+        // Partidua gehitu
+        aurkitutakoa.getPartiduak().add(p);
+    }
 }

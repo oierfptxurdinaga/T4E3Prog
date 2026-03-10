@@ -190,4 +190,42 @@ public class PanelSailkapena extends JPanel {
             return this;
         }
     }
+    
+    public void eguneratuSailkapena(ArrayList<DenboraldiTalde> listaStatsBerria, int urteaBerria) {
+        this.urtea = urteaBerria;
+        
+        // Taula hustu
+        modeloa.setRowCount(0); 
+
+        if (listaStatsBerria == null || listaStatsBerria.isEmpty()) {
+            return; // Ez badago daturik, hutsik uzten dugu
+        }
+
+        // Zerrenda berriro ordenatu: Lehenengo puntuak, gero gol diferentzia
+        listaStatsBerria.sort((t1, t2) -> {
+            int diffPuntuak = Integer.compare(t2.getPts(), t1.getPts());
+            if (diffPuntuak != 0) return diffPuntuak;
+            return Integer.compare(t2.getDG(), t1.getDG());
+        });
+
+        // Datu berriak taulara sartu banan-banan
+        for (int i = 0; i < listaStatsBerria.size(); i++) {
+            DenboraldiTalde dt = listaStatsBerria.get(i);
+            int average = dt.getDG();
+
+            Object[] errenkada = new Object[10];
+            errenkada[0] = i + 1; // Posizioa
+            errenkada[1] = dt;    // Objektua (Renderer-ak irudia jarriko du)
+            errenkada[2] = dt.getPJ(); 
+            errenkada[3] = dt.getG();  
+            errenkada[4] = dt.getE();  
+            errenkada[5] = dt.getP();  
+            errenkada[6] = dt.getGF(); 
+            errenkada[7] = dt.getGC(); 
+            errenkada[8] = average > 0 ? "+" + average : average;
+            errenkada[9] = dt.getPts(); 
+
+            modeloa.addRow(errenkada); // Ilarak gehitu modeloari
+        }
+    }
 }

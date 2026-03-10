@@ -28,15 +28,13 @@ public class Login extends JFrame {
     public Login() {
         // 1. Datuak kargatu (SOILIK FEDERAZIOA)
         // DatuKarga.kargatuErabiltzaileak() ez dugu gehiago behar
-        federazioa = DatuKarga.kargatuFederazioa(); 
+        federazioa = DatuKarga.kargatuFederazioaDB(); 
 
         // Federazioa null bada (fitxategia ez da existitzen), sortu berria
         if (federazioa == null) {
             federazioa = new Federazioa();
         }
 
-        // 2. Egiaztatu erabiltzaileak dauden, bestela Admin sortu
-        datuakHasieratuBeharBada();
 
         // 3. Leihoaren konfigurazioa
         setTitle("Saioa Hasi");
@@ -72,18 +70,21 @@ public class Login extends JFrame {
 
         // --- LOGIKA ---
         btnLogin.addActionListener(e -> {
-        	String u = txtUser.getText();
-        	String p = new String(txtPass.getPassword());
+            String u = txtUser.getText();
+            String p = new String(txtPass.getPassword());
 
-        	Erabiltzaile userLogueado = utils.BDOOKudeatzailea.login(u, p);
+            // Comprobamos el usuario en ObjectDB
+            Erabiltzaile userLogueado = utils.BDOOKudeatzailea.login(u, p);
 
-        	if (userLogueado != null) {
-        	    utils.LogKudeatzailea.gehituLog("Saioa hasi da: " + userLogueado.getErabiltzaile());
-        	    new APP(userLogueado, federazioa).setVisible(true);
-        	    dispose();
-        	} else {
-        	    JOptionPane.showMessageDialog(null, "Datu okerrak, saiatu berriro.", "Errorea", JOptionPane.ERROR_MESSAGE);
-        	}
+            if (userLogueado != null) {
+                utils.LogKudeatzailea.gehituLog("Saioa hasi da: " + userLogueado.getErabiltzaile());
+                
+                // IMPORTANTE: Pasamos el usuario de ObjectDB y la federación de MySQL
+                new APP(userLogueado, federazioa).setVisible(true);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Datu okerrak, saiatu berriro.", "Errorea", JOptionPane.ERROR_MESSAGE);
+            }
         });
     }
 
@@ -96,7 +97,6 @@ public class Login extends JFrame {
             // Federazioan gorde
             federazioa.getErabiltzaileak().add(admin);
            
-            DatuKarga.gordeFederazioa(federazioa);
             
             System.out.println("Admin lehenetsia sortu da (presi/presi).");
         }

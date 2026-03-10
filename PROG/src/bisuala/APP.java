@@ -198,8 +198,7 @@ public class APP extends JFrame {
 
 
     public void gordeDatuak() {
-        DatuKarga.gordeFederazioa(federazioa);
-        this.aldaketakDauden = false;
+
     }
 
     // --- IRTEERA KUDEAKETA ---

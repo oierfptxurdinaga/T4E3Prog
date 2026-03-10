@@ -23,7 +23,7 @@ public class ItziKonfirmazioa extends WindowAdapter {
 					"Gorde aldaketak", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
 
 			if (aukera == JOptionPane.YES_OPTION) {
-				DatuKarga.gordeFederazioa(federazioa);
+
 				utils.LogKudeatzailea.gehituLog("Datuak gordeta (.ser) eta aplikazioa itxita.");
 				XmlKudeatzailea xmlKudeatzailea = new XmlKudeatzailea();
 				Boolean xlmOndoBoolean = xmlKudeatzailea.esportatuXML(federazioa, "src/data/federazioa.xml");
