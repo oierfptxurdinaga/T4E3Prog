@@ -14,118 +14,133 @@ import model.*;
 
 public class DatuKarga {
 
+	public static Federazioa kargatuFederazioaDB() {
+		Federazioa federazioa = new Federazioa();
 
+		// Mapak erlazioak mantentzeko
+		Map<Integer, Talde> mapaTaldeak = new HashMap<>();
+		Map<Integer, Denboraldia> mapaDenboraldiak = new HashMap<>();
+		// GAKOA: Urtea-TaldeId konbinazio bakoitzeko DenboraldiTalde objektua
+		// gordetzeko
+		Map<String, DenboraldiTalde> mapaDenboraldiTaldeak = new HashMap<>();
 
+		try (Connection conn = DBConnection.obtenerConexion()) {
+			if (conn == null)
+				return federazioa;
 
-    public static Federazioa kargatuFederazioaDB() {
-        Federazioa federazioa = new Federazioa();
-        // Mapak erlazioak mantentzeko
-        Map<Integer, Talde> mapaTaldeak = new HashMap<>();
-        Map<Integer, Denboraldia> mapaDenboraldiak = new HashMap<>();
+			// --- 1. Talde originalak kargatu (datu estatikoak) ---
+			String sqlTaldeak = "SELECT id_taldea, izena, ezkutua, futbol_zelaia, hiria, aktiboa_dago FROM Taldeak";
+			try (PreparedStatement ps = conn.prepareStatement(sqlTaldeak); ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					Talde t = new Talde(rs.getString("izena"), rs.getString("ezkutua"), rs.getString("futbol_zelaia"),
+							new ArrayList<>(), rs.getString("hiria"), rs.getBoolean("aktiboa_dago"));
+					int id = rs.getInt("id_taldea");
+					mapaTaldeak.put(id, t);
+					federazioa.gehituTaldea(t);
+				}
+			}
 
-        try (Connection conn = DBConnection.obtenerConexion()) {
-            if (conn == null) return federazioa;
+			// --- 2. Denboraldiak kargatu ---
+			String sqlDenb = "SELECT urtea FROM Denboraldiak";
+			try (PreparedStatement ps = conn.prepareStatement(sqlDenb); ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					int urtea = rs.getInt("urtea");
+					Denboraldia d = new Denboraldia(urtea);
+					mapaDenboraldiak.put(urtea, d);
+					federazioa.gehituDenboraldia(d);
+				}
+			}
 
-            // --- 1. Taldeak kargatu ---
-            String sqlTaldeak = "SELECT id_taldea, izena, ezkutua, futbol_zelaia, hiria, aktiboa_dago FROM Taldeak";
-            try (PreparedStatement ps = conn.prepareStatement(sqlTaldeak); ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Talde t = new Talde(
-                        rs.getString("izena"),
-                        rs.getString("ezkutua"),
-                        rs.getString("futbol_zelaia"),
-                        new ArrayList<>(), // Lista de jugadores vacía por ahora
-                        rs.getString("hiria"),
-                        rs.getBoolean("aktiboa_dago")
-                    );
-                    int id = rs.getInt("id_taldea");
-                    mapaTaldeak.put(id, t);
-                    federazioa.gehituTaldea(t);
-                }
-            }
+			// --- 3. Denboraldiko taldeak (DenboraldiTalde) sortu ---
+			String sqlParticipantes = "SELECT denboraldia_urtea, talde_id FROM Denboraldi_Taldeak"; // <-- Sin
+																									// 'aktiboa_dago'
+			try (PreparedStatement ps = conn.prepareStatement(sqlParticipantes); ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					int urtea = rs.getInt("denboraldia_urtea");
+					int taldeId = rs.getInt("talde_id");
 
-            // --- 2. Jokalariak kargatu eta taldeari asignatu ---
-            String sqlJok = "SELECT izena, abizena, jaiotze_urtea, dortsala, posizioa, aktiboa, talde_id FROM Jokalariak";
-            try (PreparedStatement ps = conn.prepareStatement(sqlJok); ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Jokalari j = new Jokalari(
-                        rs.getString("izena"), rs.getString("abizena"),
-                        rs.getInt("jaiotze_urtea"), rs.getInt("dortsala"),
-                        rs.getString("posizioa"), rs.getBoolean("aktiboa")
-                    );
-                    Talde t = mapaTaldeak.get(rs.getInt("talde_id"));
-                    if (t != null) t.sartuJokalaria(j);
-                }
-            }
+					Talde t = mapaTaldeak.get(taldeId);
+					Denboraldia d = mapaDenboraldiak.get(urtea);
 
-            // --- 3. Denboraldiak kargatu ---
-            String sqlDenb = "SELECT urtea FROM Denboraldiak";
-            try (PreparedStatement ps = conn.prepareStatement(sqlDenb); ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    int urtea = rs.getInt("urtea"); 
-                    Denboraldia d = new Denboraldia(urtea); 
-                    mapaDenboraldiak.put(urtea, d); 
-                    federazioa.gehituDenboraldia(d);
-                }
-            }
-            
-         // --- 3.5. ASIGNAR EQUIPOS A SUS TEMPORADAS ---
-            String sqlParticipantes = "SELECT denboraldia_urtea, talde_id FROM Denboraldi_Taldeak";
-            try (PreparedStatement ps = conn.prepareStatement(sqlParticipantes); ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    int urtea = rs.getInt("denboraldia_urtea");
-                    int taldeId = rs.getInt("talde_id");
-                    
-                    // Rescatamos la temporada y el equipo de nuestros mapas
-                    Denboraldia d = mapaDenboraldiak.get(urtea);
-                    Talde t = mapaTaldeak.get(taldeId);
-                    
-                    // Si existen los dos, metemos el equipo en la temporada correspondiente
-                    if (d != null && t != null) {
-                        d.gehituTaldea(t); // Usamos el método que ya tenías en Denboraldia.java
-                    }
-                }
-            }
-            
-            
-         // --- 4. CARGAR PARTIDOS Y JORNADAS ---
-         // JOIN bat egiten dugu Jardunaldiak taularekin, denboraldiaren urtea eta jardunaldiaren zenbakia lortzeko
-         String sqlPartiduak = "SELECT p.etxeko_taldea_id, p.kanpoko_taldea_id, " +
-                               "p.etxeko_golak, p.kanpoko_golak, " +
-                               "j.zenbakia AS jardunaldia_zenbakia, j.denboraldia_urtea " +
-                               "FROM Partiduak p " +
-                               "JOIN Jardunaldiak j ON p.jardunaldia_id = j.id_jardunaldia";
+					if (d != null && t != null) {
+						// Usamos el estado activo del equipo directamente
+						DenboraldiTalde dt = new DenboraldiTalde(t, t.isAktiboaDago());
+						d.gehituDenboraldiTaldea(dt);
 
-         try (PreparedStatement ps = conn.prepareStatement(sqlPartiduak); ResultSet rs = ps.executeQuery()) {
-             while (rs.next()) {
-                 // Zure taulako zutabeen izen zehatzak erabiltzen ditugu
-                 Talde etxe = mapaTaldeak.get(rs.getInt("etxeko_taldea_id"));
-                 Talde kanpo = mapaTaldeak.get(rs.getInt("kanpoko_taldea_id"));
-                 
-                 if (etxe != null && kanpo != null) {
-                     Partidua p = new Partidua(etxe, kanpo);
-                     p.setEtxekoGolak(rs.getInt("etxeko_golak"));
-                     p.setKanpokoGolak(rs.getInt("kanpoko_golak"));
-                     
-                     // Jokatuta dagoen ala ez deduzitu dezakegu: golak -1 ez badira, jokatu da
-                     // p.setAmaituta(rs.getInt("etxeko_golak") != -1);
+						mapaDenboraldiTaldeak.put(urtea + "-" + taldeId, dt);
+					}
+				}
+			}
 
-                     // Jardunaldiak taulatik lortutako urtearekin Denboraldia bilatu
-                     Denboraldia d = mapaDenboraldiak.get(rs.getInt("denboraldia_urtea"));
-                     
-                     if (d != null) {
-                         int numJardunaldi = rs.getInt("jardunaldia_zenbakia");
-                         // Jardunaldia existitzen dela ziurtatu eta partidua gehitu
-                         d.gehituPartiduaJardunaldira(numJardunaldi, p);
-                     }
-                 }
-             }
-         }
-         
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return federazioa;
-    }
-    
+			// --- 4. Jokalariak kargatu (Historial berriaren arabera) ---
+			// Adi: 'denboraldi_jokalariak' taula erabiltzen dugu jokalaria urte bakoitzeko
+			// taldeari lotzeko
+			String sqlJok = "SELECT dj.denboraldia_urtea, dj.talde_id, j.izena, j.abizena, j.jaiotze_urtea, j.dortsala, j.posizioa, j.aktiboa "
+					+ "FROM denboraldi_jokalariak dj " + "JOIN Jokalariak j ON dj.jokalari_id = j.id_jokalaria";
+
+			try (PreparedStatement ps = conn.prepareStatement(sqlJok); ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					Jokalari j = new Jokalari(rs.getString("izena"), rs.getString("abizena"),
+							rs.getInt("jaiotze_urtea"), rs.getInt("dortsala"), rs.getString("posizioa"),
+							rs.getBoolean("aktiboa"));
+
+					int urtea = rs.getInt("denboraldia_urtea");
+					int taldeId = rs.getInt("talde_id");
+
+					// Urte horretako DenboraldiTalde objektua bilatu
+					DenboraldiTalde dt = mapaDenboraldiTaldeak.get(urtea + "-" + taldeId);
+
+					if (dt != null) {
+						// SOLUCIÓN: Sacamos el Talde de la caja (DenboraldiTalde) y le metemos el
+						// jugador
+						dt.getTalde().sartuJokalaria(j);
+					}
+				}
+			}
+
+			// --- 5. Partiduak eta sailkapena eguneratu ---
+			String sqlPartiduak = "SELECT p.etxeko_taldea_id, p.kanpoko_taldea_id, "
+					+ "p.etxeko_golak, p.kanpoko_golak, " + "j.zenbakia AS jardunaldia_zenbakia, j.denboraldia_urtea "
+					+ "FROM Partiduak p " + "JOIN Jardunaldiak j ON p.jardunaldia_id = j.id_jardunaldia";
+
+			try (PreparedStatement ps = conn.prepareStatement(sqlPartiduak); ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					int urtea = rs.getInt("denboraldia_urtea");
+					int etxeId = rs.getInt("etxeko_taldea_id");
+					int kanpoId = rs.getInt("kanpoko_taldea_id");
+					int golE = rs.getInt("etxeko_golak");
+					int golK = rs.getInt("kanpoko_golak");
+
+					// Talde baseak lortu partidu-objektua sortzeko
+					Talde etxe = mapaTaldeak.get(etxeId);
+					Talde kanpo = mapaTaldeak.get(kanpoId);
+
+					if (etxe != null && kanpo != null) {
+						Partidua p = new Partidua(etxe, kanpo);
+						p.setEtxekoGolak(golE);
+						p.setKanpokoGolak(golK);
+
+						Denboraldia d = mapaDenboraldiak.get(urtea);
+						if (d != null) {
+							d.gehituPartiduaJardunaldira(rs.getInt("jardunaldia_zenbakia"), p);
+
+							// ESTATISTIKAK EGUNERATU: sailkapena kargatzean prest egon dadin
+							DenboraldiTalde dtEtxe = mapaDenboraldiTaldeak.get(urtea + "-" + etxeId);
+							DenboraldiTalde dtKanpo = mapaDenboraldiTaldeak.get(urtea + "-" + kanpoId);
+
+							if (dtEtxe != null && dtKanpo != null && golE != -1) {
+								dtEtxe.emaitzakEguneratu(golE, golK);
+								dtKanpo.emaitzakEguneratu(golK, golE);
+							}
+						}
+					}
+				}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return federazioa;
+	}
+
 }

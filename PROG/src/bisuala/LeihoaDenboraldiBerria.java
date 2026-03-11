@@ -166,7 +166,12 @@ public class LeihoaDenboraldiBerria extends JDialog {
             int urtea = Integer.parseInt(txtUrtea.getText().trim());
 
             Denboraldia d = new Denboraldia(urtea);
-            d.setLigakoTaldeak(taldeAukeratuak);
+            
+            ArrayList<DenboraldiTalde> dtAukeratuak = new ArrayList<>();
+            for (Talde t : taldeAukeratuak) {
+                dtAukeratuak.add(new DenboraldiTalde(t, true));
+            }
+            d.setLigakoTaldeak(dtAukeratuak);
             
             d.setLigakoJardunaldi(PartiduKudeatzailea.sortuEgutegia(taldeAukeratuak));
             

@@ -23,8 +23,12 @@ public class PanelPresi extends JPanel {
 
         // 1. DATUAK LORTU
         ArrayList<Talde> taldeGuztiak = federazioa.getTaldeGuztiak();
-        ArrayList<Talde> taldeJokatzen = (unekoDenboraldia != null) ? unekoDenboraldia.getLigakoTaldeak() : new ArrayList<>();
-
+        ArrayList<Talde> taldeJokatzen = new ArrayList<>();
+        if (unekoDenboraldia != null && unekoDenboraldia.getLigakoTaldeak() != null) {
+            for (DenboraldiTalde dt : unekoDenboraldia.getLigakoTaldeak()) {
+                taldeJokatzen.add(dt.getTalde()); // Sacamos el equipo de la "caja"
+            }
+        }
         // --- IZENBURUA (NORTH) ---
         JLabel lblIzenburua = new JLabel("Federazioko Presidentea: " + erab.getErabiltzaile());
         lblIzenburua.setHorizontalAlignment(SwingConstants.CENTER);

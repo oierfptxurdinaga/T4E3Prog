@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 /**
  * Denboraldi jakin bateko talde baten estatistikak gordetzeko klasea.
  *
@@ -13,6 +15,7 @@ public class DenboraldiTalde {
 
     private Talde talde;      // Talde originala
     private boolean aktiboa;   // Denboraldi honetan partizipatzen du
+    private ArrayList<Jokalari> jokalariak;
     private int JP;            // Jokatutako partidak
     private int I;             // Irabazitak
     private int B;             // Berdinketak
@@ -25,6 +28,7 @@ public class DenboraldiTalde {
     public DenboraldiTalde(Talde talde, boolean aktiboa) {
         this.talde = talde;
         this.aktiboa = aktiboa;
+        this.jokalariak = new ArrayList<>();
         this.JP = 0;
         this.I = 0;
         this.B = 0;
@@ -61,6 +65,9 @@ public class DenboraldiTalde {
         } else {
             this.G++;
         }
+    }
+    public void sartuJokalaria(Jokalari j) {
+        this.jokalariak.add(j);
     }
 
     // Getterrak eta setterrak

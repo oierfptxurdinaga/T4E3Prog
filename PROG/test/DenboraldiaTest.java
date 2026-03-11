@@ -20,7 +20,7 @@ class DenboraldiaTest {
 		t1 = new Talde("Talde1", "", "", null, "Hiria1", true);
         t2 = new Talde("Talde2", "", "", null, "Hiria2", true);
 
-        p1 = new Partidua(t1, t2); //Hau ez da jokatu horaindik
+        p1 = new Partidua(t1, t2); //Hau ez da jokatu oraindik
         p2 = new Partidua(t1, t2, 2, 1); //Hau jokatu da
 
         j1 = new Jardunaldi(1);
@@ -31,11 +31,13 @@ class DenboraldiaTest {
         assertEquals(0, denboraldia.getLigakoTaldeak().size());
         assertEquals(0, denboraldia.getLigakoJardunaldi().size());
         
-        denboraldia.gehituTaldea(t1);
+        denboraldia.gehituTaldea(t1); // Honek automatikoki DenboraldiTalde sortzen du barruan
         denboraldia.addJardunaldia(j1);
 
         assertEquals(1, denboraldia.getLigakoTaldeak().size());
-        assertEquals(t1, denboraldia.getLigakoTaldeak().get(0));
+        // ALDAKETA: getLigakoTaldeak()-ek DenboraldiTalde itzultzen du, beraz .getTalde() atera behar dugu
+        assertEquals(t1, denboraldia.getLigakoTaldeak().get(0).getTalde());
+        
         assertEquals(1, denboraldia.getLigakoJardunaldi().size());
         assertEquals(j1, denboraldia.getLigakoJardunaldi().get(0));
     }
@@ -45,7 +47,7 @@ class DenboraldiaTest {
 		assertFalse(denboraldia.isHasiDa());
 		assertFalse(denboraldia.isAmaituta());
 		
-		j1.addPartidua(p1); //Partidu hau ez da horaindik jokatu
+		j1.addPartidua(p1); //Partidu hau ez da oraindik jokatu
 		denboraldia.addJardunaldia(j1);
 		
 		assertFalse(denboraldia.isHasiDa()); //Partidua jokatu ez bada denboraldia ez da hasi
@@ -57,34 +59,39 @@ class DenboraldiaTest {
 		assertTrue(denboraldia.isHasiDa());
 		assertTrue(denboraldia.isAmaituta());
 	}
-		@Test
+	
+	@Test
 	void testIsHasiDa_Null() {
         denboraldia.setLigakoJardunaldi(null);
         assertFalse(denboraldia.isHasiDa());
 	}
 
-	
 	@Test
     void toStringTest() {
         assertEquals("2002", denboraldia.toString());
     }
+	
 	@Test
 	void getUrteaTest() {
 		assertEquals(denboraldia.getUrtea(), 2002);
 	}
+	
 	@Test
 	void setLigakoTaldeakTest() {
-		ArrayList<Talde> taldeakArrayList = new ArrayList<Talde>();
-		taldeakArrayList.add(t1);
-		taldeakArrayList.add(t2);
-		denboraldia.setLigakoTaldeak(taldeakArrayList);
-		assertEquals(taldeakArrayList, denboraldia.getLigakoTaldeak());
+		// ALDAKETA: Zerrenda orain DenboraldiTalde motakoa izan behar da
+		ArrayList<DenboraldiTalde> dtArrayList = new ArrayList<>();
+		dtArrayList.add(new DenboraldiTalde(t1, true));
+		dtArrayList.add(new DenboraldiTalde(t2, true));
+		
+		denboraldia.setLigakoTaldeak(dtArrayList);
+		assertEquals(dtArrayList, denboraldia.getLigakoTaldeak());
 	}
 	
 	@Test
 	void isDenboraldiaHasiDaTest() {
 		assertFalse(denboraldia.isDenboraldiaHasiDa());
 	}
+	
 	@Test
 	void getSailkapenaTest() {
 		denboraldia.gehituTaldea(t1);
@@ -92,15 +99,18 @@ class DenboraldiaTest {
 		j1.addPartidua(p1);
 		j1.addPartidua(p2);
 		denboraldia.addJardunaldia(j1);
+		
 		ArrayList<DenboraldiTalde> tDenboraldiTaldeak = denboraldia.getSailkapena();
 		assertNotNull(tDenboraldiTaldeak);
 		assertEquals(2, tDenboraldiTaldeak.size());
 	}
+	
 	@Test
 	void getSailkapenaTest_Null() {
 		denboraldia.setLigakoTaldeak(null);
 		denboraldia.setLigakoJardunaldi(null);
 		ArrayList<DenboraldiTalde> emaitzArrayList = denboraldia.getSailkapena();
+		
 		assertNotNull(emaitzArrayList);
 		assertTrue(emaitzArrayList.isEmpty());
 	}

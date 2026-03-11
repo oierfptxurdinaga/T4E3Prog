@@ -26,7 +26,7 @@ public class Denboraldia implements Serializable {
     
     @XmlElementWrapper(name = "DenboraldikoTaldeak")
     @XmlElement(name = "Talde")
-    private ArrayList<Talde> ligakoTaldeak;
+    private ArrayList<DenboraldiTalde> ligakoTaldeak;
     
     @XmlElementWrapper(name = "Jardunaldiak")
     @XmlElement(name = "Jardunaldi")
@@ -42,13 +42,27 @@ public class Denboraldia implements Serializable {
 
     // Getterrak eta setterrak
     public int getUrtea() { return urtea; }
-    public ArrayList<Talde> getLigakoTaldeak() { return ligakoTaldeak; }
-    public void setLigakoTaldeak(ArrayList<Talde> ligakoTaldeak) { this.ligakoTaldeak = ligakoTaldeak; }
+    public ArrayList<DenboraldiTalde> getLigakoTaldeak() { return ligakoTaldeak; }
+    public void setLigakoTaldeak(ArrayList<DenboraldiTalde> ligakoTaldeak) { this.ligakoTaldeak = ligakoTaldeak; }
     public ArrayList<Jardunaldi> getLigakoJardunaldi() { return ligakoJardunaldi; }
     public void setLigakoJardunaldi(ArrayList<Jardunaldi> ligakoJardunaldi) { this.ligakoJardunaldi = ligakoJardunaldi; }
     
     public void addJardunaldia(Jardunaldi j) { this.ligakoJardunaldi.add(j); }
-    public void gehituTaldea(Talde t) { this.ligakoTaldeak.add(t); }
+    public void gehituDenboraldiTaldea(DenboraldiTalde dt) {
+        if (this.ligakoTaldeak == null) {
+            this.ligakoTaldeak = new ArrayList<>();
+        }
+        this.ligakoTaldeak.add(dt);
+    }
+
+    /**
+     * Método de compatibilidad (EL ANTIGUO): 
+     * Si alguna parte del programa (como los tests) le pasa un Talde normal, 
+     * este método crea la caja automáticamente y llama al método de arriba.
+     */
+    public void gehituTaldea(Talde t) {
+        this.gehituDenboraldiTaldea(new DenboraldiTalde(t, true));
+    }
 
     /**
      * Denboraldia hasita dagoen ala ez adierazten du.
@@ -127,7 +141,9 @@ public class Denboraldia implements Serializable {
 
         // 1. Taldeak hasieratu (0 puntu)
         if (this.ligakoTaldeak != null) {
-            for (Talde t : this.ligakoTaldeak) {
+            // HEMEN DAGO ALDAKETA: Zerrendak orain DenboraldiTalde ditu
+            for (DenboraldiTalde dt : this.ligakoTaldeak) {
+                Talde t = dt.getTalde(); // Kaxatik Talde originala atera
                 statsMap.put(t.getIzena().trim(), new DenboraldiTalde(t, true));
             }
         }
@@ -183,4 +199,5 @@ public class Denboraldia implements Serializable {
         // Partidua gehitu
         aurkitutakoa.getPartiduak().add(p);
     }
+
 }

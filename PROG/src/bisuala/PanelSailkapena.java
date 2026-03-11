@@ -215,7 +215,7 @@ public class PanelSailkapena extends JPanel {
 
             Object[] errenkada = new Object[10];
             errenkada[0] = i + 1; // Posizioa
-            errenkada[1] = dt;    // Objektua (Renderer-ak irudia jarriko du)
+            errenkada[1] = dt.getTalde();    // Objektua (Renderer-ak irudia jarriko du)
             errenkada[2] = dt.getPJ(); 
             errenkada[3] = dt.getG();  
             errenkada[4] = dt.getE();  
