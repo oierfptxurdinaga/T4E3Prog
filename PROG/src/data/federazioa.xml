@@ -11,11 +11,6 @@
                     <Abizena>Lozano</Abizena>
                     <Posizioa>Hegala</Posizioa>
                 </Jokalari>
-                <Jokalari dortsala="10">
-                    <Izena>Jean Pierre</Izena>
-                    <Abizena>Pito</Abizena>
-                    <Posizioa>Pibota</Posizioa>
-                </Jokalari>
                 <Jokalari dortsala="8">
                     <Izena>Adolfo</Izena>
                     <Abizena>Fernández</Abizena>
@@ -116,6 +111,11 @@
                     <Izena>Ricardo</Izena>
                     <Abizena>Mayor</Abizena>
                     <Posizioa>Itxiera</Posizioa>
+                </Jokalari>
+                <Jokalari dortsala="10">
+                    <Izena>Jean Pierre</Izena>
+                    <Abizena>Pito</Abizena>
+                    <Posizioa>Pibota</Posizioa>
                 </Jokalari>
             </Jokalariak>
             <Hiria>Murcia</Hiria>
@@ -702,10 +702,5 @@
             </Jardunaldiak>
         </Denboraldia>
     </Denboraldiak>
-    <Erabiltzaileak>
-        <erabiltzailea>
-            <erabiltzaile>José</erabiltzaile>
-            <pasahitza>José</pasahitza>
-        </erabiltzailea>
-    </Erabiltzaileak>
+    <Erabiltzaileak/>
 </Federazioa>
