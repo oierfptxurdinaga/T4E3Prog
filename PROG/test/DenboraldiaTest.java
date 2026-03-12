@@ -17,8 +17,8 @@ class DenboraldiaTest {
 	void setUp() throws Exception {
 		denboraldia = new Denboraldia(2002);
 		
-		t1 = new Talde("Talde1", "", "", null, "Hiria1", true);
-        t2 = new Talde("Talde2", "", "", null, "Hiria2", true);
+		t1 = new Talde("Talde1", "", "", null, "Hiria1", true, null, 0);
+        t2 = new Talde("Talde2", "", "", null, "Hiria2", true, null, 0);
 
         p1 = new Partidua(t1, t2); //Hau ez da jokatu oraindik
         p2 = new Partidua(t1, t2, 2, 1); //Hau jokatu da

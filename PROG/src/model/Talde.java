@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -39,15 +40,24 @@ public class Talde implements Serializable{
 	
 	@XmlElement(name = "Hiria")
 	private String hiria;
+	
+	@XmlElement(name = "Informazioa")
+	private String informazioa;
+	
+	@XmlElement(name="SorreraData")
+	private int sorreraData;
+
 	private boolean aktiboaDago;
 	
-	public Talde(String izena, String eskutua, String futbolZelaia, ArrayList<Jokalari> jokalariak, String hiria, boolean aktiboaDago) {
+	public Talde(String izena, String eskutua, String futbolZelaia, ArrayList<Jokalari> jokalariak, String hiria, boolean aktiboaDago, String informazioa, int sorreraData) {
 		this.izena = izena;
 		this.ezkutua = eskutua;
 		this.futbolZelaia = futbolZelaia;
 		this.jokalariak = jokalariak;
 		this.hiria = hiria;
 		this.aktiboaDago = aktiboaDago;
+		this.informazioa = informazioa;
+		this.sorreraData = sorreraData;
 	}
 	
 	/**
@@ -115,6 +125,23 @@ public class Talde implements Serializable{
 	public void setAktiboaDago(boolean aktiboaDago) {
 		this.aktiboaDago = aktiboaDago;
 	}
+	
+	public String getInformazioa() {
+		return informazioa;
+	}
+
+	public void setInformazioa(String informazioa) {
+		this.informazioa = informazioa;
+	}
+
+	public int getSorreraData() {
+		return sorreraData;
+	}
+
+	public void setSorreraData(int sorreraData) {
+		this.sorreraData = sorreraData;
+	}
+
 	
 	/**
      * Taldearen ezkutua aldatzen du.
@@ -197,7 +224,9 @@ public class Talde implements Serializable{
 	        this.futbolZelaia,
 	        jokalariKopiak,
 	        this.hiria,
-	        this.aktiboaDago
+	        this.aktiboaDago,
+	        this.informazioa,
+	        this.sorreraData
 	    );
 	}
 }

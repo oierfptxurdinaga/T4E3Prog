@@ -13,7 +13,7 @@ class TaldeTest {
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		t = new Talde("Talde1", "", "", null, "Hiria1", true);
+		t = new Talde("Talde1", "", "", null, "Hiria1", true, null, 0);
 		j = new Jokalari("Markel", "Abascal", 2002, 13, "Delantero", true);
 	}
 	

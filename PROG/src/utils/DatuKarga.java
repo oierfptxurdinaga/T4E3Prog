@@ -29,12 +29,12 @@ public class DatuKarga {
 				return federazioa;
 
 			// --- 1. Talde originalak kargatu (datu estatikoak) ---
-			String sqlTaldeak = "SELECT id_taldea, izena, ezkutua, futbol_zelaia, hiria, aktiboa_dago FROM Taldeak";
+			String sqlTaldeak = "SELECT talde_id, izena, ezkutua, futbol_zelaia, hiria, aktiboa_dago, informazioa, sorrera_urtea FROM Taldeak";
 			try (PreparedStatement ps = conn.prepareStatement(sqlTaldeak); ResultSet rs = ps.executeQuery()) {
 				while (rs.next()) {
 					Talde t = new Talde(rs.getString("izena"), rs.getString("ezkutua"), rs.getString("futbol_zelaia"),
-							new ArrayList<>(), rs.getString("hiria"), rs.getBoolean("aktiboa_dago"));
-					int id = rs.getInt("id_taldea");
+							new ArrayList<>(), rs.getString("hiria"), rs.getBoolean("aktiboa_dago"), rs.getString("informazioa"), rs.getInt("sorrera_urtea"));
+					int id = rs.getInt("talde_id");
 					mapaTaldeak.put(id, t);
 					federazioa.gehituTaldea(t);
 				}
@@ -51,26 +51,31 @@ public class DatuKarga {
 				}
 			}
 
-			// --- 3. Denboraldiko taldeak (DenboraldiTalde) sortu ---
-			String sqlParticipantes = "SELECT denboraldia_urtea, talde_id FROM Denboraldi_Taldeak"; // <-- Sin
-																									// 'aktiboa_dago'
+			// --- 3. DENBORALDIKO TALDEAK (DenboraldiTalde eta LigakoTaldeak) ---
+			// Kontuz: 'sqlParticipantes' behin bakarrik deklaratu!
+			String sqlParticipantes = "SELECT denboraldia_urtea, talde_id FROM Denboraldi_Taldeak"; 
 			try (PreparedStatement ps = conn.prepareStatement(sqlParticipantes); ResultSet rs = ps.executeQuery()) {
-				while (rs.next()) {
-					int urtea = rs.getInt("denboraldia_urtea");
-					int taldeId = rs.getInt("talde_id");
+			    while (rs.next()) {
+			        int urtea = rs.getInt("denboraldia_urtea");
+			        int taldeId = rs.getInt("talde_id");
 
-					Talde t = mapaTaldeak.get(taldeId);
-					Denboraldia d = mapaDenboraldiak.get(urtea);
+			        Talde t = mapaTaldeak.get(taldeId);
+			        Denboraldia d = mapaDenboraldiak.get(urtea);
 
-					if (d != null && t != null) {
-						// Usamos el estado activo del equipo directamente
-						DenboraldiTalde dt = new DenboraldiTalde(t, t.isAktiboaDago());
-						d.gehituDenboraldiTaldea(dt);
+			        if (d != null && t != null) {
+			            // A) Estatistiketarako objektua sortu eta gorde
+			            DenboraldiTalde dt = new DenboraldiTalde(t, t.isAktiboaDago());
+			            d.gehituDenboraldiTaldea(dt); // PanelSailkapena-rako
 
-						mapaDenboraldiTaldeak.put(urtea + "-" + taldeId, dt);
-					}
-				}
+			            // B) Taldea bera denboraldian sartu
+			            d.gehituTaldea(t); // PanelTaldeak-eko ComboBox-erako
+
+			            // Maparen bitartez gorde, gero partiduak kargatzean estatistikak eguneratu ahal izateko
+			            mapaDenboraldiTaldeak.put(urtea + "-" + taldeId, dt);
+			        }
+			    }
 			}
+			// HEMENDIK AURRERA, EZ BERRIRO DEKLARATU 'sqlParticipantes'
 
 			// --- 4. Jokalariak kargatu (Historial berriaren arabera) ---
 			// Adi: 'denboraldi_jokalariak' taula erabiltzen dugu jokalaria urte bakoitzeko

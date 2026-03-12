@@ -31,6 +31,11 @@
                     <Abizena>Rodrigues</Abizena>
                     <Posizioa>Hegala</Posizioa>
                 </Jokalari>
+                <Jokalari dortsala="26">
+                    <Izena>Miquel</Izena>
+                    <Abizena>Feixas</Abizena>
+                    <Posizioa>Atezaina</Posizioa>
+                </Jokalari>
                 <Jokalari dortsala="2">
                     <Izena>Antonio</Izena>
                     <Abizena>Pérez</Abizena>
@@ -51,13 +56,10 @@
                     <Abizena>Mendonça</Abizena>
                     <Posizioa>Unibertsala</Posizioa>
                 </Jokalari>
-                <Jokalari dortsala="26">
-                    <Izena>Miquel</Izena>
-                    <Abizena>Feixas</Abizena>
-                    <Posizioa>Atezaina</Posizioa>
-                </Jokalari>
             </Jokalariak>
             <Hiria>Barcelona</Hiria>
+            <Informazioa>FC Barcelonaren areto-futbol saila munduko erreferente nagusietako bat da gaur egun. 80ko hamarkadako hastapen apalen ondoren, klubak saila erabat profesionalizatu zuen tituluak irabazteko makina bihurtu arte. Palau Blaugrana gotorleku gisa erabiliz, Champions League eta liga nazional ugari irabazi dituzte. Izarrak fitxatzeko gaitasunagatik ez ezik, joko asoziatibo eta ikusgarriagatik nabarmentzen dira, jardunaldi bakoitzean milaka zale erakarriz.</Informazioa>
+            <SorreraData>1978</SorreraData>
             <aktiboaDago>true</aktiboaDago>
         </Talde>
         <Talde>
@@ -117,6 +119,8 @@
                 </Jokalari>
             </Jokalariak>
             <Hiria>Murcia</Hiria>
+            <Informazioa>ElPozo Murcia Costa Cálida areto-futboleko klub bat baino askoz gehiago da; Murtziako Eskualdeko erakunde historiko bat da, konstantzia eta harrobiko lana irudikatzen dituena. Elikadura taldearen babespean sortu zenetik, lehia mitikoa mantendu du Inter Movistarrekin, LNFSko historiako final epikoenak jokatuz. Bere filosofia borroka-izpiritu menderaezinean eta Espainiako selekziorako eliteko talentua etengabe sortzen duen oinarrizko egituran oinarritzen da.</Informazioa>
+            <SorreraData>1989</SorreraData>
             <aktiboaDago>true</aktiboaDago>
         </Talde>
         <Talde>
@@ -176,6 +180,8 @@
                 </Jokalari>
             </Jokalariak>
             <Hiria>Torrejon</Hiria>
+            <Informazioa>José María García kazetariak "Hora XXV" gisa sortua, Inter Movistar areto-futboleko historiako klub onena bezala aitortzen du FIFAk. "Makina Berdea" bezala ezaguna, Ricardinho edo Paulo Roberto bezalako mitoak igaro dira bertatik. Torrejón de Ardozen du egoitza, eta palmares paregabea du, hamar bat Europako titulu eta liga barne, nazioarteko zirkuituan bikaintasun teknikoaren eta profesionaltasunaren estandarra izanik.</Informazioa>
+            <SorreraData>1977</SorreraData>
             <aktiboaDago>true</aktiboaDago>
         </Talde>
         <Talde>
@@ -235,6 +241,8 @@
                 </Jokalari>
             </Jokalariak>
             <Hiria>Palma</Hiria>
+            <Informazioa>Mallorca Palma Futsalek Espainiako kirolaren hazkunde azkar eta mirestuenetako bat irudikatzen du. Manacorreko eskualde-kategorietatik hasita, klubak proiektu sendo bat eraikitzen jakin du, nazioarteko talentua inork baino lehenago aurkitzen duen zuzendaritza tekniko bikain batean oinarrituta. Bere behin betiko lorpena jarraian irabazitako bi Champions Leaguekin iritsi zen, Son Moix kiroldegia balear zaleek areto-futbola amorru biziz bizi duten gune neuroalgiko bihurtuz.</Informazioa>
+            <SorreraData>1998</SorreraData>
             <aktiboaDago>true</aktiboaDago>
         </Talde>
         <Talde>
@@ -294,6 +302,8 @@
                 </Jokalari>
             </Jokalariak>
             <Hiria>Jaen</Hiria>
+            <Informazioa>Jaén Paraíso Interior probintzia oso baten harrotasuna da eta talde apal batek erraldoiei nola aurre egin diezaiekeen erakusten duen adibide ezin hobea. Bere nortasuna "Marea Horiarekin" lotuta dago, Olivo Arena partida bakoitzean betetzen duen Europako zale oihulari eta fidelienetako bat. Klubak historia egin du Espainiako Kopa batzuk irabaziz, defentsako intentsitatean eta kontraeraso hilgarri batean oinarritutako lehiakortasuna erakutsiz.</Informazioa>
+            <SorreraData>1980</SorreraData>
             <aktiboaDago>true</aktiboaDago>
         </Talde>
         <Talde>
@@ -353,360 +363,68 @@
                 </Jokalari>
             </Jokalariak>
             <Hiria>Valdepeñas</Hiria>
+            <Informazioa>Viña Albali Valdepeñas Ciudad Realeko bihotza da areto-futbolaren elitean. Maila nagusira igo zenetik, klubak liga irauli du zale sutsu bati esker, Virgen de la Cabeza pabiloia presio-eltze bat bihurtuz. Tokiko ardogintzaren babes sendoarekin, taldeak liga eta kopa finalak jokatzea lortu du, bere entrega fisikoagatik, apaltasunagatik eta jokalarien eta Valdepeñasko herritarren arteko lotura bereziagatik nabarmenduz.</Informazioa>
+            <SorreraData>2002</SorreraData>
             <aktiboaDago>true</aktiboaDago>
         </Talde>
         <Talde>
             <Izena>Jimbee Cartagena</Izena>
             <Ezkutua>cartagena</Ezkutua>
             <Futbol_zelaia>Palacio Deportes</Futbol_zelaia>
-            <Jokalariak>
-                <Jokalari dortsala="13">
-                    <Izena>Mellado</Izena>
-                    <Abizena>Miguel</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="12">
-                    <Izena>Lucao</Izena>
-                    <Abizena>Lucas</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="11">
-                    <Izena>Waltinho</Izena>
-                    <Abizena>Walter</Abizena>
-                    <Posizioa>Pibota</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="4">
-                    <Izena>Bebe</Izena>
-                    <Abizena>Rafael</Abizena>
-                    <Posizioa>Itxiera</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="1">
-                    <Izena>Chemi</Izena>
-                    <Abizena>José</Abizena>
-                    <Posizioa>Atezaina</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="2">
-                    <Izena>Tomaz</Izena>
-                    <Abizena>Braga</Abizena>
-                    <Posizioa>Itxiera</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="9">
-                    <Izena>Pablo</Izena>
-                    <Abizena>Ramírez</Abizena>
-                    <Posizioa>Pibota</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="21">
-                    <Izena>Juanan</Izena>
-                    <Abizena>Sánchez</Abizena>
-                    <Posizioa>Pibota</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="3">
-                    <Izena>Motta</Izena>
-                    <Abizena>Felipe</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="16">
-                    <Izena>Darío</Izena>
-                    <Abizena>Gil</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-            </Jokalariak>
+            <Jokalariak/>
             <Hiria>Cartagena</Hiria>
+            <Informazioa>Jimbee Cartagenak asmo handiko proiektu gisa berpiztu da azken urteetan hirian. Inbertsio estrategiko batekin eta joko estilo ausart batekin, klubak muga historikoak apurtzea lortu du, bere lehen liga titulua irabaziz eta talde boteretsuenekin aurrez aurre lehiatuz. Bere proiektua ez da lehen taldean bakarrik zentratzen, Cartagena areto-futbol modernoaren potentzia bihurtzean baizik, punta-puntako instalazioekin eta nazioarteko izarrez betetako plantilla batekin.</Informazioa>
+            <SorreraData>1993</SorreraData>
             <aktiboaDago>true</aktiboaDago>
         </Talde>
         <Talde>
             <Izena>Aspil-Jumpers Ribera</Izena>
             <Ezkutua>ribera</Ezkutua>
             <Futbol_zelaia>Ciudad de Tudela</Futbol_zelaia>
-            <Jokalariak>
-                <Jokalari dortsala="10">
-                    <Izena>Terry</Izena>
-                    <Abizena>Prestjord</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="5">
-                    <Izena>David</Izena>
-                    <Abizena>García</Abizena>
-                    <Posizioa>Itxiera</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="17">
-                    <Izena>Pintinho</Izena>
-                    <Abizena>Gabriel</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="2">
-                    <Izena>Carlos</Izena>
-                    <Abizena>Bartolomé</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="21">
-                    <Izena>Nacho</Izena>
-                    <Abizena>Gómez</Abizena>
-                    <Posizioa>Itxiera</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="1">
-                    <Izena>Adrián</Izena>
-                    <Abizena>Pereira</Abizena>
-                    <Posizioa>Atezaina</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="14">
-                    <Izena>Uge</Izena>
-                    <Abizena>Eugenio</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="7">
-                    <Izena>Gabi</Izena>
-                    <Abizena>Vasques</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="23">
-                    <Izena>Claudino</Izena>
-                    <Abizena>Angel</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="9">
-                    <Izena>Petry</Izena>
-                    <Abizena>João</Abizena>
-                    <Posizioa>Pibota</Posizioa>
-                </Jokalari>
-            </Jokalariak>
+            <Jokalariak/>
             <Hiria>Tudela</Hiria>
+            <Informazioa>Tutera kokatua, Ribera Navarra FS kudeaketa eta biziraupen eredu bat da elitean, baliabide mugatuekin baina adimen taktiko handiarekin. Esfortzuaren eta konpromisoaren lelopean, klubak urteak daramatza Lehen Mailan mantentzea lortuz, bere etxean garaitzeko talde oso zaila izanik. Gazteak trebatzen adituak dira, eta jokalari hauek Europako klub handietara jauzi egiten dute askotan, beti ere ordena taktikoan eta baloiaren errespetuan oinarritutako nortasunari eutsiz.</Informazioa>
+            <SorreraData>2001</SorreraData>
             <aktiboaDago>true</aktiboaDago>
         </Talde>
         <Talde>
             <Izena>Industrias Santa Coloma</Izena>
             <Ezkutua>industrias</Ezkutua>
             <Futbol_zelaia>Pavelló Nou</Futbol_zelaia>
-            <Jokalariak>
-                <Jokalari dortsala="2">
-                    <Izena>Khalid</Izena>
-                    <Abizena>Bouzid</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="7">
-                    <Izena>Cardona</Izena>
-                    <Abizena>David</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="10">
-                    <Izena>Verdejo</Izena>
-                    <Abizena>Víctor</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="5">
-                    <Izena>Corso</Izena>
-                    <Abizena>Sebastián</Abizena>
-                    <Posizioa>Itxiera</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="14">
-                    <Izena>Povill</Izena>
-                    <Abizena>Bernat</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="1">
-                    <Izena>Borja</Izena>
-                    <Abizena>Puerta</Abizena>
-                    <Posizioa>Atezaina</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="9">
-                    <Izena>Uri</Izena>
-                    <Abizena>Santos</Abizena>
-                    <Posizioa>Pibota</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="4">
-                    <Izena>Marc</Izena>
-                    <Abizena>Tolrà</Abizena>
-                    <Posizioa>Itxiera</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="6">
-                    <Izena>Nil</Izena>
-                    <Abizena>Closas</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="11">
-                    <Izena>Hirata</Izena>
-                    <Abizena>Neto</Abizena>
-                    <Posizioa>Pibota</Posizioa>
-                </Jokalari>
-            </Jokalariak>
+            <Jokalariak/>
             <Hiria>Sta Coloma</Hiria>
+            <Informazioa>Industrias Santa Colomak estatuko areto-futbol klub zaharrena izatearen ohorea du. Kirola Espainian jaio berria zen garaian sortua, Kataluniako areto-futbolaren motorra izan da ia mende erdi batez. Bere pabiloia, Pavelló Nou, kirolaren tenplu sakratu bat da, non etxeko talentu gazteen prestakuntza lehenesten den. Ligan aldaketak egon arren, Industriasek bere independentziari eta joko alaiari eutsi die beti, kirol estamentu guztien errespetua irabaziz.</Informazioa>
+            <SorreraData>1975</SorreraData>
             <aktiboaDago>true</aktiboaDago>
         </Talde>
         <Talde>
             <Izena>Xota FS</Izena>
             <Ezkutua>xota</Ezkutua>
             <Futbol_zelaia>Anaitasuna</Futbol_zelaia>
-            <Jokalariak>
-                <Jokalari dortsala="1">
-                    <Izena>Asier</Izena>
-                    <Abizena>Llamas</Abizena>
-                    <Posizioa>Atezaina</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="11">
-                    <Izena>Linhares</Izena>
-                    <Abizena>Juninho</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="14">
-                    <Izena>Geraghty</Izena>
-                    <Abizena>Tony</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="17">
-                    <Izena>Fabinho</Izena>
-                    <Abizena>Silva</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="10">
-                    <Izena>Dani</Izena>
-                    <Abizena>Zurdo</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="5">
-                    <Izena>Roberto</Izena>
-                    <Abizena>Martil</Abizena>
-                    <Posizioa>Itxiera</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="2">
-                    <Izena>Ion</Izena>
-                    <Abizena>Cerviño</Abizena>
-                    <Posizioa>Itxiera</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="8">
-                    <Izena>Leo</Izena>
-                    <Abizena>Café</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="21">
-                    <Izena>Vento</Izena>
-                    <Abizena>Alejandro</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="9">
-                    <Izena>Raúl</Izena>
-                    <Abizena>Jiménez</Abizena>
-                    <Posizioa>Pibota</Posizioa>
-                </Jokalari>
-            </Jokalariak>
+            <Jokalariak/>
             <Hiria>Pamplona</Hiria>
+            <Informazioa>Xota Kirol Kluba, gaur egun Osasuna Magna bezala ezaguna futbol klubarekin duen aliantzagatik, Nafarroako areto-futbolaren ikurra da. Irurtzunen sortua eta bere partidak Iruñeko Anaitasuna pabiloian jokatuz, klubak egonkortasun harrigarria du: hamarkadak daramatzate maila gorenean lehiatzen kudeaketa hurbil eta familiar baten pean. Ezagunak dira beren kemenagatik eta bloke humanoa indibidualtasunen gainetik jartzen duen egitura batengatik.</Informazioa>
+            <SorreraData>1978</SorreraData>
             <aktiboaDago>true</aktiboaDago>
         </Talde>
         <Talde>
             <Izena>Córdoba Patrimonio</Izena>
             <Ezkutua>cordoba</Ezkutua>
             <Futbol_zelaia>Vista Alegre</Futbol_zelaia>
-            <Jokalariak>
-                <Jokalari dortsala="1">
-                    <Izena>Fabio</Izena>
-                    <Abizena>Alvira</Abizena>
-                    <Posizioa>Atezaina</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="7">
-                    <Izena>Zequi</Izena>
-                    <Abizena>Ezequiel</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="11">
-                    <Izena>Perin</Izena>
-                    <Abizena>Lucas</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="9">
-                    <Izena>Muhammad</Izena>
-                    <Abizena>Osamanmusa</Abizena>
-                    <Posizioa>Pibota</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="10">
-                    <Izena>Pulinho</Izena>
-                    <Abizena>Victor</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="12">
-                    <Izena>Víctor</Izena>
-                    <Abizena>Arenas</Abizena>
-                    <Posizioa>Atezaina</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="14">
-                    <Izena>Mykytiuk</Izena>
-                    <Abizena>Mykola</Abizena>
-                    <Posizioa>Itxiera</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="8">
-                    <Izena>Kauê</Izena>
-                    <Abizena>Monteiro</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="5">
-                    <Izena>Arnaldo</Izena>
-                    <Abizena>Báez</Abizena>
-                    <Posizioa>Itxiera</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="2">
-                    <Izena>Kenji</Izena>
-                    <Abizena>González</Abizena>
-                    <Posizioa>Itxiera</Posizioa>
-                </Jokalari>
-            </Jokalariak>
+            <Jokalariak/>
             <Hiria>Córdoba</Hiria>
+            <Informazioa>Córdoba Patrimonio de la Humanidad kategoriako klub gazteena da, baina ezinezkoa zirudien zerbait lortu du: futbol tradizio handiko hiri batean areto-futbolaren sukarra piztea. Igoera azkarra izan zuenetik, Vista Alegre kiroldegia behin eta berriz bete du, andaluziar pasioa kudeaketa profesional orekatu batekin uztartzen duen proiektua sendotuz, Kordoba hiria elite nazionaleko derrigorrezko geldialdi gisa finkatzeko asmoz.</Informazioa>
+            <SorreraData>2013</SorreraData>
             <aktiboaDago>true</aktiboaDago>
         </Talde>
         <Talde>
             <Izena>Noia Portus Apostoli</Izena>
             <Ezkutua>noia</Ezkutua>
             <Futbol_zelaia>Agustín Mourís</Futbol_zelaia>
-            <Jokalariak>
-                <Jokalari dortsala="1">
-                    <Izena>Henrique</Izena>
-                    <Abizena>Rafagnin</Abizena>
-                    <Posizioa>Atezaina</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="4">
-                    <Izena>Power</Izena>
-                    <Abizena>Raggiati</Abizena>
-                    <Posizioa>Itxiera</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="10">
-                    <Izena>Altamirano</Izena>
-                    <Abizena>Leandro</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="7">
-                    <Izena>Pirata</Izena>
-                    <Abizena>David</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="14">
-                    <Izena>Edu</Izena>
-                    <Abizena>Jabá</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="21">
-                    <Izena>Nico</Izena>
-                    <Abizena>Sarmiento</Abizena>
-                    <Posizioa>Atezaina</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="11">
-                    <Izena>Matheus</Izena>
-                    <Abizena>Machado</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="2">
-                    <Izena>Attos</Izena>
-                    <Abizena>Mendes</Abizena>
-                    <Posizioa>Itxiera</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="8">
-                    <Izena>Rufino</Izena>
-                    <Abizena>García</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-                <Jokalari dortsala="20">
-                    <Izena>David</Izena>
-                    <Abizena>Pazos</Abizena>
-                    <Posizioa>Hegala</Posizioa>
-                </Jokalari>
-            </Jokalariak>
+            <Jokalariak/>
             <Hiria>Noia</Hiria>
+            <Informazioa>Noia Portus Apostoli galiziar kuraiaren ordezkaria da munduko liga onenean. Herri txiki batetik elitean finkatzea lortu dute joko sendo batekin eta antolakuntza egitura eredugarri batekin. Bere pista, Agustín Mourís, zaleen hurbiltasunagatik eta egiten duten etengabeko presioagatik da ezaguna, etxean jokatutako partida bakoitza gudu taktiko bihurtuz, non Noiako taldeak beti garesti saltzen duen bere porrota.</Informazioa>
+            <SorreraData>2008</SorreraData>
             <aktiboaDago>true</aktiboaDago>
         </Talde>
     </TaldeGuztiak>
@@ -714,358 +432,40 @@
         <Denboraldia urtea="2024">
             <DenboraldikoTaldeak>
                 <Talde>
-                    <Izena>Barça Futsal</Izena>
-                    <Ezkutua>barcelona</Ezkutua>
-                    <Futbol_zelaia>Palau Blaugrana</Futbol_zelaia>
-                    <Jokalariak>
-                        <Jokalari dortsala="9">
-                            <Izena>Sergio</Izena>
-                            <Abizena>Lozano</Abizena>
-                            <Posizioa>Hegala</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="10">
-                            <Izena>Jean Pierre</Izena>
-                            <Abizena>Pito</Abizena>
-                            <Posizioa>Pibota</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="8">
-                            <Izena>Adolfo</Izena>
-                            <Abizena>Fernández</Abizena>
-                            <Posizioa>Hegala</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="21">
-                            <Izena>Dídac</Izena>
-                            <Abizena>Plana</Abizena>
-                            <Posizioa>Atezaina</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="3">
-                            <Izena>Matheus</Izena>
-                            <Abizena>Rodrigues</Abizena>
-                            <Posizioa>Hegala</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="2">
-                            <Izena>Antonio</Izena>
-                            <Abizena>Pérez</Abizena>
-                            <Posizioa>Itxiera</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="4">
-                            <Izena>André</Izena>
-                            <Abizena>Coelho</Abizena>
-                            <Posizioa>Itxiera</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="11">
-                            <Izena>Alex</Izena>
-                            <Abizena>Yepes</Abizena>
-                            <Posizioa>Pibota</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="99">
-                            <Izena>Erick</Izena>
-                            <Abizena>Mendonça</Abizena>
-                            <Posizioa>Unibertsala</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="26">
-                            <Izena>Miquel</Izena>
-                            <Abizena>Feixas</Abizena>
-                            <Posizioa>Atezaina</Posizioa>
-                        </Jokalari>
-                    </Jokalariak>
-                    <Hiria>Barcelona</Hiria>
-                    <aktiboaDago>true</aktiboaDago>
+                    <aktiboa>true</aktiboa>
                 </Talde>
                 <Talde>
-                    <Izena>ElPozo Murcia</Izena>
-                    <Ezkutua>elpozo</Ezkutua>
-                    <Futbol_zelaia>Palacio de Deportes</Futbol_zelaia>
-                    <Jokalariak>
-                        <Jokalari dortsala="11">
-                            <Izena>Rafa</Izena>
-                            <Abizena>Santos</Abizena>
-                            <Posizioa>Pibota</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="5">
-                            <Izena>Felipe</Izena>
-                            <Abizena>Valerio</Abizena>
-                            <Posizioa>Itxiera</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="13">
-                            <Izena>Gadeia</Izena>
-                            <Abizena>Fabricio</Abizena>
-                            <Posizioa>Hegala</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="12">
-                            <Izena>Juanjo</Izena>
-                            <Abizena>Angosto</Abizena>
-                            <Posizioa>Atezaina</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="10">
-                            <Izena>Marcel</Izena>
-                            <Abizena>Marques</Abizena>
-                            <Posizioa>Hegala</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="1">
-                            <Izena>Edu</Izena>
-                            <Abizena>Sousa</Abizena>
-                            <Posizioa>Atezaina</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="9">
-                            <Izena>Bruno</Izena>
-                            <Abizena>Taffy</Abizena>
-                            <Posizioa>Pibota</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="96">
-                            <Izena>Artem</Izena>
-                            <Abizena>Niyazov</Abizena>
-                            <Posizioa>Hegala</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="8">
-                            <Izena>David</Izena>
-                            <Abizena>Álvarez</Abizena>
-                            <Posizioa>Hegala</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="4">
-                            <Izena>Ricardo</Izena>
-                            <Abizena>Mayor</Abizena>
-                            <Posizioa>Itxiera</Posizioa>
-                        </Jokalari>
-                    </Jokalariak>
-                    <Hiria>Murcia</Hiria>
-                    <aktiboaDago>true</aktiboaDago>
+                    <aktiboa>true</aktiboa>
                 </Talde>
                 <Talde>
-                    <Izena>Inter Movistar</Izena>
-                    <Ezkutua>inter</Ezkutua>
-                    <Futbol_zelaia>Jorge Garbajosa</Futbol_zelaia>
-                    <Jokalariak>
-                        <Jokalari dortsala="1">
-                            <Izena>Jesús</Izena>
-                            <Abizena>Herrero</Abizena>
-                            <Posizioa>Atezaina</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="8">
-                            <Izena>Raúl</Izena>
-                            <Abizena>Gómez</Abizena>
-                            <Posizioa>Hegala</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="2">
-                            <Izena>Cecilio</Izena>
-                            <Abizena>Morales</Abizena>
-                            <Posizioa>Itxiera</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="3">
-                            <Izena>Lucas</Izena>
-                            <Abizena>Tripodi</Abizena>
-                            <Posizioa>Hegala</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="12">
-                            <Izena>Fits</Izena>
-                            <Abizena>Rafael</Abizena>
-                            <Posizioa>Pibota</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="6">
-                            <Izena>Javi</Izena>
-                            <Abizena>Mínguez</Abizena>
-                            <Posizioa>Hegala</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="10">
-                            <Izena>Tomás</Izena>
-                            <Abizena>Drahovsky</Abizena>
-                            <Posizioa>Pibota</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="14">
-                            <Izena>Jhonatan</Izena>
-                            <Abizena>Linhares</Abizena>
-                            <Posizioa>Itxiera</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="7">
-                            <Izena>Humberto</Izena>
-                            <Abizena>Dalmata</Abizena>
-                            <Posizioa>Hegala</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="19">
-                            <Izena>Kaito</Izena>
-                            <Abizena>Yamada</Abizena>
-                            <Posizioa>Hegala</Posizioa>
-                        </Jokalari>
-                    </Jokalariak>
-                    <Hiria>Torrejon</Hiria>
-                    <aktiboaDago>true</aktiboaDago>
+                    <aktiboa>true</aktiboa>
                 </Talde>
                 <Talde>
-                    <Izena>Mallorca Palma Futsal</Izena>
-                    <Ezkutua>baleares</Ezkutua>
-                    <Futbol_zelaia>Son Moix</Futbol_zelaia>
-                    <Jokalariak>
-                        <Jokalari dortsala="1">
-                            <Izena>Luan</Izena>
-                            <Abizena>Muller</Abizena>
-                            <Posizioa>Atezaina</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="10">
-                            <Izena>Cleber</Izena>
-                            <Abizena>Gomes</Abizena>
-                            <Posizioa>Hegala</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="8">
-                            <Izena>Mario</Izena>
-                            <Abizena>Rivillos</Abizena>
-                            <Posizioa>Hegala</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="9">
-                            <Izena>Moslem</Izena>
-                            <Abizena>Oladghobad</Abizena>
-                            <Posizioa>Hegala</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="11">
-                            <Izena>Bruno</Izena>
-                            <Abizena>Gomes</Abizena>
-                            <Posizioa>Pibota</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="21">
-                            <Izena>Carlos</Izena>
-                            <Abizena>Barrón</Abizena>
-                            <Posizioa>Atezaina</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="15">
-                            <Izena>Hossein</Izena>
-                            <Abizena>Tayebi</Abizena>
-                            <Posizioa>Pibota</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="2">
-                            <Izena>Chaguinha</Izena>
-                            <Abizena>Bruno</Abizena>
-                            <Posizioa>Itxiera</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="17">
-                            <Izena>Fabinho</Izena>
-                            <Abizena>Teixeira</Abizena>
-                            <Posizioa>Hegala</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="5">
-                            <Izena>Rómulo</Izena>
-                            <Abizena>Alves</Abizena>
-                            <Posizioa>Itxiera</Posizioa>
-                        </Jokalari>
-                    </Jokalariak>
-                    <Hiria>Palma</Hiria>
-                    <aktiboaDago>true</aktiboaDago>
+                    <aktiboa>true</aktiboa>
                 </Talde>
                 <Talde>
-                    <Izena>Jaén Paraíso Interior</Izena>
-                    <Ezkutua>jaen</Ezkutua>
-                    <Futbol_zelaia>Olivo Arena</Futbol_zelaia>
-                    <Jokalariak>
-                        <Jokalari dortsala="10">
-                            <Izena>Alan</Izena>
-                            <Abizena>Brandi</Abizena>
-                            <Posizioa>Pibota</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="41">
-                            <Izena>Mati</Izena>
-                            <Abizena>Rosa</Abizena>
-                            <Posizioa>Pibota</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="20">
-                            <Izena>Chino</Izena>
-                            <Abizena>Javier</Abizena>
-                            <Posizioa>Hegala</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="21">
-                            <Izena>Michel</Izena>
-                            <Abizena>Moyano</Abizena>
-                            <Posizioa>Hegala</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="8">
-                            <Izena>César</Izena>
-                            <Abizena>Velasco</Abizena>
-                            <Posizioa>Hegala</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="2">
-                            <Izena>Espindola</Izena>
-                            <Abizena>Carlos</Abizena>
-                            <Posizioa>Atezaina</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="14">
-                            <Izena>Pablo</Izena>
-                            <Abizena>Taborda</Abizena>
-                            <Posizioa>Itxiera</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="12">
-                            <Izena>Renato</Izena>
-                            <Abizena>Lopes</Abizena>
-                            <Posizioa>Hegala</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="29">
-                            <Izena>Helder</Izena>
-                            <Abizena>Seminario</Abizena>
-                            <Posizioa>Hegala</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="15">
-                            <Izena>Dudú</Izena>
-                            <Abizena>Rodríguez</Abizena>
-                            <Posizioa>Atezaina</Posizioa>
-                        </Jokalari>
-                    </Jokalariak>
-                    <Hiria>Jaen</Hiria>
-                    <aktiboaDago>true</aktiboaDago>
+                    <aktiboa>true</aktiboa>
                 </Talde>
                 <Talde>
-                    <Izena>Viña Albali Valdepeñas</Izena>
-                    <Ezkutua>valdepenas</Ezkutua>
-                    <Futbol_zelaia>Virgen de la Cabeza</Futbol_zelaia>
-                    <Jokalariak>
-                        <Jokalari dortsala="4">
-                            <Izena>Boyis</Izena>
-                            <Abizena>Antonio</Abizena>
-                            <Posizioa>Itxiera</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="10">
-                            <Izena>Pol</Izena>
-                            <Abizena>Pacheco</Abizena>
-                            <Posizioa>Hegala</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="7">
-                            <Izena>Eric</Izena>
-                            <Abizena>Martel</Abizena>
-                            <Posizioa>Hegala</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="11">
-                            <Izena>Abassi</Izena>
-                            <Abizena>Amin</Abizena>
-                            <Posizioa>Pibota</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="21">
-                            <Izena>Lolo</Izena>
-                            <Abizena>Manuel</Abizena>
-                            <Posizioa>Itxiera</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="1">
-                            <Izena>Marcao</Izena>
-                            <Abizena>Marcio</Abizena>
-                            <Posizioa>Atezaina</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="9">
-                            <Izena>Solano</Izena>
-                            <Abizena>Francisco</Abizena>
-                            <Posizioa>Pibota</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="17">
-                            <Izena>Bynho</Izena>
-                            <Abizena>Ferraz</Abizena>
-                            <Posizioa>Hegala</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="8">
-                            <Izena>Eloy</Izena>
-                            <Abizena>Rojas</Abizena>
-                            <Posizioa>Hegala</Posizioa>
-                        </Jokalari>
-                        <Jokalari dortsala="23">
-                            <Izena>Nano</Izena>
-                            <Abizena>David</Abizena>
-                            <Posizioa>Itxiera</Posizioa>
-                        </Jokalari>
-                    </Jokalariak>
-                    <Hiria>Valdepeñas</Hiria>
-                    <aktiboaDago>true</aktiboaDago>
+                    <aktiboa>true</aktiboa>
+                </Talde>
+                <Talde>
+                    <aktiboa>true</aktiboa>
+                </Talde>
+                <Talde>
+                    <aktiboa>true</aktiboa>
+                </Talde>
+                <Talde>
+                    <aktiboa>true</aktiboa>
+                </Talde>
+                <Talde>
+                    <aktiboa>true</aktiboa>
+                </Talde>
+                <Talde>
+                    <aktiboa>true</aktiboa>
+                </Talde>
+                <Talde>
+                    <aktiboa>true</aktiboa>
                 </Talde>
             </DenboraldikoTaldeak>
             <Jardunaldiak>
@@ -1304,16 +704,8 @@
     </Denboraldiak>
     <Erabiltzaileak>
         <erabiltzailea>
-            <erabiltzaile>admin</erabiltzaile>
-            <pasahitza>admin</pasahitza>
-        </erabiltzailea>
-        <erabiltzailea>
-            <erabiltzaile>epaile</erabiltzaile>
-            <pasahitza>epaile</pasahitza>
-        </erabiltzailea>
-        <erabiltzailea>
-            <erabiltzaile>presi</erabiltzaile>
-            <pasahitza>presi</pasahitza>
+            <erabiltzaile>José</erabiltzaile>
+            <pasahitza>José</pasahitza>
         </erabiltzailea>
     </Erabiltzaileak>
 </Federazioa>
