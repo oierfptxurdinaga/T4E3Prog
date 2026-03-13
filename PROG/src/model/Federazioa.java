@@ -28,7 +28,7 @@ public class Federazioa implements Serializable {
     private ArrayList<Denboraldia> denboraldiak;
     
     @XmlElementWrapper(name = "Erabiltzaileak")
-    @XmlElement(name = "erabiltzailea")
+    @XmlElement(name = "Erabiltzailea")
     private ArrayList <Erabiltzaile> erabiltzaileak;
     
     
