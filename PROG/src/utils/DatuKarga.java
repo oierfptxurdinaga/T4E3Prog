@@ -51,8 +51,7 @@ public class DatuKarga {
 				}
 			}
 
-			// --- 3. DENBORALDIKO TALDEAK (DenboraldiTalde eta LigakoTaldeak) ---
-			// Kontuz: 'sqlParticipantes' behin bakarrik deklaratu!
+			// --- 3. DENBORALDIKO TALDEAK ---
 			String sqlParticipantes = "SELECT denboraldia_urtea, talde_id FROM Denboraldi_Taldeak"; 
 			try (PreparedStatement ps = conn.prepareStatement(sqlParticipantes); ResultSet rs = ps.executeQuery()) {
 			    while (rs.next()) {
@@ -63,44 +62,35 @@ public class DatuKarga {
 			        Denboraldia d = mapaDenboraldiak.get(urtea);
 
 			        if (d != null && t != null) {
-			            // A) Estatistiketarako objektua sortu eta gorde
-			            DenboraldiTalde dt = new DenboraldiTalde(t, t.isAktiboaDago());
-			            d.gehituDenboraldiTaldea(dt); // PanelSailkapena-rako
-
-			            // B) Taldea bera denboraldian sartu
-			            d.gehituTaldea(t); // PanelTaldeak-eko ComboBox-erako
-
-			            // Maparen bitartez gorde, gero partiduak kargatzean estatistikak eguneratu ahal izateko
+			            DenboraldiTalde dt = new DenboraldiTalde(t, t.isAktiboaDago());	            
 			            mapaDenboraldiTaldeak.put(urtea + "-" + taldeId, dt);
+			            d.gehituDenboraldiTaldea(dt); 
 			        }
 			    }
 			}
-			// HEMENDIK AURRERA, EZ BERRIRO DEKLARATU 'sqlParticipantes'
-
-			// --- 4. Jokalariak kargatu (Historial berriaren arabera) ---
-			// Adi: 'denboraldi_jokalariak' taula erabiltzen dugu jokalaria urte bakoitzeko
-			// taldeari lotzeko
-			String sqlJok = "SELECT dj.denboraldia_urtea, dj.talde_id, j.izena, j.abizena, j.jaiotze_urtea, j.dortsala, j.posizioa, j.aktiboa "
-					+ "FROM denboraldi_jokalariak dj " + "JOIN Jokalariak j ON dj.jokalari_id = j.id_jokalaria";
+			
+		// --- 4. JOKALARIAK ---
+			String sqlJok = "SELECT talde_id, izena, abizena, jaiotze_urtea, dortsala, posizioa, aktiboa FROM Jokalariak";
 
 			try (PreparedStatement ps = conn.prepareStatement(sqlJok); ResultSet rs = ps.executeQuery()) {
-				while (rs.next()) {
-					Jokalari j = new Jokalari(rs.getString("izena"), rs.getString("abizena"),
-							rs.getInt("jaiotze_urtea"), rs.getInt("dortsala"), rs.getString("posizioa"),
-							rs.getBoolean("aktiboa"));
+			    while (rs.next()) {
+			        Jokalari j = new Jokalari(
+			                rs.getString("izena"), 
+			                rs.getString("abizena"),
+			                rs.getInt("jaiotze_urtea"), 
+			                rs.getInt("dortsala"), 
+			                rs.getString("posizioa"),
+			                rs.getBoolean("aktiboa")
+			        );
 
-					int urtea = rs.getInt("denboraldia_urtea");
-					int taldeId = rs.getInt("talde_id");
-
-					// Urte horretako DenboraldiTalde objektua bilatu
-					DenboraldiTalde dt = mapaDenboraldiTaldeak.get(urtea + "-" + taldeId);
-
-					if (dt != null) {
-						// SOLUCIÓN: Sacamos el Talde de la caja (DenboraldiTalde) y le metemos el
-						// jugador
-						dt.getTalde().sartuJokalaria(j);
-					}
-				}
+			        int taldeId = rs.getInt("talde_id");
+			        
+			        // Talde "Masterra" bilatu mapan eta jokalaria sartu
+			        Talde t = mapaTaldeak.get(taldeId);
+			        if (t != null) {
+			            t.sartuJokalaria(j);
+			        }
+			    }
 			}
 
 			// --- 5. Partiduak eta sailkapena eguneratu ---
@@ -115,8 +105,6 @@ public class DatuKarga {
 					int kanpoId = rs.getInt("kanpoko_taldea_id");
 					int golE = rs.getInt("etxeko_golak");
 					int golK = rs.getInt("kanpoko_golak");
-
-					// Talde baseak lortu partidu-objektua sortzeko
 					Talde etxe = mapaTaldeak.get(etxeId);
 					Talde kanpo = mapaTaldeak.get(kanpoId);
 
@@ -128,8 +116,6 @@ public class DatuKarga {
 						Denboraldia d = mapaDenboraldiak.get(urtea);
 						if (d != null) {
 							d.gehituPartiduaJardunaldira(rs.getInt("jardunaldia_zenbakia"), p);
-
-							// ESTATISTIKAK EGUNERATU: sailkapena kargatzean prest egon dadin
 							DenboraldiTalde dtEtxe = mapaDenboraldiTaldeak.get(urtea + "-" + etxeId);
 							DenboraldiTalde dtKanpo = mapaDenboraldiTaldeak.get(urtea + "-" + kanpoId);
 
