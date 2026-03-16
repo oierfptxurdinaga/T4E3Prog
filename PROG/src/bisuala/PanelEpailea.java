@@ -244,7 +244,7 @@ public class PanelEpailea extends JPanel {
         
         JLabel lblEzkutua = new JLabel();
         if (t.getEzkutua() != null) {
-            URL url = getClass().getResource(t.getEzkutua());
+            URL url = getClass().getResource("/images/"+t.getEzkutua());
             if (url != null) {
                 ImageIcon icon = new ImageIcon(url);
                 Image img = icon.getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);

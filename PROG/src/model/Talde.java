@@ -44,9 +44,10 @@ public class Talde implements Serializable{
 	@XmlElement(name = "Informazioa")
 	private String informazioa;
 	
-	@XmlElement(name="SorreraData")
+	@XmlElement(name="Sorrera_data")
 	private int sorreraData;
-
+	
+	@XmlElement(name="Aktiboa_dago")
 	private boolean aktiboaDago;
 	
 	public Talde(String izena, String eskutua, String futbolZelaia, ArrayList<Jokalari> jokalariak, String hiria, boolean aktiboaDago, String informazioa, int sorreraData) {

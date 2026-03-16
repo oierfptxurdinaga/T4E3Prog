@@ -225,7 +225,17 @@ public class APP extends JFrame {
 	}
 
 	public void gordeDatuak() {
-
+	    utils.LogKudeatzailea.gehituLog("Datuak gordetzen...");
+	    utils.XmlKudeatzailea xmlKudeatzailea = new utils.XmlKudeatzailea();
+	    
+	    boolean xlmOndoBoolean = xmlKudeatzailea.esportatuXML(this.federazioa, "src/data/federazioa.xml");
+	    
+	    if (!xlmOndoBoolean) {
+	        utils.LogKudeatzailea.gehituErrorea("Huts egin du XML fitxategia esportatzean.");
+	        JOptionPane.showMessageDialog(this, "Errorea XML-a gordetzean", "Error", JOptionPane.ERROR_MESSAGE);
+	    } else {
+	        utils.LogKudeatzailea.gehituLog("XML esportazioa ondo burutu da.");
+	    }
 	}
 
 	// --- IRTEERA KUDEAKETA ---
@@ -250,6 +260,8 @@ public class APP extends JFrame {
 			}
 		}
 	}
+	
+	
 
 	private void exekutatuIrteera(boolean isLogout) {
 		if (isLogout) {

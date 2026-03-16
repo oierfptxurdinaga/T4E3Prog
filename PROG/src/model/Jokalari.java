@@ -18,7 +18,7 @@ public class Jokalari implements Serializable{
 	/** Objektuaren bertsioa serializazioan kontrolatzeko identifikatzailea */
 	private static final long serialVersionUID = 1L;
 	
-	@XmlAttribute(name = "dortsala")
+	@XmlAttribute(name = "Dortsala")
 	private int dortsala;
 	
 	@XmlElement(name = "Izena")
@@ -27,13 +27,13 @@ public class Jokalari implements Serializable{
 	@XmlElement(name = "Abizena")
 	private String abizena;
 	
-	@XmlTransient
+	@XmlElement(name = "Jaiotze_urtea")
 	private int jaiotzeUrtea;
 
 	@XmlElement(name = "Posizioa")
 	private String posizio;
 	
-	@XmlTransient
+	@XmlElement(name= "Aktiboa_dago")
 	private boolean aktiboaDago;
 	
 	public Jokalari(String izena, String abizena, int jaiotseUrtea, int dortsala, String posizio, boolean aktiboaDago) {

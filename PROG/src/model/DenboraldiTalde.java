@@ -2,6 +2,13 @@ package model;
 
 import java.util.ArrayList;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import utils.RutaEzkutuaAdapter;
+
 /**
  * Denboraldi jakin bateko talde baten estatistikak gordetzeko klasea.
  *
@@ -11,9 +18,12 @@ import java.util.ArrayList;
  * Estatistika hauek {@link #emaitzakEguneratu(int, int)} metodoaren bidez
  * eguneratzen dira partiduen emaitzen arabera.
  */
-public class DenboraldiTalde {
 
+@XmlAccessorType(XmlAccessType.NONE)
+public class DenboraldiTalde {
+	@XmlTransient
     private Talde talde;      // Talde originala
+	@XmlElement(name = "Aktiboa_dago")
     private boolean aktiboa;   // Denboraldi honetan partizipatzen du
     private ArrayList<Jokalari> jokalariak;
     private int JP;            // Jokatutako partidak
@@ -39,6 +49,37 @@ public class DenboraldiTalde {
         this.PT = 0;
     }
 
+    @XmlElement(name = "Izena")
+    public String getTaldeIzena() {
+        return (talde != null) ? talde.getIzena() : null;
+    }
+
+    @XmlElement(name = "Ezkutua")
+    @XmlJavaTypeAdapter(RutaEzkutuaAdapter.class)
+    public String getTaldeEzkutua() {
+        return (talde != null) ? talde.getEzkutua() : null;
+    }
+
+    @XmlElement(name = "Futbol_zelaia")
+    public String getTaldeZelaia() {
+        return (talde != null) ? talde.getFutbolZelaia() : null;
+    }
+
+    @XmlElement(name = "Hiria")
+    public String getTaldeHiria() {
+        return (talde != null) ? talde.getHiria() : null;
+    }
+
+    @XmlElement(name = "Informazioa")
+    public String getTaldeInformazioa() {
+        return (talde != null) ? talde.getInformazioa() : null;
+    }
+
+    @XmlElement(name = "Sorrera_data")
+    public Integer getTaldeSorreraData() {
+        return (talde != null) ? talde.getSorreraData() : null;
+    }
+    
     /**
      * Partida baten emaitzak eguneratzen ditu talde honen estatistiketan.
      * <p>
