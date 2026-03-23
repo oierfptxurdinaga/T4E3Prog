@@ -29,12 +29,13 @@ public class DatuKarga {
 				return federazioa;
 
 			// --- 1. Talde originalak kargatu (datu estatikoak) ---
-			String sqlTaldeak = "SELECT talde_id, izena, ezkutua, futbol_zelaia, hiria, aktiboa_dago, informazioa, sorrera_urtea FROM Taldeak";
+			String sqlTaldeak = "SELECT id_talde, izena, ezkutua, futbol_zelaia, hiria, aktiboa_dago, informazioa, sorrera_urtea FROM Taldeak";
 			try (PreparedStatement ps = conn.prepareStatement(sqlTaldeak); ResultSet rs = ps.executeQuery()) {
 				while (rs.next()) {
-					Talde t = new Talde(rs.getString("izena"), rs.getString("ezkutua"), rs.getString("futbol_zelaia"),
-							new ArrayList<>(), rs.getString("hiria"), rs.getBoolean("aktiboa_dago"), rs.getString("informazioa"), rs.getInt("sorrera_urtea"));
-					int id = rs.getInt("talde_id");
+					Talde t = new Talde(rs.getInt("id_talde"), rs.getString("izena"), rs.getString("ezkutua"),
+							rs.getString("futbol_zelaia"), new ArrayList<>(), rs.getString("hiria"),
+							rs.getBoolean("aktiboa_dago"), rs.getString("informazioa"), rs.getInt("sorrera_urtea"));
+					int id = rs.getInt("id_talde");
 					mapaTaldeak.put(id, t);
 					federazioa.gehituTaldea(t);
 				}
@@ -52,51 +53,46 @@ public class DatuKarga {
 			}
 
 			// --- 3. DENBORALDIKO TALDEAK ---
-			String sqlParticipantes = "SELECT denboraldia_urtea, talde_id FROM Denboraldi_Taldeak"; 
+			String sqlParticipantes = "SELECT denboraldia_urtea, id_talde FROM Denboraldi_Taldeak";
 			try (PreparedStatement ps = conn.prepareStatement(sqlParticipantes); ResultSet rs = ps.executeQuery()) {
-			    while (rs.next()) {
-			        int urtea = rs.getInt("denboraldia_urtea");
-			        int taldeId = rs.getInt("talde_id");
+				while (rs.next()) {
+					int urtea = rs.getInt("denboraldia_urtea");
+					int taldeId = rs.getInt("id_talde");
 
-			        Talde t = mapaTaldeak.get(taldeId);
-			        Denboraldia d = mapaDenboraldiak.get(urtea);
+					Talde t = mapaTaldeak.get(taldeId);
+					Denboraldia d = mapaDenboraldiak.get(urtea);
 
-			        if (d != null && t != null) {
-			            DenboraldiTalde dt = new DenboraldiTalde(t, t.isAktiboaDago());	            
-			            mapaDenboraldiTaldeak.put(urtea + "-" + taldeId, dt);
-			            d.gehituDenboraldiTaldea(dt); 
-			        }
-			    }
+					if (d != null && t != null) {
+						DenboraldiTalde dt = new DenboraldiTalde(t, t.isAktiboaDago());
+						mapaDenboraldiTaldeak.put(urtea + "-" + taldeId, dt);
+						d.gehituDenboraldiTaldea(dt);
+					}
+				}
 			}
-			
-		// --- 4. JOKALARIAK ---
-			String sqlJok = "SELECT talde_id, izena, abizena, jaiotze_urtea, dortsala, posizioa, aktiboa FROM Jokalariak";
+
+			// --- 4. JOKALARIAK ---
+			String sqlJok = "SELECT id_jokalari, id_talde, izena, abizena, jaiotze_urtea, dortsala, posizioa, aktiboa FROM Jokalariak";
 
 			try (PreparedStatement ps = conn.prepareStatement(sqlJok); ResultSet rs = ps.executeQuery()) {
-			    while (rs.next()) {
-			        Jokalari j = new Jokalari(
-			                rs.getString("izena"), 
-			                rs.getString("abizena"),
-			                rs.getInt("jaiotze_urtea"), 
-			                rs.getInt("dortsala"), 
-			                rs.getString("posizioa"),
-			                rs.getBoolean("aktiboa")
-			        );
+				while (rs.next()) {
+					Jokalari j = new Jokalari(rs.getInt("id_jokalari"), rs.getString("izena"), rs.getString("abizena"),
+							rs.getInt("jaiotze_urtea"), rs.getInt("dortsala"), rs.getString("posizioa"),
+							rs.getBoolean("aktiboa"));
 
-			        int taldeId = rs.getInt("talde_id");
-			        
-			        // Talde "Masterra" bilatu mapan eta jokalaria sartu
-			        Talde t = mapaTaldeak.get(taldeId);
-			        if (t != null) {
-			            t.sartuJokalaria(j);
-			        }
-			    }
+					int taldeId = rs.getInt("id_talde");
+
+					// Talde "Masterra" bilatu mapan eta jokalaria sartu
+					Talde t = mapaTaldeak.get(taldeId);
+					if (t != null) {
+						t.sartuJokalaria(j);
+					}
+				}
 			}
 
 			// --- 5. Partiduak eta sailkapena eguneratu ---
 			String sqlPartiduak = "SELECT p.etxeko_taldea_id, p.kanpoko_taldea_id, "
 					+ "p.etxeko_golak, p.kanpoko_golak, " + "j.zenbakia AS jardunaldia_zenbakia, j.denboraldia_urtea "
-					+ "FROM Partiduak p " + "JOIN Jardunaldiak j ON p.jardunaldia_id = j.id_jardunaldia";
+					+ "FROM Partiduak p " + "JOIN Jardunaldiak j ON p.id_jardunaldi = j.id_jardunaldi";
 
 			try (PreparedStatement ps = conn.prepareStatement(sqlPartiduak); ResultSet rs = ps.executeQuery()) {
 				while (rs.next()) {

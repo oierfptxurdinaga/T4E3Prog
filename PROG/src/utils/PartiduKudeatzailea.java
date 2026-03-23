@@ -20,7 +20,7 @@ public class PartiduKudeatzailea {
         
         // Si es impar, añadimos un equipo "fantasma" (el que juegue contra él descansa)
         if (taldeKop % 2 != 0) {
-            kopia.add(new Talde("Deskantsua", null, null, null, null, false, null, 0));
+            kopia.add(new Talde(0,"Deskantsua", null, null, null, null, false, null, 0));
             taldeKop++;
         }
 

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:complexType name="TaldeMota">
+    <xs:all>
+      <xs:element name="Izena" type="xs:string" minOccurs="0"/>
+      <xs:element name="Ezkutua" type="xs:string" minOccurs="0"/>
+      <xs:element name="Futbol_zelaia" type="xs:string" minOccurs="0"/>
+      <xs:element name="Jokalariak" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Jokalari" minOccurs="0" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Izena" type="xs:string" minOccurs="0"/>
+                  <xs:element name="Abizena" type="xs:string" minOccurs="0"/>
+                  <xs:element name="Jaiotze_urtea" type="xs:integer" minOccurs="0"/>
+                  <xs:element name="Posizioa" type="xs:string" minOccurs="0"/>
+                  <xs:element name="Aktiboa_dago" type="xs:boolean" minOccurs="0"/>
+                </xs:sequence>
+                <xs:attribute name="Dortsala" type="xs:string" use="optional"/>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Hiria" type="xs:string" minOccurs="0"/>
+      <xs:element name="Informazioa" type="xs:string" minOccurs="0"/>
+      <xs:element name="Sorrera_data" type="xs:integer" minOccurs="0"/>
+      <xs:element name="Aktiboa_dago" type="xs:boolean" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:element name="Federazioa">
+    <xs:complexType>
+      <xs:sequence>
+
+        <xs:element name="TaldeGuztiak">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Talde" type="TaldeMota" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="Denboraldiak">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Denboraldia" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="DenboraldikoTaldeak">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Talde" type="TaldeMota" minOccurs="0" maxOccurs="unbounded" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Jardunaldiak">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Jardunaldi" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="Partidua" minOccurs="0" maxOccurs="unbounded">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="Emaitza" minOccurs="0">
+                                        <xs:complexType>
+                                          <xs:attribute name="etxekoGolak" type="xs:integer" use="optional" />
+                                          <xs:attribute name="kanpokoGolak" type="xs:integer" use="optional" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element name="EtxekoEzkutua" type="xs:string" />
+                                      <xs:element name="EtxekoTaldea" type="xs:string" />
+                                      <xs:element name="KanpokoEzkutua" type="xs:string" />
+                                      <xs:element name="KanpokoTaldea" type="xs:string" />
+                                    </xs:sequence>
+                                    <xs:attribute name="egoera" type="xs:string" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                              <xs:attribute name="zenbakia" type="xs:integer" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="urtea" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="Erabiltzaileak">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="erabiltzailea" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="erabiltzaile" type="xs:string" />
+                    <xs:element name="pasahitza" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

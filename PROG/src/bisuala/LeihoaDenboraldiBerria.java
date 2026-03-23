@@ -1,6 +1,9 @@
 package bisuala;
 
 import javax.swing.*;
+
+import dao.DenboraldiDAO;
+
 import java.awt.*;
 import java.util.ArrayList;
 import model.*;
@@ -14,8 +17,10 @@ public class LeihoaDenboraldiBerria extends JDialog {
     private JLabel lblKontagailua; 
     private final int MAX_TALDEAK = 6; 
     private boolean ondoSortuDa = false;
+    private DenboraldiDAO ddao;
 
     public LeihoaDenboraldiBerria(Federazioa federazioa) {
+    	ddao = new DenboraldiDAO();
         this.federazioa = federazioa;
         this.checkTaldeak = new ArrayList<>();
 
@@ -131,9 +136,9 @@ public class LeihoaDenboraldiBerria extends JDialog {
         // 2. Etiketa eguneratu
         lblKontagailua.setText(aukeratuak + " / " + MAX_TALDEAK);
         if (aukeratuak == MAX_TALDEAK) {
-            lblKontagailua.setForeground(new Color(0, 150, 0)); // Berdea (Ondo)
+            lblKontagailua.setForeground(new Color(0, 150, 0));
         } else {
-            lblKontagailua.setForeground(Color.RED); // Gorria (Txarto)
+            lblKontagailua.setForeground(Color.RED); 
         }
 
 
@@ -174,19 +179,19 @@ public class LeihoaDenboraldiBerria extends JDialog {
             d.setLigakoTaldeak(dtAukeratuak);
             
             d.setLigakoJardunaldi(PartiduKudeatzailea.sortuEgutegia(taldeAukeratuak));
-            
+            boolean ondo = ddao.txertatuDenboraldiaOsoa(d);
+            if (ondo) {
             federazioa.gehituDenboraldia(d);
-            
-         // --- LOG ---
             utils.LogKudeatzailea.gehituLog("Denboraldi berria sortu da: " + urtea + " (" + taldeAukeratuak.size() + " talde)");
-            // -----------
-
             this.ondoSortuDa = true;
-            
-            this.ondoSortuDa = true;
-            
             JOptionPane.showMessageDialog(this, "Denboraldia (" + urtea + ") ondo sortu da!");
             dispose();
+            } else {
+            	utils.LogKudeatzailea.gehituLog("Denboraldi "+urtea+" sortzerakoan errore bat egon da.");
+            	JOptionPane.showMessageDialog(this, "Zerbait txarto joan da.", "Errorea", JOptionPane.WARNING_MESSAGE);
+            }
+            
+
 
         } catch (Exception ex) {
             ex.printStackTrace();

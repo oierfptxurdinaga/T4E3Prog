@@ -23,6 +23,7 @@ public class Talde implements Serializable{
 	
 	/** Objektuaren bertsioa serializazioan kontrolatzeko identifikatzailea */
 	private static final long serialVersionUID = 1L;
+	private int id;
 	
 	@XmlElement(name = "Izena")
 	private String izena;
@@ -50,7 +51,8 @@ public class Talde implements Serializable{
 	@XmlElement(name="Aktiboa_dago")
 	private boolean aktiboaDago;
 	
-	public Talde(String izena, String eskutua, String futbolZelaia, ArrayList<Jokalari> jokalariak, String hiria, boolean aktiboaDago, String informazioa, int sorreraData) {
+	public Talde(int id, String izena, String eskutua, String futbolZelaia, ArrayList<Jokalari> jokalariak, String hiria, boolean aktiboaDago, String informazioa, int sorreraData) {
+		this.id = id;
 		this.izena = izena;
 		this.ezkutua = eskutua;
 		this.futbolZelaia = futbolZelaia;
@@ -67,6 +69,7 @@ public class Talde implements Serializable{
      * @param taldea kopiatu nahi den taldea
      */
 	public Talde(Talde taldea) {
+		this.id = taldea.id;
 		this.izena = taldea.izena;
 		this.ezkutua = taldea.ezkutua;
 		this.futbolZelaia = taldea.futbolZelaia;
@@ -144,6 +147,14 @@ public class Talde implements Serializable{
 	}
 
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	/**
      * Taldearen ezkutua aldatzen du.
      * 
@@ -220,6 +231,7 @@ public class Talde implements Serializable{
 	    
 	    // 3. Talde berria itzuli, jokalari zerrenda BERRIAREKIN
 	    return new Talde(
+	    	this.id,
 	        this.izena,
 	        this.ezkutua,
 	        this.futbolZelaia,
