@@ -71,13 +71,13 @@ public class DatuKarga {
 			}
 
 			// --- 4. JOKALARIAK ---
-			String sqlJok = "SELECT id_jokalari, id_talde, izena, abizena, jaiotze_urtea, dortsala, posizioa, aktiboa FROM Jokalariak";
+			String sqlJok = "SELECT id_jokalari, id_talde, izena, abizena, jaiotze_urtea, dortsala, posizioa, aktiboa, argazkia FROM Jokalariak";
 
 			try (PreparedStatement ps = conn.prepareStatement(sqlJok); ResultSet rs = ps.executeQuery()) {
 				while (rs.next()) {
 					Jokalari j = new Jokalari(rs.getInt("id_jokalari"), rs.getString("izena"), rs.getString("abizena"),
 							rs.getInt("jaiotze_urtea"), rs.getInt("dortsala"), rs.getString("posizioa"),
-							rs.getBoolean("aktiboa"));
+							rs.getBoolean("aktiboa"), rs.getString("argazkia"));
 
 					int taldeId = rs.getInt("id_talde");
 

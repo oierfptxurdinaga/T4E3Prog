@@ -11,8 +11,8 @@ public class PanelAdmin extends JPanel {
     private static final long serialVersionUID = 1L;
 
     private APP app;
-    private Federazioa federazioa;          // REFERENCIA A LA LISTA MAESTRA (FUTURO)
-    private ArrayList<Talde> taldeAktiboak; // REFERENCIA A LA LISTA ACTUAL (PRESENTE)
+    private Federazioa federazioa;          
+    private ArrayList<Talde> taldeAktiboak; 
     
     // UI Osagaiak
     private JComboBox<Talde> comboEzkerra;
@@ -157,7 +157,7 @@ public class PanelAdmin extends JPanel {
 
         if (hautatua == null || jatorrizkoTaldea == null || helburuTaldea == null) return;
 
-        // 1. MUGIMENDUA ORAIN (Denboraldian)
+        // 1. MUGIMENDUA ORAIN 
         jatorrizkoTaldea.getJokalariak().remove(hautatua);
         helburuTaldea.sartuJokalaria(hautatua);
 
@@ -165,10 +165,22 @@ public class PanelAdmin extends JPanel {
         jatorrizkoModel.removeElement(hautatua);
         helburuModel.addElement(hautatua);
 
-        // 2. MUGIMENDUA ETORKIZUNERAKO (Federazioan ere bilatu eta aldatu)
+        // 2. MUGIMENDUA ETORKIZUNERAKO 
         aplikatuAldaketaFederazioan(jatorrizkoTaldea, helburuTaldea, hautatua);
 
-        if (app != null) app.setAldaketakDauden(true);
+        // 3. --- DATU-BASEAN EGUNERATU --- 
+        boolean ondoGordeta = dao.JokalariDAO.aldatuJokalariarenTaldeaDB(hautatua.getId(), helburuTaldea.getId());
+        
+        if (ondoGordeta) {
+            if (app != null) app.setAldaketakDauden(true);
+            utils.LogKudeatzailea.gehituLog("DB EGUNERAKETA: " + hautatua.getIzena() + " " + hautatua.getAbizena() + " - " + hautatua.getDortsala() + " jokalariaren taldea aldatu da.");
+        } else {
+            // Datu-baseak huts egiten badu, abisua eman
+            JOptionPane.showMessageDialog(this, 
+                "Errorea egon da jokalaria datu-basean eguneratzean.", 
+                "Errorea DBan", 
+                JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     // Metodo honek aldaketa bera bilatzen du Federazioaren zerrenda nagusian

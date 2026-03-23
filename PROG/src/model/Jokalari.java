@@ -18,6 +18,7 @@ public class Jokalari implements Serializable {
 	/** Objektuaren bertsioa serializazioan kontrolatzeko identifikatzailea */
 	private static final long serialVersionUID = 1L;
 
+	@XmlTransient
 	private int id;
 
 	@XmlAttribute(name = "Dortsala")
@@ -37,9 +38,12 @@ public class Jokalari implements Serializable {
 
 	@XmlElement(name = "Aktiboa_dago")
 	private boolean aktiboaDago;
+	
+	@XmlElement (name = "Argazkia")
+	private String argazkia;
 
 	public Jokalari(int id, String izena, String abizena, int jaiotseUrtea, int dortsala, String posizio,
-			boolean aktiboaDago) {
+			boolean aktiboaDago, String argazkia) {
 		this.id = id;
 		this.izena = izena;
 		this.abizena = abizena;
@@ -47,6 +51,7 @@ public class Jokalari implements Serializable {
 		this.dortsala = dortsala;
 		this.posizio = posizio;
 		this.aktiboaDago = aktiboaDago;
+		this.argazkia = argazkia;
 	}
 
 	public Jokalari() {
@@ -110,6 +115,14 @@ public class Jokalari implements Serializable {
 		this.aktiboaDago = aktiboaDago;
 	}
 
+	public String getArgazkia() {
+		return argazkia;
+	}
+
+	public void setArgazkia(String argazkia) {
+		this.argazkia = argazkia;
+	}
+
 	/**
 	 * Jokalari honen kopia sortzen du.
 	 * 
@@ -120,7 +133,7 @@ public class Jokalari implements Serializable {
 	 */
 	public Jokalari kopiatu() {
 		return new Jokalari(this.id, this.izena, this.abizena, this.jaiotzeUrtea, this.dortsala, this.posizio,
-				this.aktiboaDago);
+				this.aktiboaDago, this.argazkia);
 	}
 
 	/**

@@ -2,11 +2,12 @@ package bisuala;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.ArrayList;
 import model.*;
+
 
 public class PanelTaldeak extends JPanel {
 
@@ -43,6 +44,7 @@ public class PanelTaldeak extends JPanel {
 
         panelCombo.add(lblTitulo);
         panelCombo.add(comboTaldeak);
+       
         
         // B. TALDE INFO PANELA
         panelInfoTaldea = new JPanel(new BorderLayout());
@@ -106,7 +108,7 @@ public class PanelTaldeak extends JPanel {
         lblEscudo.setHorizontalAlignment(SwingConstants.CENTER);
         
         // ALDAKETA NAGUSIA HEMEN: Objektuari galdetzen diogu bidea
-        String irudiBidea = t.getEzkutua(); 
+        String irudiBidea = "/images/TaldeArmarria/" + t.getEzkutua();
         
         if (irudiBidea != null && !irudiBidea.isEmpty()) {
             try {
@@ -159,15 +161,24 @@ public class PanelTaldeak extends JPanel {
         JLabel lblIrudia = new JLabel();
         lblIrudia.setHorizontalAlignment(SwingConstants.CENTER);
         lblIrudia.setPreferredSize(new Dimension(100, 100));
+
+        // Cargamos la imagen desde la carpeta de recursos
+        String bidea = "/images/JokalariAvatar/" + j.getArgazkia(); // La ruta donde metas los PNGs
+        URL url = getClass().getResource(bidea);
+
+        if (url != null) {
+            ImageIcon icon = new ImageIcon(new ImageIcon(url).getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH));
+            lblIrudia.setIcon(icon);
+        } else {
+            lblIrudia.setText("Sin foto");
+        }
         
-        ImageIcon icon = sortuAvatarLokala(j.getIzena(), j.getAbizena(), this.urtea);
-        lblIrudia.setIcon(icon);
         
         JPanel panelDatos = new JPanel(new GridLayout(2, 1));
         panelDatos.setBackground(null);
         panelDatos.setBorder(new EmptyBorder(5, 5, 5, 5));
         
-        JLabel lblIzena = new JLabel(j.getIzena());
+        JLabel lblIzena = new JLabel(j.getIzena() + " " + j.getAbizena());
         lblIzena.setFont(new Font("Arial", Font.BOLD, 12));
         lblIzena.setHorizontalAlignment(SwingConstants.CENTER);
         
@@ -185,37 +196,7 @@ public class PanelTaldeak extends JPanel {
         return karta;
     }
 
-    private ImageIcon sortuAvatarLokala(String izena, String abizena, int urtea) {
-        int size = 80;
-        BufferedImage imagen = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2 = imagen.createGraphics();
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        
-        float baseHue = Math.abs((izena + abizena).hashCode() % 1000) / 1000f;
-        float yearShift = (urtea % 100) * 0.2f; 
-        float finalHue = (baseHue + yearShift) % 1.0f;
-        
-        Color colorFondo = Color.getHSBColor(finalHue, 0.6f, 0.85f);
-
-        g2.setColor(colorFondo);
-        g2.fillOval(0, 0, size, size);
-        
-        g2.setColor(Color.WHITE);
-        g2.setFont(new Font("Arial", Font.BOLD, 30));
-        
-        String iniciales = "";
-        if (izena.length() > 0) iniciales += izena.charAt(0);
-        if (abizena.length() > 0) iniciales += abizena.charAt(0);
-        
-        FontMetrics fm = g2.getFontMetrics();
-        int x = (size - fm.stringWidth(iniciales)) / 2;
-        int y = ((size - fm.getHeight()) / 2) + fm.getAscent();
-        
-        g2.drawString(iniciales.toUpperCase(), x, y);
-        g2.dispose();
-        return new ImageIcon(imagen);
-    }
-    
+ 
     public void eguneratuTaldeak(ArrayList<Talde> taldeakBerriak, int urteaBerria) {
         this.urtea = urteaBerria;
         

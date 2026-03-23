@@ -23,6 +23,8 @@ public class Talde implements Serializable{
 	
 	/** Objektuaren bertsioa serializazioan kontrolatzeko identifikatzailea */
 	private static final long serialVersionUID = 1L;
+	
+	@XmlTransient
 	private int id;
 	
 	@XmlElement(name = "Izena")

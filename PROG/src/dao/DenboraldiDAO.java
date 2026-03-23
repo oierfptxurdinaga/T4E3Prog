@@ -21,7 +21,7 @@ public class DenboraldiDAO {
 		// 1. Consultas SQL completas
 		String sqlDenboraldia = "INSERT INTO denboraldiak (urtea) VALUES (?)";
 		String sqlDenbTaldeak = "INSERT INTO denboraldi_taldeak (denboraldia_urtea, id_talde) VALUES (?, ?)";
-		String sqlDenbJokalariak = "INSERT INTO denboraldi_jokalariak (denboraldia_urtea, id_talde, id_jolalari) VALUES (?, ?, ?)";
+		String sqlDenbJokalariak = "INSERT INTO denboraldi_jokalariak (denboraldia_urtea, id_talde, id_jokalari) VALUES (?, ?, ?)";
 		String sqlJardunaldia = "INSERT INTO jardunaldiak (zenbakia, denboraldia_urtea) VALUES (?, ?)";
 		String sqlPartidua = "INSERT INTO partiduak (id_jardunaldi, etxeko_taldea_id, kanpoko_taldea_id, etxeko_golak, kanpoko_golak) VALUES (?, ?, ?, ?, ?)";
 

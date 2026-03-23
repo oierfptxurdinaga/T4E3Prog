@@ -184,7 +184,7 @@ public class PanelJardunaldiak extends JPanel {
         
         JLabel lblEzkutua = new JLabel();
         if (t.getEzkutua() != null) {
-            URL url = getClass().getResource("/images/"+t.getEzkutua());
+            URL url = getClass().getResource("/images/TaldeArmarria/"+t.getEzkutua());
             if (url != null) {
                 ImageIcon icon = new ImageIcon(url);
                 Image img = icon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);

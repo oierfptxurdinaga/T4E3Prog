@@ -155,7 +155,7 @@ public class PanelSailkapena extends JPanel {
                 setText(stats.getTalde().getIzena());
 
                 // Irudia kargatu
-                String rutaImagen = "/images/"+stats.getTalde().getEzkutua();
+                String rutaImagen = "/images/TaldeArmarria/"+stats.getTalde().getEzkutua();
                 if (rutaImagen != null) {
                     URL imgUrl = getClass().getResource(rutaImagen);
                     if (imgUrl != null) {

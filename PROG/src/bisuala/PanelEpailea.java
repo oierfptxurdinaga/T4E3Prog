@@ -8,6 +8,7 @@ import java.net.URL;
 import model.*;
 
 import bisuala.APP;
+import dao.PartiduaDAO;
 
 public class PanelEpailea extends JPanel {
 
@@ -115,10 +116,10 @@ public class PanelEpailea extends JPanel {
 			Jardunaldi jardunaldia = denboraldia.getLigakoJardunaldi().get(index);
 
 			if (jardunaldia.getPartiduak() != null) {
-				for (Partidua p : jardunaldia.getPartiduak()) {
-					panelPartiduak.add(sortuPartiduEditagarria(p));
-					panelPartiduak.add(Box.createRigidArea(new Dimension(0, 10)));
-				}
+	            for (Partidua p : jardunaldia.getPartiduak()) {
+	                panelPartiduak.add(sortuPartiduEditagarria(p, jardunaldia)); 
+	                panelPartiduak.add(Box.createRigidArea(new Dimension(0, 10)));
+	            }
 			}
 		}
 		panelPartiduak.revalidate();
@@ -126,7 +127,7 @@ public class PanelEpailea extends JPanel {
 	}
 
 	// --- ALDAKETA NAGUSIA HEMEN DAGO ---
-	private JPanel sortuPartiduEditagarria(Partidua p) {
+	private JPanel sortuPartiduEditagarria(Partidua p, Jardunaldi jardunaldia) { 
         JPanel panelErrenkada = new JPanel(new BorderLayout(10, 0));
         panelErrenkada.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(KOLORE_BORDER, 1),
@@ -196,29 +197,39 @@ public class PanelEpailea extends JPanel {
                     JOptionPane.showMessageDialog(this, "Emaitzak ezin dira negatiboak izan.");
                     return;
                 }
-                
-                if (golEtxekoa > 99 || golKanpokoa > 99) {
-                    JOptionPane.showMessageDialog(this, "Zenbakia 0-99 tartean egon behar da");
-                    return;
-                }
 
                 if (epaileAktiboa != null) {
                     epaileAktiboa.sartuEmaitza(denboraldia, p.getEtxekoTaldea(), p.getKanpokoTaldea(), golEtxekoa, golKanpokoa);
-                    if (app != null) {
-                        app.setAldaketakDauden(true); 
-                    }
                     
-                    utils.LogKudeatzailea.gehituLog("Emaitza Eguneratua: " + 
-                            p.getEtxekoTaldea().getIzena() + " " + golEtxekoa + " - " + 
-                            golKanpokoa + " " + p.getKanpokoTaldea().getIzena());
-                    btnGorde.setBackground(new Color(46, 139, 87));
-                    btnGorde.setText("OK");
+          
+                    boolean ondoGordeta = PartiduaDAO.eguneratuEmaitzaDB(
+                            jardunaldia.getJardunaldiZbk(),
+                            p.getEtxekoTaldea().getId(),
+                            p.getKanpokoTaldea().getId(),
+                            golEtxekoa,
+                            golKanpokoa
+                    );
+
+                    if (ondoGordeta) {
+                        if (app != null) {
+                            app.setAldaketakDauden(true); 
+                        }
+                        
+                        utils.LogKudeatzailea.gehituLog("Emaitza Eguneratua: " + 
+                                p.getEtxekoTaldea().getIzena() + " " + golEtxekoa + " - " + 
+                                golKanpokoa + " " + p.getKanpokoTaldea().getIzena());
+                                
+                        btnGorde.setBackground(new Color(46, 139, 87));
+                        btnGorde.setText("OK");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Errorea datu-basean gordetzean.", "Errorea", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
 
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Zenbakiak bakarrik sartu.", "Errorea", JOptionPane.ERROR_MESSAGE);
             }
-        });
+        }); 
 
         pnlEmaitzak.add(txtEtxekoa);
         pnlEmaitzak.add(lblGidoia);

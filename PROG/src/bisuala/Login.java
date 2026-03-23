@@ -1,104 +1,109 @@
 package bisuala;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*; 
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import model.*;
-import utils.DatuKarga; 
+import utils.DatuKarga;
 
 public class Login extends JFrame {
-    private static final long serialVersionUID = 1L;
-    
-    private JTextField txtUser;
-    private JPasswordField txtPass;
-    
-    private Federazioa federazioa; 
+	private static final long serialVersionUID = 1L;
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
-            try {
-                Login frame = new Login();
-                frame.setVisible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
+	private JTextField txtUser;
+	private JPasswordField txtPass;
 
-    public Login() {
-        // 1. Datuak kargatu (SOILIK FEDERAZIOA)
-        // DatuKarga.kargatuErabiltzaileak() ez dugu gehiago behar
-        federazioa = DatuKarga.kargatuFederazioaDB(); 
+	private Federazioa federazioa;
 
-        // Federazioa null bada (fitxategia ez da existitzen), sortu berria
-        if (federazioa == null) {
-            federazioa = new Federazioa();
-        }
+	public static void main(String[] args) {
+		EventQueue.invokeLater(() -> {
+			try {
+				Login frame = new Login();
+				frame.setVisible(true);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+	}
 
+	public Login() {
+		// 1. Datuak kargatu (SOILIK FEDERAZIOA)
+		// DatuKarga.kargatuErabiltzaileak() ez dugu gehiago behar
+		federazioa = DatuKarga.kargatuFederazioaDB();
 
-        // 3. Leihoaren konfigurazioa
-        setTitle("Saioa Hasi");
-        setLayout(null);
-        setBounds(100, 100, 400, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setResizable(false);
+		// Federazioa null bada (fitxategia ez da existitzen), sortu berria
+		if (federazioa == null) {
+			federazioa = new Federazioa();
+		}
 
-        // --- UI OSAGAIAK ---
-        JLabel lblUser = new JLabel("Erabiltzailea:");
-        lblUser.setBounds(50, 50, 100, 25);
-        add(lblUser);
+		// 3. Leihoaren konfigurazioa
+		setTitle("Saioa Hasi");
+		setLayout(null);
+		setBounds(100, 100, 400, 300);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
+		setResizable(false);
 
-        txtUser = new JTextField();
-        txtUser.setBounds(150, 50, 150, 25);
-        add(txtUser);
+		// --- UI OSAGAIAK ---
+		JLabel lblUser = new JLabel("Erabiltzailea:");
+		lblUser.setBounds(50, 50, 100, 25);
+		add(lblUser);
 
-        JLabel lblPass = new JLabel("Pasahitza:");
-        lblPass.setBounds(50, 100, 100, 25);
-        add(lblPass);
+		txtUser = new JTextField();
+		txtUser.setBounds(150, 50, 150, 25);
+		add(txtUser);
 
-        txtPass = new JPasswordField();
-        txtPass.setBounds(150, 100, 150, 25);
-        add(txtPass);
+		JLabel lblPass = new JLabel("Pasahitza:");
+		lblPass.setBounds(50, 100, 100, 25);
+		add(lblPass);
 
-        JButton btnLogin = new JButton("Sartu");
-        btnLogin.setBounds(150, 160, 100, 30);
-        btnLogin.setBackground(new Color(70, 130, 180));
-        btnLogin.setForeground(Color.WHITE);
-        add(btnLogin);
-        this.getRootPane().setDefaultButton(btnLogin);
+		txtPass = new JPasswordField();
+		txtPass.setBounds(150, 100, 150, 25);
+		add(txtPass);
 
-        // --- LOGIKA ---
-        btnLogin.addActionListener(e -> {
-            String u = txtUser.getText();
-            String p = new String(txtPass.getPassword());
+		JButton btnLogin = new JButton("Sartu");
+		btnLogin.setBounds(150, 160, 100, 30);
+		btnLogin.setBackground(new Color(70, 130, 180));
+		btnLogin.setForeground(Color.WHITE);
+		add(btnLogin);
+		this.getRootPane().setDefaultButton(btnLogin);
 
-            // Comprobamos el usuario en ObjectDB
-            Erabiltzaile userLogueado = utils.BDOOKudeatzailea.login(u, p);
+		// --- LOGIKA ---
+		btnLogin.addActionListener(e -> {
+			String u = txtUser.getText();
+			String p = new String(txtPass.getPassword());
 
-            if (userLogueado != null) {
-                utils.LogKudeatzailea.gehituLog("Saioa hasi da: " + userLogueado.getErabiltzaile());
-                
-                // IMPORTANTE: Pasamos el usuario de ObjectDB y la federación de MySQL
-                new APP(userLogueado, federazioa).setVisible(true);
-                dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "Datu okerrak, saiatu berriro.", "Errorea", JOptionPane.ERROR_MESSAGE);
-            }
-        });
-    }
+			// Comprobamos el usuario en ObjectDB
+			Erabiltzaile userLogueado = utils.BDOOKudeatzailea.login(u, p);
 
-    private void datuakHasieratuBeharBada() {
-        // Galdera orain Federazioari egiten diogu
-        if (federazioa.getErabiltzaileak().isEmpty()) {
-            
-            ErabiltzailePresi admin = new ErabiltzailePresi("presi", "presi");
-            
-            // Federazioan gorde
-            federazioa.getErabiltzaileak().add(admin);
-           
-            
-            System.out.println("Admin lehenetsia sortu da (presi/presi).");
-        }
-    }
+			if (userLogueado != null) {
+				utils.LogKudeatzailea.gehituLog("Saioa hasi da: " + userLogueado.getErabiltzaile());
+
+				// IMPORTANTE: Pasamos el usuario de ObjectDB y la federación de MySQL
+				new APP(userLogueado, federazioa).setVisible(true);
+				dispose();
+			} else {
+				JOptionPane.showMessageDialog(null, "Datu okerrak, saiatu berriro.", "Errorea",
+						JOptionPane.ERROR_MESSAGE);
+			}
+		});
+	}
+
+	private void datuakHasieratuBeharBada() {
+		// Galdera orain Federazioari egiten diogu
+		if (federazioa.getErabiltzaileak().isEmpty()) {
+
+			ErabiltzailePresi admin = new ErabiltzailePresi("presi", "presi");
+
+			// Federazioan gorde
+			federazioa.getErabiltzaileak().add(admin);
+
+			System.out.println("Admin lehenetsia sortu da (presi/presi).");
+		}
+	}
+	
+   
 }
