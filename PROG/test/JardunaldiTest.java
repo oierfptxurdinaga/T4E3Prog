@@ -29,7 +29,7 @@ class JardunaldiTest {
 		pl = new ArrayList<Partidua>();
 		p = new Partidua(t1, t2);
 		p2 = new Partidua(t2, t1, 2, 2);
-		j2 = new Jardunaldi(0, pl);
+		j2 = new Jardunaldi(0, pl, 0);
 	}
 	@Test
 	void getJardunaldiZbkTest() {

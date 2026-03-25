@@ -27,6 +27,9 @@ public class ErabiltzailePresi extends Erabiltzaile {
 	public ErabiltzailePresi(String erabiltzaile, String pasahitza) {
 		super(erabiltzaile, pasahitza);
 	}
+	public ErabiltzailePresi() {
+		
+	}
 
 	// Getterrak eta setterrak
 	public String getErabiltzaile() {

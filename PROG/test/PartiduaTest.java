@@ -16,8 +16,8 @@ class PartiduaTest {
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		talde1= new Talde("kaixo", "eskutu1", "zelaia1", new ArrayList<>(), "hiri1", true, null, 0);
-		talde2= new Talde("agur", "eskutu2", "zelaia2", new ArrayList<>(), "hiri2", true, null, 0);
+		talde1= new Talde(0, "Talde1", "", "", null, "Hiria1", true, null, 0);
+		talde2= new Talde(0, "Talde2", "", "", null, "Hiria1", true, null, 0);
 		partidu = new Partidua(talde1,talde2);
 	}
 	

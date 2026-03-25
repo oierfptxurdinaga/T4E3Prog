@@ -3,8 +3,6 @@ package bisuala;
 import javax.swing.*;
 import java.awt.event.*;
 import model.Federazioa;
-import utils.DatuKarga;
-import utils.XmlKudeatzailea;
 
 public class ItziKonfirmazioa extends WindowAdapter {
 

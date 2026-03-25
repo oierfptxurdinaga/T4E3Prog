@@ -13,8 +13,8 @@ class TaldeTest {
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		t = new Talde("Talde1", "", "", null, "Hiria1", true, null, 0);
-		j = new Jokalari("Markel", "Abascal", 2002, 13, "Delantero", true);
+		t = new Talde(0, "Talde1", "", "", null, "Hiria1", true, null, 0);
+		j = new Jokalari(0, "Markel", "Abascal", 2002, 13, "Delantero", true, null);
 	}
 	
 	@Test
@@ -26,7 +26,7 @@ class TaldeTest {
 	}
 	@Test
 	void sartuJokalariaMultipleTest() {
-	    Jokalari j2 = new Jokalari("Iker", "Lopez", 2001, 7, "Defensa", true);
+	    Jokalari j2 = new Jokalari(0, "Iker", "Lopez", 2001, 7, "Defensa", true, null);
 
 	    t.sartuJokalaria(j);
 	    t.sartuJokalaria(j2);

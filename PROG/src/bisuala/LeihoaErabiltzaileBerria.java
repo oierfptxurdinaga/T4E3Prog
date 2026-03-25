@@ -2,6 +2,9 @@ package bisuala;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import dao.ErabiltzaileDAO;
+
 import java.awt.*;
 import model.*;
 
@@ -13,6 +16,7 @@ public class LeihoaErabiltzaileBerria extends JDialog {
     private JComboBox<String> cbMota;
     private Federazioa federazioa;
     private APP app;
+    private ErabiltzaileDAO edao;
     
     // Sortutako erabiltzailea hemen gordeko dugu erreferentzia izateko
     private Erabiltzaile sortutakoa = null; 
@@ -94,9 +98,9 @@ public class LeihoaErabiltzaileBerria extends JDialog {
             // Presidentea kasua
             berria = new ErabiltzailePresi(user, pass);
         }
-
-        // 1. Federazioan gorde (ZURE KODEA MANTENDUZ)
-        federazioa.getErabiltzaileak().add(berria);
+        
+        edao = new ErabiltzaileDAO();
+        edao.gordeErabiltzaileaODB(berria);
      // --- LOG ---
         utils.LogKudeatzailea.gehituLog("Erabiltzaile berria sortu da: " + user + " [" + mota + "]");
         // -----------
@@ -108,7 +112,6 @@ public class LeihoaErabiltzaileBerria extends JDialog {
             app.setAldaketakDauden(true);
         }
 
-        JOptionPane.showMessageDialog(this, "Erabiltzailea ondo sortu da!");
         dispose();
     }
     

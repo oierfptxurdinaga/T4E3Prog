@@ -18,7 +18,7 @@ public class PanelPresi extends JPanel {
 
     public PanelPresi(Erabiltzaile erab, Federazioa federazioa, Denboraldia unekoDenboraldia, APP app) {
         this.aplikazioNagusia = app;
-        this.federazioa = federazioa; // Aldagaia gorde
+        this.federazioa = federazioa;
         setLayout(new BorderLayout());
 
         // 1. DATUAK LORTU
@@ -123,19 +123,15 @@ public class PanelPresi extends JPanel {
         // A. IRUDIA
         JLabel lblEskutua = new JLabel();
         String path = "/images/TaldeArmarria/"+t.getEzkutua(); 
-        if (path != null) {
-            URL imgUrl = getClass().getResource(path);
-            if (imgUrl != null) {
-                ImageIcon ikonoOriginala = new ImageIcon(imgUrl);
-                Image irudia = ikonoOriginala.getImage();
-                Image irudiaEskalatuta = irudia.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
-                lblEskutua.setIcon(new ImageIcon(irudiaEskalatuta));
-            } else {
-                lblEskutua.setText("Ez dago");
-            }
-        } else {
-            lblEskutua.setText("Irudirik ez");
-        }
+        URL imgUrl = getClass().getResource(path);
+		if (imgUrl != null) {
+		    ImageIcon ikonoOriginala = new ImageIcon(imgUrl);
+		    Image irudia = ikonoOriginala.getImage();
+		    Image irudiaEskalatuta = irudia.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+		    lblEskutua.setIcon(new ImageIcon(irudiaEskalatuta));
+		} else {
+		    lblEskutua.setText("Ez dago");
+		}
         lblEskutua.setHorizontalAlignment(SwingConstants.CENTER);
 
         JPanel pnlIrudia = new JPanel(new GridBagLayout());

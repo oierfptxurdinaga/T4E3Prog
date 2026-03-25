@@ -33,7 +33,7 @@ class ErabiltzaieEpaileTest {
         ArrayList<Partidua> partiduenLista = new ArrayList<>();
         partiduenLista.add(p);
 
-        j = new Jardunaldi(1, partiduenLista);
+        j = new Jardunaldi(1, partiduenLista, 0);
 
         ArrayList<Jardunaldi> jardunaldiak = new ArrayList<>();
         jardunaldiak.add(j);

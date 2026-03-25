@@ -24,6 +24,10 @@ public class ErabiltzaileAdministraria extends Erabiltzaile {
 	public ErabiltzaileAdministraria(String erabiltzaile, String pasahitza) {
 		super(erabiltzaile, pasahitza);
 	}
+	
+	public ErabiltzaileAdministraria() {
+        super();
+    }
 
 	// Getterrak eta setterrak
 	public String getErabiltzaile() {

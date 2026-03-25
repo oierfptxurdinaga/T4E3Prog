@@ -64,7 +64,7 @@ public class DenboraldiDAO {
 				for (Jardunaldi jardunaldia : denboraldia.getLigakoJardunaldi()) {
 					psJard.setInt(1, jardunaldia.getJardunaldiZbk());
 					psJard.setInt(2, denboraldia.getUrtea());
-					psJard.executeUpdate(); // JARDUNALDIAK EZ DITUGU EGITEN BATCH BERE ZENBAKIA BEHAR DUGULAKO
+					psJard.executeUpdate(); // JARDUNALDIETAN EZ DUGU BATCH EGITEN HAIEN Primary Key BEHAR DUGULAKO
 
 					try (ResultSet rs = psJard.getGeneratedKeys()) {
 						if (rs.next()) {

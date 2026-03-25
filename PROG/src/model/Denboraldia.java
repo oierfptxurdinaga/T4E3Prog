@@ -121,6 +121,13 @@ public class Denboraldia implements Serializable {
     public boolean isDenboraldiaHasiDa() {
         return isHasiDa();
     }
+    
+    public Jardunaldi getJardunaldiID(int zenbakia) {
+        if (zenbakia > 0 && zenbakia <= ligakoJardunaldi.size()) {
+            return ligakoJardunaldi.get(zenbakia - 1);
+        }
+        return null;
+    }
 
     @Override
     public String toString() {

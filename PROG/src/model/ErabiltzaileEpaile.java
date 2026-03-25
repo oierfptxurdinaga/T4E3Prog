@@ -23,6 +23,9 @@ public class ErabiltzaileEpaile extends Erabiltzaile {
 	public ErabiltzaileEpaile(String erabiltzaile, String pasahitza) {
 		super(erabiltzaile, pasahitza);
 	}
+	public ErabiltzaileEpaile() {
+		// TODO Auto-generated constructor stub
+    }
 
 	// getters and setters
 	public String getErabiltzaile() {

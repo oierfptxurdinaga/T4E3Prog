@@ -19,6 +19,7 @@ public class Jardunaldi implements Serializable{
 	/** Objektuaren bertsioa serializazioan kontrolatzeko identifikatzailea */
 	private static final long serialVersionUID = 1L;
 	
+	private int id;
 	@XmlAttribute(name = "zenbakia")
 	private int jardunaldiZbk;
 	
@@ -27,10 +28,19 @@ public class Jardunaldi implements Serializable{
 	
 	public Jardunaldi() {}
 	
-	public Jardunaldi(int jardunaldiZbk, ArrayList<Partidua> partiduak) {
+	public Jardunaldi(int jardunaldiZbk, ArrayList<Partidua> partiduak, int id) {
+		this.id = id;
 		this.jardunaldiZbk = jardunaldiZbk;
 		this.partiduak = partiduak;
 	}
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public Jardunaldi(int jardunaldiZbk) {
         this.jardunaldiZbk = jardunaldiZbk;
         this.partiduak = new ArrayList<>(); 

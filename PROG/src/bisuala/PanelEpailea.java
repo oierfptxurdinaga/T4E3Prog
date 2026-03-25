@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import java.net.URL;
 import model.*;
 
-import bisuala.APP;
 import dao.PartiduaDAO;
 
 public class PanelEpailea extends JPanel {
@@ -203,7 +202,7 @@ public class PanelEpailea extends JPanel {
                     
           
                     boolean ondoGordeta = PartiduaDAO.eguneratuEmaitzaDB(
-                            jardunaldia.getJardunaldiZbk(),
+                            jardunaldia.getId(),
                             p.getEtxekoTaldea().getId(),
                             p.getKanpokoTaldea().getId(),
                             golEtxekoa,
@@ -255,7 +254,7 @@ public class PanelEpailea extends JPanel {
         
         JLabel lblEzkutua = new JLabel();
         if (t.getEzkutua() != null) {
-            URL url = getClass().getResource("/images/"+t.getEzkutua());
+            URL url = getClass().getResource("/images/TaldeArmarria/"+t.getEzkutua());
             if (url != null) {
                 ImageIcon icon = new ImageIcon(url);
                 Image img = icon.getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);

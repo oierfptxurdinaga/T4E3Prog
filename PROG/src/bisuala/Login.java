@@ -1,12 +1,7 @@
 package bisuala;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import model.*;
 import utils.DatuKarga;
 
@@ -91,19 +86,4 @@ public class Login extends JFrame {
 			}
 		});
 	}
-
-	private void datuakHasieratuBeharBada() {
-		// Galdera orain Federazioari egiten diogu
-		if (federazioa.getErabiltzaileak().isEmpty()) {
-
-			ErabiltzailePresi admin = new ErabiltzailePresi("presi", "presi");
-
-			// Federazioan gorde
-			federazioa.getErabiltzaileak().add(admin);
-
-			System.out.println("Admin lehenetsia sortu da (presi/presi).");
-		}
-	}
-	
-   
 }

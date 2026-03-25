@@ -7,7 +7,7 @@ import db.DBConnection;
 
 public class PartiduaDAO {
 
-    public static boolean eguneratuEmaitzaDB(int jardunaldiaId, int etxekoId, int kanpokoId, int etxekoGolak, int kanpokoGolak) {
+    public static boolean eguneratuEmaitzaDB(int jardunaldiId, int etxekoId, int kanpokoId, int etxekoGolak, int kanpokoGolak) {
         String sql = "UPDATE partiduak SET etxeko_golak = ?, kanpoko_golak = ? "
                    + "WHERE id_jardunaldi = ? AND etxeko_taldea_id = ? AND kanpoko_taldea_id = ?";
 
@@ -16,7 +16,7 @@ public class PartiduaDAO {
             
             ps.setInt(1, etxekoGolak);
             ps.setInt(2, kanpokoGolak);
-            ps.setInt(3, jardunaldiaId);
+            ps.setInt(3, jardunaldiId);
             ps.setInt(4, etxekoId);
             ps.setInt(5, kanpokoId);
             

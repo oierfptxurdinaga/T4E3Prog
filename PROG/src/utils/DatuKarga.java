@@ -90,38 +90,50 @@ public class DatuKarga {
 			}
 
 			// --- 5. Partiduak eta sailkapena eguneratu ---
-			String sqlPartiduak = "SELECT p.etxeko_taldea_id, p.kanpoko_taldea_id, "
+			String sqlPartiduak = "SELECT p.id_jardunaldi, p.etxeko_taldea_id, p.kanpoko_taldea_id, "
 					+ "p.etxeko_golak, p.kanpoko_golak, " + "j.zenbakia AS jardunaldia_zenbakia, j.denboraldia_urtea "
 					+ "FROM Partiduak p " + "JOIN Jardunaldiak j ON p.id_jardunaldi = j.id_jardunaldi";
 
 			try (PreparedStatement ps = conn.prepareStatement(sqlPartiduak); ResultSet rs = ps.executeQuery()) {
-				while (rs.next()) {
-					int urtea = rs.getInt("denboraldia_urtea");
-					int etxeId = rs.getInt("etxeko_taldea_id");
-					int kanpoId = rs.getInt("kanpoko_taldea_id");
-					int golE = rs.getInt("etxeko_golak");
-					int golK = rs.getInt("kanpoko_golak");
-					Talde etxe = mapaTaldeak.get(etxeId);
-					Talde kanpo = mapaTaldeak.get(kanpoId);
+			    while (rs.next()) {
+			        int urtea = rs.getInt("denboraldia_urtea");
+			        int etxeId = rs.getInt("etxeko_taldea_id");
+			        int kanpoId = rs.getInt("kanpoko_taldea_id");
+			        int golE = rs.getInt("etxeko_golak");
+			        int golK = rs.getInt("kanpoko_golak");
+			        int idJardunaldi = rs.getInt("id_jardunaldi"); // <--- IDa aldagai batean gorde
+			        int jardunaldiZenbakia = rs.getInt("jardunaldia_zenbakia");
 
-					if (etxe != null && kanpo != null) {
-						Partidua p = new Partidua(etxe, kanpo);
-						p.setEtxekoGolak(golE);
-						p.setKanpokoGolak(golK);
+			        Talde etxe = mapaTaldeak.get(etxeId);
+			        Talde kanpo = mapaTaldeak.get(kanpoId);
 
-						Denboraldia d = mapaDenboraldiak.get(urtea);
-						if (d != null) {
-							d.gehituPartiduaJardunaldira(rs.getInt("jardunaldia_zenbakia"), p);
-							DenboraldiTalde dtEtxe = mapaDenboraldiTaldeak.get(urtea + "-" + etxeId);
-							DenboraldiTalde dtKanpo = mapaDenboraldiTaldeak.get(urtea + "-" + kanpoId);
+			        if (etxe != null && kanpo != null) {
+			            Partidua p = new Partidua(etxe, kanpo);
+			            p.setEtxekoGolak(golE);
+			            p.setKanpokoGolak(golK);
 
-							if (dtEtxe != null && dtKanpo != null && golE != -1) {
-								dtEtxe.emaitzakEguneratu(golE, golK);
-								dtKanpo.emaitzakEguneratu(golK, golE);
-							}
-						}
-					}
-				}
+			            Denboraldia d = mapaDenboraldiak.get(urtea);
+			            if (d != null) {
+			                // 1. Partidua jardunaldian sartu (zure metodoaren arabera)
+			                d.gehituPartiduaJardunaldira(jardunaldiZenbakia, p);
+			                
+			                // 2. GAKOA: Jardunaldi horri bere ID errealak esleitu
+			                // Suposatuz d.getJardunaldiak() metodoak zenbakiaren arabera bilatzeko aukera ematen duela:
+			                Jardunaldi jard = d.getJardunaldiID(jardunaldiZenbakia); 
+			                if (jard != null) {
+			                    jard.setId(idJardunaldi); // <--- Ziurtatu zure Jardunaldia modeloan setId(int id) duzula
+			                }
+
+			                DenboraldiTalde dtEtxe = mapaDenboraldiTaldeak.get(urtea + "-" + etxeId);
+			                DenboraldiTalde dtKanpo = mapaDenboraldiTaldeak.get(urtea + "-" + kanpoId);
+
+			                if (dtEtxe != null && dtKanpo != null && golE != -1) {
+			                    dtEtxe.emaitzakEguneratu(golE, golK);
+			                    dtKanpo.emaitzakEguneratu(golK, golE);
+			                }
+			            }
+			        }
+			    }
 			}
 
 		} catch (SQLException e) {

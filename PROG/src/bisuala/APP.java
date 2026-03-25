@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import model.*;
-import utils.DatuKarga;
 
 public class APP extends JFrame {
 	private static final long serialVersionUID = 1L;

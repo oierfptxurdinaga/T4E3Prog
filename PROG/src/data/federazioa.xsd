@@ -17,6 +17,7 @@
                   <xs:element name="Jaiotze_urtea" type="xs:integer" minOccurs="0"/>
                   <xs:element name="Posizioa" type="xs:string" minOccurs="0"/>
                   <xs:element name="Aktiboa_dago" type="xs:boolean" minOccurs="0"/>
+                  <xs:element name="Argazkia" type="xs:string" minOccurs="0"/>
                 </xs:sequence>
                 <xs:attribute name="Dortsala" type="xs:string" use="optional"/>
               </xs:complexType>
