@@ -20,8 +20,6 @@ public class DatuKarga {
 		// Mapak erlazioak mantentzeko
 		Map<Integer, Talde> mapaTaldeak = new HashMap<>();
 		Map<Integer, Denboraldia> mapaDenboraldiak = new HashMap<>();
-		// GAKOA: Urtea-TaldeId konbinazio bakoitzeko DenboraldiTalde objektua
-		// gordetzeko
 		Map<String, DenboraldiTalde> mapaDenboraldiTaldeak = new HashMap<>();
 
 		try (Connection conn = DBConnection.obtenerConexion()) {
@@ -29,13 +27,13 @@ public class DatuKarga {
 				return federazioa;
 
 			// --- 1. Talde originalak kargatu (datu estatikoak) ---
-			String sqlTaldeak = "SELECT id_talde, izena, ezkutua, futbol_zelaia, hiria, aktiboa_dago, informazioa, sorrera_urtea FROM Taldeak";
+			String sqlTaldeak = "SELECT id_taldea, izena, ezkutua, futbol_zelaia, hiria, aktiboa_dago, informazioa, sorrera_urtea FROM Taldeak";
 			try (PreparedStatement ps = conn.prepareStatement(sqlTaldeak); ResultSet rs = ps.executeQuery()) {
 				while (rs.next()) {
-					Talde t = new Talde(rs.getInt("id_talde"), rs.getString("izena"), rs.getString("ezkutua"),
+					Talde t = new Talde(rs.getInt("id_taldea"), rs.getString("izena"), rs.getString("ezkutua"),
 							rs.getString("futbol_zelaia"), new ArrayList<>(), rs.getString("hiria"),
 							rs.getBoolean("aktiboa_dago"), rs.getString("informazioa"), rs.getInt("sorrera_urtea"));
-					int id = rs.getInt("id_talde");
+					int id = rs.getInt("id_taldea");
 					mapaTaldeak.put(id, t);
 					federazioa.gehituTaldea(t);
 				}
@@ -53,11 +51,11 @@ public class DatuKarga {
 			}
 
 			// --- 3. DENBORALDIKO TALDEAK ---
-			String sqlParticipantes = "SELECT denboraldia_urtea, id_talde FROM Denboraldi_Taldeak";
+			String sqlParticipantes = "SELECT denboraldia_urtea, id_taldea FROM Denboraldi_Taldeak";
 			try (PreparedStatement ps = conn.prepareStatement(sqlParticipantes); ResultSet rs = ps.executeQuery()) {
 				while (rs.next()) {
 					int urtea = rs.getInt("denboraldia_urtea");
-					int taldeId = rs.getInt("id_talde");
+					int taldeId = rs.getInt("id_taldea");
 
 					Talde t = mapaTaldeak.get(taldeId);
 					Denboraldia d = mapaDenboraldiak.get(urtea);
@@ -71,17 +69,15 @@ public class DatuKarga {
 			}
 
 			// --- 4. JOKALARIAK ---
-			String sqlJok = "SELECT id_jokalari, id_talde, izena, abizena, jaiotze_urtea, dortsala, posizioa, aktiboa, argazkia FROM Jokalariak";
+			String sqlJok = "SELECT id_jokalaria, id_taldea, izena, abizena, jaiotze_urtea, dortsala, posizioa, aktiboa, irudia FROM Jokalariak";
 
 			try (PreparedStatement ps = conn.prepareStatement(sqlJok); ResultSet rs = ps.executeQuery()) {
 				while (rs.next()) {
-					Jokalari j = new Jokalari(rs.getInt("id_jokalari"), rs.getString("izena"), rs.getString("abizena"),
+					Jokalari j = new Jokalari(rs.getInt("id_jokalaria"), rs.getString("izena"), rs.getString("abizena"),
 							rs.getInt("jaiotze_urtea"), rs.getInt("dortsala"), rs.getString("posizioa"),
-							rs.getBoolean("aktiboa"), rs.getString("argazkia"));
+							rs.getBoolean("aktiboa"), rs.getString("irudia"));
 
-					int taldeId = rs.getInt("id_talde");
-
-					// Talde "Masterra" bilatu mapan eta jokalaria sartu
+					int taldeId = rs.getInt("id_taldea");
 					Talde t = mapaTaldeak.get(taldeId);
 					if (t != null) {
 						t.sartuJokalaria(j);
@@ -90,9 +86,9 @@ public class DatuKarga {
 			}
 
 			// --- 5. Partiduak eta sailkapena eguneratu ---
-			String sqlPartiduak = "SELECT p.id_jardunaldi, p.etxeko_taldea_id, p.kanpoko_taldea_id, "
+			String sqlPartiduak = "SELECT p.id_jardunaldia, p.etxeko_taldea_id, p.kanpoko_taldea_id, "
 					+ "p.etxeko_golak, p.kanpoko_golak, " + "j.zenbakia AS jardunaldia_zenbakia, j.denboraldia_urtea "
-					+ "FROM Partiduak p " + "JOIN Jardunaldiak j ON p.id_jardunaldi = j.id_jardunaldi";
+					+ "FROM Partiduak p " + "JOIN Jardunaldiak j ON p.id_jardunaldia = j.id_jardunaldia";
 
 			try (PreparedStatement ps = conn.prepareStatement(sqlPartiduak); ResultSet rs = ps.executeQuery()) {
 			    while (rs.next()) {
@@ -101,7 +97,7 @@ public class DatuKarga {
 			        int kanpoId = rs.getInt("kanpoko_taldea_id");
 			        int golE = rs.getInt("etxeko_golak");
 			        int golK = rs.getInt("kanpoko_golak");
-			        int idJardunaldi = rs.getInt("id_jardunaldi"); // <--- IDa aldagai batean gorde
+			        int idJardunaldi = rs.getInt("id_jardunaldia");
 			        int jardunaldiZenbakia = rs.getInt("jardunaldia_zenbakia");
 
 			        Talde etxe = mapaTaldeak.get(etxeId);

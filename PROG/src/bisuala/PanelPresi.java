@@ -8,7 +8,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import model.*;
-
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.io.File;
 public class PanelPresi extends JPanel {
     private static final long serialVersionUID = 1L;
     private final Color LIGHTRED = new Color(219, 175, 175);
@@ -110,7 +113,7 @@ public class PanelPresi extends JPanel {
         add(pnlBotoiak, BorderLayout.SOUTH);
     }
 
-    // --- METODO LAGUNTZAILEA: KODEA GARBIAGO IZATEKO ---
+ // --- METODO LAGUNTZAILEA: KODEA GARBIAGO IZATEKO ---
     private JPanel sortuTaldePanela(Talde t, Color kolorea, boolean jokatzenAriDa) {
         JPanel pnlTaldeaPresi = new JPanel(new BorderLayout(20, 0));
         pnlTaldeaPresi.setBorder(BorderFactory.createCompoundBorder(
@@ -120,25 +123,75 @@ public class PanelPresi extends JPanel {
         pnlTaldeaPresi.setBackground(kolorea);
         pnlTaldeaPresi.setMaximumSize(new Dimension(Integer.MAX_VALUE, 300));
 
-        // A. IRUDIA
+        // A. IRUDIA ETA BOTOIA
         JLabel lblEskutua = new JLabel();
-        String path = "/images/TaldeArmarria/"+t.getEzkutua(); 
+        String path = "/images/TaldeArmarria/" + t.getEzkutua(); 
         URL imgUrl = getClass().getResource(path);
-		if (imgUrl != null) {
-		    ImageIcon ikonoOriginala = new ImageIcon(imgUrl);
-		    Image irudia = ikonoOriginala.getImage();
-		    Image irudiaEskalatuta = irudia.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
-		    lblEskutua.setIcon(new ImageIcon(irudiaEskalatuta));
-		} else {
-		    lblEskutua.setText("Ez dago");
-		}
-        lblEskutua.setHorizontalAlignment(SwingConstants.CENTER);
+        
+ 
+        kargatuEskutua(lblEskutua, imgUrl);
 
-        JPanel pnlIrudia = new JPanel(new GridBagLayout());
-        pnlIrudia.setBackground(kolorea);
-        pnlIrudia.setPreferredSize(new Dimension(100, 100));
-        pnlIrudia.add(lblEskutua);
-        pnlTaldeaPresi.add(pnlIrudia, BorderLayout.WEST);
+        JButton btnAldatuEskutua = new JButton("Aldatu");
+        btnAldatuEskutua.setFont(new Font("Arial", Font.PLAIN, 10));
+        btnAldatuEskutua.setMargin(new Insets(2, 5, 2, 5));
+        btnAldatuEskutua.setFocusPainted(false);
+        
+
+        btnAldatuEskutua.addActionListener(e -> {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Aukeratu " + t.getIzena() + " taldearen ezkutu berria");
+
+            fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Irudiak (PNG, JPG, JPEG)", "png", "jpg", "jpeg"));
+
+            int erantzuna = fileChooser.showOpenDialog(this);
+            if (erantzuna == JFileChooser.APPROVE_OPTION) {
+                File jatorrizkoFitxategia = fileChooser.getSelectedFile();
+                String fitxategiIzena = jatorrizkoFitxategia.getName();
+
+
+                File helmugaFitxategia = new File("src/images/TaldeArmarria", fitxategiIzena);
+                
+                try {
+                    Files.copy(jatorrizkoFitxategia.toPath(), helmugaFitxategia.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    t.setEzkutua(fitxategiIzena);
+                    aplikazioNagusia.setAldaketakDauden(true);
+                    ImageIcon ikonoBerria = new ImageIcon(helmugaFitxategia.getAbsolutePath());
+                    Image irudia = ikonoBerria.getImage();
+                    Image irudiaEskalatuta = irudia.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+                    lblEskutua.setIcon(new ImageIcon(irudiaEskalatuta));
+                    lblEskutua.setText(""); 
+                    
+                    JOptionPane.showMessageDialog(this, 
+                        "Ezkutua ondo aldatu da.\nGogoan izan 'Saioa Itxi' edo 'Gorde' sakatzea aldaketak XML-an mantentzeko.", 
+                        "Ezkutua Aldatuta", 
+                        JOptionPane.INFORMATION_MESSAGE);
+                        
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(this, 
+                        "Errorea irudia gordetzean: " + ex.getMessage(), 
+                        "Errorea", 
+                        JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        JPanel pnlIrudiaBotoia = new JPanel();
+        pnlIrudiaBotoia.setLayout(new BoxLayout(pnlIrudiaBotoia, BoxLayout.Y_AXIS));
+        pnlIrudiaBotoia.setBackground(kolorea);
+        
+        lblEskutua.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnAldatuEskutua.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        pnlIrudiaBotoia.add(Box.createVerticalGlue()); 
+        pnlIrudiaBotoia.add(lblEskutua);
+        pnlIrudiaBotoia.add(Box.createRigidArea(new Dimension(0, 5))); 
+        pnlIrudiaBotoia.add(btnAldatuEskutua);
+        pnlIrudiaBotoia.add(Box.createVerticalGlue());
+
+        pnlIrudiaBotoia.setPreferredSize(new Dimension(100, 130)); 
+        
+        pnlTaldeaPresi.add(pnlIrudiaBotoia, BorderLayout.WEST);
 
         // B. DATUAK
         JPanel pnlDatuak = new JPanel();
@@ -195,5 +248,19 @@ public class PanelPresi extends JPanel {
         pnlTaldeaPresi.add(pnlDatuak, BorderLayout.CENTER);
         
         return pnlTaldeaPresi;
+    }
+
+    // Metodo auxiliar para cargar y escalar la imagen
+    private void kargatuEskutua(JLabel lblEskutua, URL imgUrl) {
+        if (imgUrl != null) {
+            ImageIcon ikonoOriginala = new ImageIcon(imgUrl);
+            Image irudia = ikonoOriginala.getImage();
+            Image irudiaEskalatuta = irudia.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+            lblEskutua.setIcon(new ImageIcon(irudiaEskalatuta));
+            lblEskutua.setText(""); // Quitar texto si hay imagen
+        } else {
+            lblEskutua.setIcon(null);
+            lblEskutua.setText("Ez dago");
+        }
     }
 }

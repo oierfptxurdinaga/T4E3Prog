@@ -25,8 +25,6 @@ public class APP extends JFrame {
 		setBounds(100, 100, 950, 700);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
-
 		// --- GOIKO MENUA ---
 		JPanel pnlGoikoa = new JPanel(new BorderLayout());
 		pnlGoikoa.setBackground(new Color(230, 230, 230));
@@ -47,21 +45,16 @@ public class APP extends JFrame {
 			}
 		}
 		pnlEzkerra.add(cbDenboraldiak);
-		
+
 		JPanel pnlEskubia = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		pnlEskubia.setOpaque(false);
-
-		// --- NUEVO: Botón XML SOLO para Administradores ---
 		if (erabAktiboa instanceof ErabiltzaileAdministraria || erabAktiboa instanceof ErabiltzailePresi) {
-		    JButton btnEsportatuXML = new JButton("Esportatu XML");
-		    btnEsportatuXML.setBackground(new Color(70, 130, 180)); // Un azul elegante
-		    btnEsportatuXML.setForeground(Color.WHITE);
-		    btnEsportatuXML.setFocusPainted(false);
-		    
-		    // Al pulsar, llamamos al método que ya tienes
-		    btnEsportatuXML.addActionListener(e -> gordeDatuak()); 
-		    
-		    pnlEskubia.add(btnEsportatuXML);
+			JButton btnEsportatuXML = new JButton("Esportatu XML");
+			btnEsportatuXML.setBackground(new Color(70, 130, 180));
+			btnEsportatuXML.setForeground(Color.WHITE);
+			btnEsportatuXML.setFocusPainted(false);
+			btnEsportatuXML.addActionListener(e -> gordeDatuak());
+			pnlEskubia.add(btnEsportatuXML);
 		}
 
 		// Botón de Logout (este lo ven todos)
@@ -238,25 +231,22 @@ public class APP extends JFrame {
 	}
 
 	public void gordeDatuak() {
-	    utils.LogKudeatzailea.gehituLog("Datuak gordetzen ...");
-	    utils.XmlKudeatzailea xmlKudeatzailea = new utils.XmlKudeatzailea();
+		utils.LogKudeatzailea.gehituLog("Datuak gordetzen ...");
+		utils.XmlKudeatzailea xmlKudeatzailea = new utils.XmlKudeatzailea();
 
-	    // Exportar el estado actual de la federación a XML
-	    boolean xlmOndoBoolean = xmlKudeatzailea.esportatuXML(this.federazioa, "src/data/federazioa.xml");
+		// Exportar el estado actual de la federación a XML
+		boolean xlmOndoBoolean = xmlKudeatzailea.esportatuXML(this.federazioa, "src/data/federazioa.xml");
 
-	    if (!xlmOndoBoolean) {
-	        utils.LogKudeatzailea.gehituErrorea("Huts egin du XML fitxategia esportatzean.");
-	        JOptionPane.showMessageDialog(this, 
-	            "Errorea egon da XML-a gordetzean.", 
-	            "Errorea", 
-	            JOptionPane.ERROR_MESSAGE);
-	    } else {
-	        utils.LogKudeatzailea.gehituLog("XML esportazioa ondo burutu da.");
-	        JOptionPane.showMessageDialog(this, 
-	            "Datuak ondo esportatu dira XML fitxategira!\n(src/data/federazioa.xml)", 
-	            "Esportazioa Burututa", 
-	            JOptionPane.INFORMATION_MESSAGE);
-	    }
+		if (!xlmOndoBoolean) {
+			utils.LogKudeatzailea.gehituErrorea("Huts egin du XML fitxategia esportatzean.");
+			JOptionPane.showMessageDialog(this, "Errorea egon da XML-a gordetzean.", "Errorea",
+					JOptionPane.ERROR_MESSAGE);
+		} else {
+			utils.LogKudeatzailea.gehituLog("XML esportazioa ondo burutu da.");
+			JOptionPane.showMessageDialog(this,
+					"Datuak ondo esportatu dira XML fitxategira!\n(src/data/federazioa.xml)", "Esportazioa Burututa",
+					JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 
 	// --- IRTEERA KUDEAKETA ---
