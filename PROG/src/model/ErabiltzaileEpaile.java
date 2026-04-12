@@ -4,13 +4,13 @@ import javax.persistence.Entity;
 
 /**
  * Epaile motako erabiltzailea.
- * Erabiltzaile honek jokatutako partiduen emaitzak 
+ * Erabiltzaile honek jokatutako partiduen emaitzak
  * sisteman sartu ahal ditu.
  */
 
 @Entity
 public class ErabiltzaileEpaile extends Erabiltzaile {
-	
+
 	/** Objektuaren bertsioa serializazioan kontrolatzeko identifikatzailea */
 	private static final long serialVersionUID = 1L;
 
@@ -28,22 +28,26 @@ public class ErabiltzaileEpaile extends Erabiltzaile {
     }
 
 	// getters and setters
+	@Override
 	public String getErabiltzaile() {
 		return erabiltzaile;
 	}
+	@Override
 	public void setErabiltzaile(String erabiltzaile) {
 		this.erabiltzaile = erabiltzaile;
 	}
+	@Override
 	public String getPasahitza() {
 		return pasahitza;
 	}
+	@Override
 	public void setPasahitza(String pasahitza) {
 		this.pasahitza = pasahitza;
 	}
 
 	/**
      * Partidu baten emaitza sisteman erregistratzen du.
-     * 
+     *
      * @param denboraldia   Partidua dagokion denboraldia.
      * @param etxekoTaldea  Etxeko taldea.
      * @param kanpokoTaldea Kanpoko taldea.
@@ -52,14 +56,14 @@ public class ErabiltzaileEpaile extends Erabiltzaile {
      */
 	public void sartuEmaitza(Denboraldia denboraldia, Talde etxekoTaldea, Talde kanpokoTaldea, int etxekoGolak,
 			int kanpokoGolak) {
-		for (int i = 0; i < denboraldia.getLigakoJardunaldi().size(); i++) {
-			for (int j = 0; j < denboraldia.getLigakoJardunaldi().get(i).getPartiduak().size(); j++) {
-				if (denboraldia.getLigakoJardunaldi().get(i).getPartiduak().get(j).getEtxekoTaldea()
+		for (Jardunaldi element : denboraldia.getLigakoJardunaldi()) {
+			for (Partidua element2 : element.getPartiduak()) {
+				if (element2.getEtxekoTaldea()
 						.equals(etxekoTaldea)
-						&& denboraldia.getLigakoJardunaldi().get(i).getPartiduak().get(j).getKanpokoTaldea()
+						&& element2.getKanpokoTaldea()
 								.equals(kanpokoTaldea)) {
-					denboraldia.getLigakoJardunaldi().get(i).getPartiduak().get(j).setEtxekoGolak(etxekoGolak);
-					denboraldia.getLigakoJardunaldi().get(i).getPartiduak().get(j).setKanpokoGolak(kanpokoGolak);
+					element2.setEtxekoGolak(etxekoGolak);
+					element2.setKanpokoGolak(kanpokoGolak);
 					return;
 				}
 			}

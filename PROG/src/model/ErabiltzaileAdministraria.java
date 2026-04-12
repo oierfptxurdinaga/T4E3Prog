@@ -11,41 +11,45 @@ import javax.swing.JOptionPane;
 
 @Entity
 public class ErabiltzaileAdministraria extends Erabiltzaile {
-	
+
 	/** Objektuaren bertsioa serializazioan kontrolatzeko identifikatzailea */
 	private static final long serialVersionUID = 1L;
 
 	/**
      * Erabiltzaile Administratzailearen eraikitzailea.
-     * 
+     *
      * @param erabiltzaile Erabiltzaile-izena (login egiteko).
      * @param pasahitza    Sarbide-pasahitza.
      */
 	public ErabiltzaileAdministraria(String erabiltzaile, String pasahitza) {
 		super(erabiltzaile, pasahitza);
 	}
-	
+
 	public ErabiltzaileAdministraria() {
         super();
     }
 
 	// Getterrak eta setterrak
+	@Override
 	public String getErabiltzaile() {
 		return erabiltzaile;
 	}
+	@Override
 	public void setErabiltzaile(String erabiltzaile) {
 		this.erabiltzaile = erabiltzaile;
 	}
+	@Override
 	public String getPasahitza() {
 		return pasahitza;
 	}
+	@Override
 	public void setPasahitza(String pasahitza) {
 		this.pasahitza = pasahitza;
 	}
 
 	/**
 	 * Jokalari bat talde batetik bestera pasatzeko balio du
-	 * 
+	 *
 	 * @param jokalari     Zein jokalari aldatu nahi duzun taldez
 	 * @param taldeZaharra jokalaria dagoen taldea
 	 * @param taldeBerria  jokalria eramango den taldea

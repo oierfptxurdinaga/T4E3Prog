@@ -1,7 +1,8 @@
-package dao; 
+package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
 import db.DBConnection;
 
 public class JokalariDAO {
@@ -11,10 +12,10 @@ public class JokalariDAO {
 
         try (Connection cn = DBConnection.obtenerConexion();
              PreparedStatement ps = cn.prepareStatement(sql)) {
-            
+
             ps.setInt(1, taldeBerriaId);
             ps.setInt(2, jokalariId);
-            
+
             int aldatutakoErrenkadak = ps.executeUpdate();
             return aldatutakoErrenkadak > 0;
 

@@ -1,15 +1,20 @@
 package model;
 
 import java.io.Serializable;
-import jakarta.xml.bind.annotation.*;
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import utils.RutaEzkutuaAdapter;
 /**
  * Liga edo denboraldi bateko partida bat irudikatzen duen klasea.
- * 
+ *
  * Partida batek etxeko taldea eta kanpoko taldea ditu,
  * eta bien artean lortutako gol kopuruak gordetzen ditu.
- * 
+ *
  * Gol kopuruaren balioen arabera, partida jokatu den ala ez
  * zehaztu daiteke.
  */
@@ -26,10 +31,10 @@ public class Partidua implements Serializable {
 
 	/**
      * Golik gabeko partida berri bat sortzen du.
-     * 
+     *
      * Hasieran golak {@code -1} balioarekin ezartzen dira,
      * partida oraindik jokatu ez dela adierazteko.
-     * 
+     *
      * @param etxekoTaldea etxean jokatzen duen taldea
      * @param kanpokoTaldea kanpoan jokatzen duen taldea
      */
@@ -39,9 +44,9 @@ public class Partidua implements Serializable {
 		this.etxekoGolak = -1;
 		this.kanpokoGolak = -1;
 	}
-	
+
 	public Partidua() {}
-	
+
 	@XmlElement(name = "EtxekoTaldea")
     public String getEtxekoIzenaXML() { return etxekoTaldea.getIzena(); }
 
@@ -73,14 +78,14 @@ public class Partidua implements Serializable {
     public static class EmaitzaXML {
         @XmlAttribute(name = "etxekoGolak")
         public int etxekoGolak;
-        
+
         @XmlAttribute(name = "kanpokoGolak")
         public int kanpokoGolak;
 
         public EmaitzaXML() {}
-        public EmaitzaXML(int e, int k) { 
-            this.etxekoGolak = e; 
-            this.kanpokoGolak = k; 
+        public EmaitzaXML(int e, int k) {
+            this.etxekoGolak = e;
+            this.kanpokoGolak = k;
         }
     }
 
@@ -101,10 +106,10 @@ public class Partidua implements Serializable {
 
 	/**
      * Partida jokatu den ala ez adierazten du.
-     * 
+     *
      * Bi taldeetako golak balioz ezarrita badaude,
      * partida jokatu dela ulertzen da.
-     * 
+     *
      * @return {@code true} partida jokatu bada; bestela {@code false}
      */
 	public boolean jokatutaDago() {

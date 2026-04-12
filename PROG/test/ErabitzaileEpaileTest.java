@@ -1,23 +1,27 @@
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import model.*;
-
-import java.util.ArrayList;
+import model.Denboraldia;
+import model.ErabiltzaileEpaile;
+import model.Jardunaldi;
+import model.Partidua;
+import model.Talde;
 
 class ErabiltzaieEpaileTest {
-	
+
 	private ErabiltzaileEpaile e;
-	
+
 	private Talde T1;
 	private Talde T2;
 	private Denboraldia d;
 	private Jardunaldi j;
 	private Partidua p;
-	
-	
+
+
 	@BeforeEach
     void setUp() throws Exception {
         e = new ErabiltzaileEpaile("kaixo", "kaixo123");

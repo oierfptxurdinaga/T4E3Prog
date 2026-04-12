@@ -4,7 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap; // <--- Hau gehitu
 import java.util.Map;     // <--- Hau gehitu
-import jakarta.xml.bind.annotation.*;
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElementWrapper;
 
 /**
  * Liga bateko denboraldi bat irudikatzen duen klasea.
@@ -20,18 +25,18 @@ public class Denboraldia implements Serializable {
 
 	/** Objektuaren bertsioa serializazioan kontrolatzeko identifikatzailea */
     private static final long serialVersionUID = 1L;
-    
+
     @XmlAttribute(name = "urtea")
     private int urtea;
-    
+
     @XmlElementWrapper(name = "DenboraldikoTaldeak")
     @XmlElement(name = "Talde")
     private ArrayList<DenboraldiTalde> ligakoTaldeak;
-    
+
     @XmlElementWrapper(name = "Jardunaldiak")
     @XmlElement(name = "Jardunaldi")
     private ArrayList<Jardunaldi> ligakoJardunaldi;
-    
+
     public Denboraldia() {}
 
     public Denboraldia(int urtea) {
@@ -46,7 +51,7 @@ public class Denboraldia implements Serializable {
     public void setLigakoTaldeak(ArrayList<DenboraldiTalde> ligakoTaldeak) { this.ligakoTaldeak = ligakoTaldeak; }
     public ArrayList<Jardunaldi> getLigakoJardunaldi() { return ligakoJardunaldi; }
     public void setLigakoJardunaldi(ArrayList<Jardunaldi> ligakoJardunaldi) { this.ligakoJardunaldi = ligakoJardunaldi; }
-    
+
     public void addJardunaldia(Jardunaldi j) { this.ligakoJardunaldi.add(j); }
     public void gehituDenboraldiTaldea(DenboraldiTalde dt) {
         if (this.ligakoTaldeak == null) {
@@ -56,8 +61,8 @@ public class Denboraldia implements Serializable {
     }
 
     /**
-     * Método de compatibilidad (EL ANTIGUO): 
-     * Si alguna parte del programa (como los tests) le pasa un Talde normal, 
+     * Método de compatibilidad (EL ANTIGUO):
+     * Si alguna parte del programa (como los tests) le pasa un Talde normal,
      * este método crea la caja automáticamente y llama al método de arriba.
      */
     public void gehituTaldea(Talde t) {
@@ -112,7 +117,7 @@ public class Denboraldia implements Serializable {
         }
         return true;
     }
-    
+
     /**
      * PanelAdmin-ekin bateragarritasuna mantentzeko erabilitako metodoa.
      *
@@ -121,7 +126,7 @@ public class Denboraldia implements Serializable {
     public boolean isDenboraldiaHasiDa() {
         return isHasiDa();
     }
-    
+
     public Jardunaldi getJardunaldiID(int zenbakia) {
         if (zenbakia > 0 && zenbakia <= ligakoJardunaldi.size()) {
             return ligakoJardunaldi.get(zenbakia - 1);
@@ -133,7 +138,7 @@ public class Denboraldia implements Serializable {
     public String toString() {
         return String.valueOf(urtea);
     }
-    
+
     /**
      * Uneko sailkapena kalkulatzen du jokatutako partiduen emaitzetan oinarrituta.
      *
@@ -161,7 +166,9 @@ public class Denboraldia implements Serializable {
                 if (j.getPartiduak() != null) {
                     for (Partidua p : j.getPartiduak()) {
                         // Jokatu gabe badago, hurrengoa
-                        if (!p.jokatutaDago()) continue;
+                        if (!p.jokatutaDago()) {
+							continue;
+						}
 
                         String localNom = p.getEtxekoTaldea().getIzena().trim();
                         String visitNom = p.getKanpokoTaldea().getIzena().trim();
@@ -181,14 +188,14 @@ public class Denboraldia implements Serializable {
         // Zerrenda itzuli
         return new ArrayList<>(statsMap.values());
     }
-    
+
     public void gehituPartiduaJardunaldira(int jardunaldiZenbakia, Partidua p) {
         if (this.ligakoJardunaldi == null) {
             this.ligakoJardunaldi = new ArrayList<>();
         }
 
         Jardunaldi aurkitutakoa = null;
-        
+
         // Bilatu ea jardunaldia existitzen den zerrendan
         for (Jardunaldi j : this.ligakoJardunaldi) {
             if (j.getJardunaldiZbk() == jardunaldiZenbakia) {

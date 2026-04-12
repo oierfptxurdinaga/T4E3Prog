@@ -1,22 +1,28 @@
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import model.*;
-
-import java.util.ArrayList;
+import model.Jokalari;
+import model.Talde;
 
 class TaldeTest {
 	private Talde t;
 	private Jokalari j;
-	
+
 	@BeforeEach
 	void setUp() throws Exception {
 		t = new Talde(0, "Talde1", "", "", null, "Hiria1", true, null, 0);
 		j = new Jokalari(0, "Markel", "Abascal", 2002, 13, "Delantero", true, null);
 	}
-	
+
 	@Test
 	void sartuJokalariaTest() {
 		assertNull(t.getJokalariak());
@@ -43,7 +49,7 @@ class TaldeTest {
 	    assertEquals(1, t.getJokalariak().size());
 	    assertNull(t.getJokalariak().get(0));
 	}
-	
+
 	@Test
 	void aldatuEzkutua() {
 		t.setEzkutua("Beltza");
@@ -73,12 +79,12 @@ class TaldeTest {
 	}
 	@Test
 	void setJokalariakTest(){
-		ArrayList<Jokalari> jokalariTest = new ArrayList<Jokalari>();
+		ArrayList<Jokalari> jokalariTest = new ArrayList<>();
 		jokalariTest.add(j);
 		t.setJokalariak(jokalariTest);
 		assertEquals(jokalariTest, t.getJokalariak());
 	}
-	
+
 	@Test
 	void setGetAktiboaDagoTest(){
 		t.setAktiboaDago(false);
@@ -95,7 +101,7 @@ class TaldeTest {
 		assertTrue(t.equals(t));
 		assertFalse(t.equals(null));
 		assertFalse(t.equals("String"));
-		
+
 		Talde desberdinaTalde = new Talde();
 	    desberdinaTalde.setIzena("Real Sociedad");
 	    assertFalse(t.equals(desberdinaTalde));
@@ -108,19 +114,19 @@ class TaldeTest {
 		assertNotSame(t, kopiaTalde);
 		assertEquals(t.getIzena(), kopiaTalde.getIzena());
 		assertEquals(1, kopiaTalde.getJokalariak().size());
-		
+
 		t.setJokalariak(null);
 		Talde nullTalde = t.kopiatu();
 		assertNotNull(nullTalde);
 		assertNotNull(nullTalde.getJokalariak());
 		assertTrue(nullTalde.getJokalariak().isEmpty());
 	}
-	
+
 	@Test
 	void toStringTest() {
 		assertEquals(t.toString(),"Talde1");
 	}
-	
+
 	@Test
 	void hashCodeIgualParaMismoIzena() {
 	    Talde t2 = new Talde();

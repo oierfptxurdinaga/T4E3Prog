@@ -1,29 +1,52 @@
 package bisuala;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Insets;
 import java.util.ArrayList;
-import model.*;
+
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+import model.Erabiltzaile;
+import model.Federazioa;
+import model.Jokalari;
+import model.Talde;
 
 public class PanelAdmin extends JPanel {
 
     private static final long serialVersionUID = 1L;
 
     private APP app;
-    private Federazioa federazioa;          
-    private ArrayList<Talde> taldeAktiboak; 
-    
+    private Federazioa federazioa;
+    private ArrayList<Talde> taldeAktiboak;
+
     // UI Osagaiak
     private JComboBox<Talde> comboEzkerra;
     private JComboBox<Talde> comboEskuma;
-    
+
     private DefaultListModel<Jokalari> modelEzkerra;
     private DefaultListModel<Jokalari> modelEskuma;
-    
+
     private JList<Jokalari> listEzkerra;
     private JList<Jokalari> listEskuma;
-    
+
     private JButton btnMugituEskuinera;
     private JButton btnMugituEzkerrera;
 
@@ -56,7 +79,7 @@ public class PanelAdmin extends JPanel {
         modelEzkerra = new DefaultListModel<>();
         listEzkerra = sortuJokalariLista(modelEzkerra);
         pnlEzkerra.add(new JScrollPane(listEzkerra), BorderLayout.CENTER);
-        
+
         // BOTOIAK
         JPanel pnlBotoiak = new JPanel(new GridBagLayout());
         pnlBotoiak.setOpaque(false);
@@ -80,7 +103,7 @@ public class PanelAdmin extends JPanel {
         panelNagusia.add(pnlEzkerra);
         panelNagusia.add(pnlBotoiak);
         panelNagusia.add(pnlEskuma);
-        
+
         add(panelNagusia, BorderLayout.CENTER);
 
         // LISTENERS
@@ -89,8 +112,12 @@ public class PanelAdmin extends JPanel {
         btnMugituEskuinera.addActionListener(e -> mugituJokalaria(true));
         btnMugituEzkerrera.addActionListener(e -> mugituJokalaria(false));
 
-        if (comboEzkerra.getItemCount() > 0) comboEzkerra.setSelectedIndex(0);
-        if (comboEskuma.getItemCount() > 1) comboEskuma.setSelectedIndex(1);
+        if (comboEzkerra.getItemCount() > 0) {
+			comboEzkerra.setSelectedIndex(0);
+		}
+        if (comboEskuma.getItemCount() > 1) {
+			comboEskuma.setSelectedIndex(1);
+		}
     }
 
     // --- METODO LAGUNTZAILEAK ---
@@ -133,7 +160,9 @@ public class PanelAdmin extends JPanel {
         model.clear();
         Talde t = (Talde) combo.getSelectedItem();
         if (t != null && t.getJokalariak() != null) {
-            for (Jokalari j : t.getJokalariak()) model.addElement(j);
+            for (Jokalari j : t.getJokalariak()) {
+				model.addElement(j);
+			}
         }
     }
 
@@ -150,14 +179,16 @@ public class PanelAdmin extends JPanel {
         JList<Jokalari> jatorrizkoLista = eskuinera ? listEzkerra : listEskuma;
         DefaultListModel<Jokalari> jatorrizkoModel = eskuinera ? modelEzkerra : modelEskuma;
         DefaultListModel<Jokalari> helburuModel = eskuinera ? modelEskuma : modelEzkerra;
-        
+
         Talde jatorrizkoTaldea = (Talde) (eskuinera ? comboEzkerra.getSelectedItem() : comboEskuma.getSelectedItem());
         Talde helburuTaldea = (Talde) (eskuinera ? comboEskuma.getSelectedItem() : comboEzkerra.getSelectedItem());
         Jokalari hautatua = jatorrizkoLista.getSelectedValue();
 
-        if (hautatua == null || jatorrizkoTaldea == null || helburuTaldea == null) return;
+        if (hautatua == null || jatorrizkoTaldea == null || helburuTaldea == null) {
+			return;
+		}
 
-        // 1. MUGIMENDUA ORAIN 
+        // 1. MUGIMENDUA ORAIN
         jatorrizkoTaldea.getJokalariak().remove(hautatua);
         helburuTaldea.sartuJokalaria(hautatua);
 
@@ -165,20 +196,22 @@ public class PanelAdmin extends JPanel {
         jatorrizkoModel.removeElement(hautatua);
         helburuModel.addElement(hautatua);
 
-        // 2. MUGIMENDUA ETORKIZUNERAKO 
+        // 2. MUGIMENDUA ETORKIZUNERAKO
         aplikatuAldaketaFederazioan(jatorrizkoTaldea, helburuTaldea, hautatua);
 
-        // 3. --- DATU-BASEAN EGUNERATU --- 
+        // 3. --- DATU-BASEAN EGUNERATU ---
         boolean ondoGordeta = dao.JokalariDAO.aldatuJokalariarenTaldeaDB(hautatua.getId(), helburuTaldea.getId());
-        
+
         if (ondoGordeta) {
-            if (app != null) app.setAldaketakDauden(true);
+            if (app != null) {
+				app.setAldaketakDauden(true);
+			}
             utils.LogKudeatzailea.gehituLog("DB EGUNERAKETA: " + hautatua.getIzena() + " " + hautatua.getAbizena() + " - " + hautatua.getDortsala() + " jokalariaren taldea aldatu da.");
         } else {
             // Datu-baseak huts egiten badu, abisua eman
-            JOptionPane.showMessageDialog(this, 
-                "Errorea egon da jokalaria datu-basean eguneratzean.", 
-                "Errorea DBan", 
+            JOptionPane.showMessageDialog(this,
+                "Errorea egon da jokalaria datu-basean eguneratzean.",
+                "Errorea DBan",
                 JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -188,16 +221,20 @@ public class PanelAdmin extends JPanel {
         // 1. Bilatu benetako taldeak Federazioan (Izena erabiliz)
         Talde masterOrig = null;
         Talde masterDest = null;
-        
+
         for(Talde t : federazioa.getTaldeGuztiak()) {
-            if(t.getIzena().equals(tOrig.getIzena())) masterOrig = t;
-            if(t.getIzena().equals(tDest.getIzena())) masterDest = t;
+            if(t.getIzena().equals(tOrig.getIzena())) {
+				masterOrig = t;
+			}
+            if(t.getIzena().equals(tDest.getIzena())) {
+				masterDest = t;
+			}
         }
 
         // 2. Taldeak aurkitu badira, bilatu jokalaria
         if(masterOrig != null && masterDest != null) {
             Jokalari masterJok = null;
-            
+
             // Jokalaria bilatu behar dugu izenaren eta abizenaren bidez (objektu ezberdinak direlako)
             for(Jokalari j : masterOrig.getJokalariak()) {
                 if(j.getIzena().equals(jok.getIzena()) && j.getAbizena().equals(jok.getAbizena())) {
@@ -214,7 +251,7 @@ public class PanelAdmin extends JPanel {
                 masterDest.getJokalariak().add(masterJok);
 
                 // --- LOG ---
-                String logMezua = "FITXAKETA: " + masterJok.getIzena() + " " + masterJok.getAbizena() + 
+                String logMezua = "FITXAKETA: " + masterJok.getIzena() + " " + masterJok.getAbizena() +
                                   " mugitu da (" + masterOrig.getIzena() + " -> " + masterDest.getIzena() + ")";
                 utils.LogKudeatzailea.gehituLog(logMezua);
                 // -----------

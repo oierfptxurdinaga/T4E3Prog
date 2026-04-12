@@ -2,14 +2,18 @@ package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import jakarta.xml.bind.annotation.*;
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
 
 /**
  * Liga edo denboraldi bateko jardunaldi bat irudikatzen duen klasea.
- * 
+ *
  * Jardunaldiak zenbaki baten bidez identifikatzen dira eta barnean
  * partida guztiak gordetzen ditu.
- * 
+ *
  * Partidak gehitzeko eta kudeatzeko metodoak eskaintzen ditu.
  */
 
@@ -18,16 +22,16 @@ public class Jardunaldi implements Serializable{
 
 	/** Objektuaren bertsioa serializazioan kontrolatzeko identifikatzailea */
 	private static final long serialVersionUID = 1L;
-	
+
 	private int id;
 	@XmlAttribute(name = "zenbakia")
 	private int jardunaldiZbk;
-	
+
 	@XmlElement(name = "Partidua")
 	private ArrayList<Partidua> partiduak;
-	
+
 	public Jardunaldi() {}
-	
+
 	public Jardunaldi(int jardunaldiZbk, ArrayList<Partidua> partiduak, int id) {
 		this.id = id;
 		this.jardunaldiZbk = jardunaldiZbk;
@@ -43,9 +47,9 @@ public class Jardunaldi implements Serializable{
 
 	public Jardunaldi(int jardunaldiZbk) {
         this.jardunaldiZbk = jardunaldiZbk;
-        this.partiduak = new ArrayList<>(); 
+        this.partiduak = new ArrayList<>();
     }
-	
+
 	//getters and setters
 	public int getJardunaldiZbk() {
 		return jardunaldiZbk;
@@ -62,7 +66,7 @@ public class Jardunaldi implements Serializable{
 
 	/**
      * Partida berri bat jardunaldian gehitzen du.
-     * 
+     *
      * Barneko lista automatikoki sortzen da {@code null} bada.
      *
      * @param p gehitu nahi den partida

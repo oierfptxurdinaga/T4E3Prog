@@ -1,23 +1,46 @@
 package bisuala;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Insets;
+import java.io.File;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import model.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
-import java.io.File;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+import model.DenboraldiTalde;
+import model.Denboraldia;
+import model.Erabiltzaile;
+import model.Federazioa;
+import model.Jokalari;
+import model.Talde;
 public class PanelPresi extends JPanel {
     private static final long serialVersionUID = 1L;
     private final Color LIGHTRED = new Color(219, 175, 175);
     private final Color LIGHTGREEN = new Color(218, 245, 213);
     private APP aplikazioNagusia;
-    private Federazioa federazioa; 
+    private Federazioa federazioa;
 
     public PanelPresi(Erabiltzaile erab, Federazioa federazioa, Denboraldia unekoDenboraldia, APP app) {
         this.aplikazioNagusia = app;
@@ -44,16 +67,16 @@ public class PanelPresi extends JPanel {
         pnlZerrenda.setLayout(new BoxLayout(pnlZerrenda, BoxLayout.Y_AXIS));
 
         if (taldeGuztiak != null && !taldeGuztiak.isEmpty()) {
-            
+
             // 1. Kopia eta Ordenaketa
             ArrayList<Talde> taldeOrdenatuak = new ArrayList<>(taldeGuztiak);
-            
+
             Collections.sort(taldeOrdenatuak, new Comparator<Talde>() {
                 @Override
                 public int compare(Talde t1, Talde t2) {
                     boolean t1Jokatzen = taldeJokatzen.contains(t1);
                     boolean t2Jokatzen = taldeJokatzen.contains(t2);
-                    
+
                     if (t1Jokatzen && !t2Jokatzen) {
                         return -1; // t1 goian
                     } else if (!t1Jokatzen && t2Jokatzen) {
@@ -68,13 +91,13 @@ public class PanelPresi extends JPanel {
             for (Talde t : taldeOrdenatuak) {
                 boolean jokatzenAriDa = taldeJokatzen.contains(t);
                 Color kolorea = jokatzenAriDa ? LIGHTGREEN : LIGHTRED;
-                
+
                 // --- TALDEAREN EDUKIA ---
                 JPanel pnlTaldeaPresi = sortuTaldePanela(t, kolorea, jokatzenAriDa);
                 pnlZerrenda.add(pnlTaldeaPresi);
             }
         }
-        
+
         // ScrollPane gehitu (BEHIN BAKARRIK)
         JScrollPane scroll = new JScrollPane(pnlZerrenda);
         scroll.getVerticalScrollBar().setUnitIncrement(20);
@@ -82,7 +105,7 @@ public class PanelPresi extends JPanel {
 
         // --- BOTOIAK (SOUTH) ---
         JPanel pnlBotoiak = new JPanel();
-        
+
         // 1. Botoia: Denboraldia Hasi
         JButton btnHasi = new JButton("Denboraldia hasi");
         btnHasi.addActionListener(e -> {
@@ -91,7 +114,7 @@ public class PanelPresi extends JPanel {
 
             if (leihoa.isOndoSortuDa()) {
                 aplikazioNagusia.interfazeaFreskatu();
-                aplikazioNagusia.setAldaketakDauden(true); 
+                aplikazioNagusia.setAldaketakDauden(true);
             }
         });
         pnlBotoiak.add(btnHasi);
@@ -100,12 +123,12 @@ public class PanelPresi extends JPanel {
         JButton btnUserBerria = new JButton("Erabiltzaile Berria");
         btnUserBerria.setBackground(new Color(70, 130, 180));
         btnUserBerria.setForeground(Color.WHITE);
-        
+
         btnUserBerria.addActionListener(e -> {
             LeihoaErabiltzaileBerria leihoaUser = new LeihoaErabiltzaileBerria(aplikazioNagusia, federazioa, aplikazioNagusia);
             leihoaUser.setVisible(true);
         });
-        
+
         // Espazio txiki bat botoien artean
         pnlBotoiak.add(Box.createHorizontalStrut(20));
         pnlBotoiak.add(btnUserBerria);
@@ -119,23 +142,23 @@ public class PanelPresi extends JPanel {
         pnlTaldeaPresi.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createMatteBorder(0, 0, 2, 0, new Color(220, 220, 220)),
                 new EmptyBorder(15, 10, 15, 10)));
-        
+
         pnlTaldeaPresi.setBackground(kolorea);
         pnlTaldeaPresi.setMaximumSize(new Dimension(Integer.MAX_VALUE, 300));
 
         // A. IRUDIA ETA BOTOIA
         JLabel lblEskutua = new JLabel();
-        String path = "/images/TaldeArmarria/" + t.getEzkutua(); 
+        String path = "/images/TaldeArmarria/" + t.getEzkutua();
         URL imgUrl = getClass().getResource(path);
-        
- 
+
+
         kargatuEskutua(lblEskutua, imgUrl);
 
         JButton btnAldatuEskutua = new JButton("Aldatu");
         btnAldatuEskutua.setFont(new Font("Arial", Font.PLAIN, 10));
         btnAldatuEskutua.setMargin(new Insets(2, 5, 2, 5));
         btnAldatuEskutua.setFocusPainted(false);
-        
+
 
         btnAldatuEskutua.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser();
@@ -150,7 +173,7 @@ public class PanelPresi extends JPanel {
 
 
                 File helmugaFitxategia = new File("src/images/TaldeArmarria", fitxategiIzena);
-                
+
                 try {
                     Files.copy(jatorrizkoFitxategia.toPath(), helmugaFitxategia.toPath(), StandardCopyOption.REPLACE_EXISTING);
                     t.setEzkutua(fitxategiIzena);
@@ -159,18 +182,18 @@ public class PanelPresi extends JPanel {
                     Image irudia = ikonoBerria.getImage();
                     Image irudiaEskalatuta = irudia.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
                     lblEskutua.setIcon(new ImageIcon(irudiaEskalatuta));
-                    lblEskutua.setText(""); 
-                    
-                    JOptionPane.showMessageDialog(this, 
-                        "Ezkutua ondo aldatu da.\nGogoan izan 'Saioa Itxi' edo 'Gorde' sakatzea aldaketak XML-an mantentzeko.", 
-                        "Ezkutua Aldatuta", 
+                    lblEskutua.setText("");
+
+                    JOptionPane.showMessageDialog(this,
+                        "Ezkutua ondo aldatu da.\nGogoan izan 'Saioa Itxi' edo 'Gorde' sakatzea aldaketak XML-an mantentzeko.",
+                        "Ezkutua Aldatuta",
                         JOptionPane.INFORMATION_MESSAGE);
-                        
+
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    JOptionPane.showMessageDialog(this, 
-                        "Errorea irudia gordetzean: " + ex.getMessage(), 
-                        "Errorea", 
+                    JOptionPane.showMessageDialog(this,
+                        "Errorea irudia gordetzean: " + ex.getMessage(),
+                        "Errorea",
                         JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -179,18 +202,18 @@ public class PanelPresi extends JPanel {
         JPanel pnlIrudiaBotoia = new JPanel();
         pnlIrudiaBotoia.setLayout(new BoxLayout(pnlIrudiaBotoia, BoxLayout.Y_AXIS));
         pnlIrudiaBotoia.setBackground(kolorea);
-        
+
         lblEskutua.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnAldatuEskutua.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
-        pnlIrudiaBotoia.add(Box.createVerticalGlue()); 
+
+        pnlIrudiaBotoia.add(Box.createVerticalGlue());
         pnlIrudiaBotoia.add(lblEskutua);
-        pnlIrudiaBotoia.add(Box.createRigidArea(new Dimension(0, 5))); 
+        pnlIrudiaBotoia.add(Box.createRigidArea(new Dimension(0, 5)));
         pnlIrudiaBotoia.add(btnAldatuEskutua);
         pnlIrudiaBotoia.add(Box.createVerticalGlue());
 
-        pnlIrudiaBotoia.setPreferredSize(new Dimension(100, 130)); 
-        
+        pnlIrudiaBotoia.setPreferredSize(new Dimension(100, 130));
+
         pnlTaldeaPresi.add(pnlIrudiaBotoia, BorderLayout.WEST);
 
         // B. DATUAK
@@ -207,7 +230,7 @@ public class PanelPresi extends JPanel {
         lblInfo.setFont(new Font("Arial", Font.PLAIN, 12));
         lblInfo.setForeground(Color.GRAY);
         lblInfo.setAlignmentX(Component.LEFT_ALIGNMENT);
-        
+
         String egoeraTestua = jokatzenAriDa ? "(Ligan Inskribatuta)" : "(Ez du jokatzen denboraldi honetan)";
         JLabel lblEgoera = new JLabel(egoeraTestua);
         lblEgoera.setFont(new Font("Arial", Font.ITALIC, 10));
@@ -233,7 +256,7 @@ public class PanelPresi extends JPanel {
 
         if (t.getJokalariak() != null && !t.getJokalariak().isEmpty()) {
             for (Jokalari j : t.getJokalariak()) {
-                String testua = "• " + j.getDortsala() + " - " + j.getIzena() + " (" + j.getPosizio() + ")"; 
+                String testua = "• " + j.getDortsala() + " - " + j.getIzena() + " (" + j.getPosizio() + ")";
                 JLabel lblJokalari = new JLabel(testua);
                 lblJokalari.setFont(new Font("Segoe UI", Font.PLAIN, 12));
                 lblJokalari.setHorizontalAlignment(SwingConstants.LEFT);
@@ -246,7 +269,7 @@ public class PanelPresi extends JPanel {
         }
         pnlDatuak.add(pnlJokalariak);
         pnlTaldeaPresi.add(pnlDatuak, BorderLayout.CENTER);
-        
+
         return pnlTaldeaPresi;
     }
 

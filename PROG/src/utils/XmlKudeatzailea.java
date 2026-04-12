@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Marshaller;
-import model.Federazioa; 
+import model.Federazioa;
 
 public class XmlKudeatzailea {
 
@@ -25,7 +25,7 @@ public class XmlKudeatzailea {
                 writer.write("<?xml-model href=\"federazioa.xsd\" type=\"application/xml\" schematypens=\"http://www.w3.org/2001/XMLSchema\"?>\n");
                 marshaller.marshal(federazioa, writer);
             }
-            
+
             return true;
 
         } catch (Exception e) {

@@ -1,9 +1,6 @@
 package model;
 
-import java.util.ArrayList;
-
 import javax.persistence.Entity;
-import javax.swing.JOptionPane;
 
 /**
  * Presidente motako erabiltzailea irudikatzen duen klasea.
@@ -28,20 +25,24 @@ public class ErabiltzailePresi extends Erabiltzaile {
 		super(erabiltzaile, pasahitza);
 	}
 	public ErabiltzailePresi() {
-		
+
 	}
 
 	// Getterrak eta setterrak
+	@Override
 	public String getErabiltzaile() {
 		return erabiltzaile;
 	}
+	@Override
 	public void setErabiltzaile(String erabiltzaile) {
 		this.erabiltzaile = erabiltzaile;
 	}
+	@Override
 	public String getPasahitza() {
 		return pasahitza;
 	}
+	@Override
 	public void setPasahitza(String pasahitza) {
 		this.pasahitza = pasahitza;
-	}	
+	}
 }

@@ -1,12 +1,27 @@
 package bisuala;
 
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import dao.ErabiltzaileDAO;
-
-import java.awt.*;
-import model.*;
+import model.Erabiltzaile;
+import model.ErabiltzaileAdministraria;
+import model.ErabiltzaileEpaile;
+import model.ErabiltzailePresi;
+import model.Federazioa;
 
 public class LeihoaErabiltzaileBerria extends JDialog {
 
@@ -17,9 +32,9 @@ public class LeihoaErabiltzaileBerria extends JDialog {
     private Federazioa federazioa;
     private APP app;
     private ErabiltzaileDAO edao;
-    
+
     // Sortutako erabiltzailea hemen gordeko dugu erreferentzia izateko
-    private Erabiltzaile sortutakoa = null; 
+    private Erabiltzaile sortutakoa = null;
 
     public LeihoaErabiltzaileBerria(JFrame parent, Federazioa federazioa, APP app) {
         super(parent, "Erabiltzaile Berria", true); // true = MODAL
@@ -56,12 +71,12 @@ public class LeihoaErabiltzaileBerria extends JDialog {
         JPanel pnlBotoiak = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton btnUtzi = new JButton("Utzi");
         JButton btnGorde = new JButton("Gorde");
-        
+
         btnGorde.setBackground(new Color(46, 139, 87));
         btnGorde.setForeground(Color.WHITE);
 
         btnUtzi.addActionListener(e -> dispose());
-        
+
         btnGorde.addActionListener(e -> gordeErabiltzailea());
 
         pnlBotoiak.add(btnUtzi);
@@ -91,14 +106,14 @@ public class LeihoaErabiltzaileBerria extends JDialog {
         // Objektua sortu
         Erabiltzaile berria;
         if (mota.equals("Administraria")) {
-            berria = new ErabiltzaileAdministraria(user, pass); 
+            berria = new ErabiltzaileAdministraria(user, pass);
         } else if (mota.equals("Epailea")) {
             berria = new ErabiltzaileEpaile(user, pass);
         } else {
             // Presidentea kasua
             berria = new ErabiltzailePresi(user, pass);
         }
-        
+
         edao = new ErabiltzaileDAO();
         edao.gordeErabiltzaileaODB(berria);
      // --- LOG ---
@@ -106,7 +121,7 @@ public class LeihoaErabiltzaileBerria extends JDialog {
         // -----------
         JOptionPane.showMessageDialog(this, "Erabiltzailea ondo sortu da!");
         this.sortutakoa = berria; // Erreferentzia gorde
-        
+
         // 2. Aldaketak markatu APP-an
         if (app != null) {
             app.setAldaketakDauden(true);
@@ -114,7 +129,7 @@ public class LeihoaErabiltzaileBerria extends JDialog {
 
         dispose();
     }
-    
+
     // METODO HAU BEHARREZKOA DA PanelPresi ez kexatzeko
     public Erabiltzaile getErabiltzaileBerria() {
         return this.sortutakoa;

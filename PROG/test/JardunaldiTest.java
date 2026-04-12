@@ -1,12 +1,11 @@
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import model.Denboraldia;
-import model.Federazioa;
 import model.Jardunaldi;
 import model.Partidua;
 import model.Talde;
@@ -19,14 +18,14 @@ class JardunaldiTest {
 	private Partidua p;
 	private Partidua p2;
 	private ArrayList<Partidua> pl;
-	
-		
+
+
 	@BeforeEach
 	void setUp() throws Exception {
 		j = new Jardunaldi(1);
 		t1 = new Talde();
 		t2 = new Talde();
-		pl = new ArrayList<Partidua>();
+		pl = new ArrayList<>();
 		p = new Partidua(t1, t2);
 		p2 = new Partidua(t2, t1, 2, 2);
 		j2 = new Jardunaldi(0, pl, 0);

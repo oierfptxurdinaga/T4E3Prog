@@ -15,7 +15,7 @@ public class ErabiltzaileDAO {
 	    EntityManager em = emf.createEntityManager();
 	    try {
 	        em.getTransaction().begin();
-	        em.persist(erab);	        
+	        em.persist(erab);
 	        em.getTransaction().commit();
 	        return true;
 	    } catch (Exception e) {
@@ -29,5 +29,5 @@ public class ErabiltzaileDAO {
 	        emf.close();
 	    }
 	}
-	
+
 }

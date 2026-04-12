@@ -1,14 +1,19 @@
 package model;
 
 import java.io.Serializable;
-import jakarta.xml.bind.annotation.*;
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
  * Futbol edo kirol jokalari bat irudikatzen duen klasea.
- * 
+ *
  * Jokalariak izena, abizena, jaiotze urtea, dortsal zenbakia, posizioa eta
  * denboraldi batean aktiboa dagoen ala ez gordetzen ditu.
- * 
+ *
  * Gainera, jokalari baten kopia sortzeko eta irudi automatiko bat sortzeko
  * metodoak eskaintzen ditu.
  */
@@ -38,7 +43,7 @@ public class Jokalari implements Serializable {
 
 	@XmlElement(name = "Aktiboa_dago")
 	private boolean aktiboaDago;
-	
+
 	@XmlElement (name = "Argazkia")
 	private String argazkia;
 
@@ -125,7 +130,7 @@ public class Jokalari implements Serializable {
 
 	/**
 	 * Jokalari honen kopia sortzen du.
-	 * 
+	 *
 	 * Joko edo liga kudeaketetan aldagai originala aldatu gabe kopia bat
 	 * erabiltzeko erabilgarria.
 	 *
@@ -138,7 +143,7 @@ public class Jokalari implements Serializable {
 
 	/**
 	 * Jokalariaren irudi automatikoaren URL bat sortzen du.
-	 * 
+	 *
 	 * Urte bateko "seed"-aren arabera irudia generatzen da Dicebear API erabiliz.
 	 *
 	 * @param urtea urtea, irudiaren seed-era gehitzeko

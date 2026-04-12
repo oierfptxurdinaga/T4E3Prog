@@ -1,6 +1,5 @@
 package utils;
 
-import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +9,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import db.DBConnection;
-import model.*;
+import model.DenboraldiTalde;
+import model.Denboraldia;
+import model.Federazioa;
+import model.Jardunaldi;
+import model.Jokalari;
+import model.Partidua;
+import model.Talde;
 
 public class DatuKarga {
 
@@ -23,8 +28,9 @@ public class DatuKarga {
 		Map<String, DenboraldiTalde> mapaDenboraldiTaldeak = new HashMap<>();
 
 		try (Connection conn = DBConnection.obtenerConexion()) {
-			if (conn == null)
+			if (conn == null) {
 				return federazioa;
+			}
 
 			// --- 1. Talde originalak kargatu (datu estatikoak) ---
 			String sqlTaldeak = "SELECT id_taldea, izena, ezkutua, futbol_zelaia, hiria, aktiboa_dago, informazioa, sorrera_urtea FROM Taldeak";
@@ -112,10 +118,10 @@ public class DatuKarga {
 			            if (d != null) {
 			                // 1. Partidua jardunaldian sartu (zure metodoaren arabera)
 			                d.gehituPartiduaJardunaldira(jardunaldiZenbakia, p);
-			                
+
 			                // 2. GAKOA: Jardunaldi horri bere ID errealak esleitu
 			                // Suposatuz d.getJardunaldiak() metodoak zenbakiaren arabera bilatzeko aukera ematen duela:
-			                Jardunaldi jard = d.getJardunaldiID(jardunaldiZenbakia); 
+			                Jardunaldi jard = d.getJardunaldiID(jardunaldiZenbakia);
 			                if (jard != null) {
 			                    jard.setId(idJardunaldi); // <--- Ziurtatu zure Jardunaldia modeloan setId(int id) duzula
 			                }

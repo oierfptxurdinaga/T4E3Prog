@@ -1,20 +1,22 @@
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import model.*;
-
-import java.util.ArrayList;
+import model.Sailkapena;
+import model.Talde;
 
 class SailkapenaTest {
-	
+
 	private Sailkapena S;
 	private Talde T1;
 	private Talde T2;
 	private ArrayList<Talde> lT;
 	private ArrayList<Integer> Pt;
-	
+
 
 	@BeforeEach
 	void setUp() {
@@ -34,20 +36,20 @@ class SailkapenaTest {
 
 	    S = new Sailkapena(lT, Pt);
 	}
-	
+
 	@Test
 	void SailkapenaConstructor1Test() {
 		Sailkapena tS = new Sailkapena();
 		 assertEquals(tS.getTaldeak().size(),0);
 		 assertEquals(tS.getPuntuak().size(),0);
 	}
-	
+
 	@Test
 	void SailkapenaConstructor2Test() {
 		 assertEquals(S.getTaldeak().get(1),T2);
 		 assertEquals(S.getPuntuak().get(1),10);
 	}
-	
+
 	@Test
 	void setPuntuakTest() {
 		ArrayList tPt = new ArrayList<Integer>();
@@ -55,14 +57,14 @@ class SailkapenaTest {
 		S.setPuntuak(tPt);
 		assertEquals(S.getPuntuak(),tPt);
 	}
-	
+
 	@Test
 	void setTaldeakTest() {
 		ArrayList tT = new ArrayList<>();
 		S.setTaldeak(tT);
 		assertEquals(S.getTaldeak(),tT);
 	}
-	
+
 	@Test
 	void gehituTaldeaTest() {
 	    Talde T3 = new Talde();
@@ -96,14 +98,14 @@ class SailkapenaTest {
 	    assertEquals(1, sNull.getPuntuak().size());
 	    assertEquals(0, sNull.getPuntuak().get(0));
 	}
-	
+
 	@Test
 	void SailkapenaOrdenatuTest1() {
 		S.SailkapenaOrdenatu(S);
 		assertEquals(S.getTaldeak().getLast(),T1);
 		assertEquals(S.getPuntuak().getLast(),5);
 	}
-	
+
 	@Test
 	void SailkapenaOrdenatuTest2() {
 		Talde T3 = new Talde();

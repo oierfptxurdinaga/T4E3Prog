@@ -1,12 +1,27 @@
 package bisuala;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.net.URL;
 import java.util.ArrayList;
-import model.*;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+import model.Jokalari;
+import model.Talde;
 
 
 public class PanelTaldeak extends JPanel {
@@ -29,10 +44,10 @@ public class PanelTaldeak extends JPanel {
         JPanel panelCombo = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelCombo.setBackground(Color.WHITE);
         panelCombo.setBorder(new EmptyBorder(15, 15, 5, 15));
-        
+
         JLabel lblTitulo = new JLabel("Aukeratu Taldea: ");
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 14));
-        
+
         comboTaldeak = new JComboBox<>();
         if (taldeak != null) {
             for (Talde t : taldeak) {
@@ -44,8 +59,8 @@ public class PanelTaldeak extends JPanel {
 
         panelCombo.add(lblTitulo);
         panelCombo.add(comboTaldeak);
-       
-        
+
+
         // B. TALDE INFO PANELA
         panelInfoTaldea = new JPanel(new BorderLayout());
         panelInfoTaldea.setBackground(Color.WHITE);
@@ -58,14 +73,14 @@ public class PanelTaldeak extends JPanel {
 
         panelNorteContainer.add(panelCombo);
         panelNorteContainer.add(panelInfoTaldea);
-        
+
         add(panelNorteContainer, BorderLayout.NORTH);
 
         // --- 2. ERDIA: JOKALARIEN GRID-A ---
-        panelJokalariak = new JPanel(new GridLayout(0, 4, 15, 15)); 
+        panelJokalariak = new JPanel(new GridLayout(0, 4, 15, 15));
         panelJokalariak.setBackground(Color.WHITE);
         panelJokalariak.setBorder(new EmptyBorder(10, 15, 10, 15));
-        
+
         JScrollPane scroll = new JScrollPane(panelJokalariak);
         scroll.setBorder(null);
         scroll.getVerticalScrollBar().setUnitIncrement(16);
@@ -79,13 +94,15 @@ public class PanelTaldeak extends JPanel {
 
     private void kargatuDatuak() {
         Talde aukeratua = (Talde) comboTaldeak.getSelectedItem();
-        if (aukeratua == null) return;
+        if (aukeratua == null) {
+			return;
+		}
 
         eguneratuTaldeInfo(aukeratua);
 
         panelJokalariak.removeAll();
         ArrayList<Jokalari> lista = aukeratua.getJokalariak();
-        
+
         if (lista != null) {
             for (Jokalari j : lista) {
                 panelJokalariak.add(sortuJokalariKarta(j));
@@ -106,10 +123,10 @@ public class PanelTaldeak extends JPanel {
         JLabel lblEscudo = new JLabel();
         lblEscudo.setPreferredSize(new Dimension(80, 80));
         lblEscudo.setHorizontalAlignment(SwingConstants.CENTER);
-        
+
         // ALDAKETA NAGUSIA HEMEN: Objektuari galdetzen diogu bidea
         String irudiBidea = "/images/TaldeArmarria/" + t.getEzkutua();
-        
+
         if (irudiBidea != null && !irudiBidea.isEmpty()) {
             try {
                 URL url = getClass().getResource(irudiBidea);
@@ -132,16 +149,16 @@ public class PanelTaldeak extends JPanel {
         JPanel pnlText = new JPanel(new GridLayout(2, 1));
         pnlText.setBackground(Color.WHITE);
         pnlText.setBorder(new EmptyBorder(0, 20, 0, 0));
-        
+
         JLabel lblIzena = new JLabel(t.getIzena().toUpperCase());
         lblIzena.setFont(new Font("Arial", Font.BOLD, 24));
         lblIzena.setForeground(new Color(50, 50, 50)); // Gris iluna
-        
+
         String azpiTestua = "Hiria: " + t.getHiria() + "  |  Estadioa: " + t.getFutbolZelaia();
         JLabel lblAzpi = new JLabel(azpiTestua);
         lblAzpi.setFont(new Font("Arial", Font.PLAIN, 14));
         lblAzpi.setForeground(Color.GRAY); // Gris argiagoa
-        
+
         pnlText.add(lblIzena);
         pnlText.add(lblAzpi);
 
@@ -157,7 +174,7 @@ public class PanelTaldeak extends JPanel {
         JPanel karta = new JPanel(new BorderLayout());
         karta.setBackground(new Color(250, 250, 252));
         karta.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220), 1));
-        
+
         JLabel lblIrudia = new JLabel();
         lblIrudia.setHorizontalAlignment(SwingConstants.CENTER);
         lblIrudia.setPreferredSize(new Dimension(100, 100));
@@ -172,21 +189,21 @@ public class PanelTaldeak extends JPanel {
         } else {
             lblIrudia.setText("Sin foto");
         }
-        
-        
+
+
         JPanel panelDatos = new JPanel(new GridLayout(2, 1));
         panelDatos.setBackground(null);
         panelDatos.setBorder(new EmptyBorder(5, 5, 5, 5));
-        
+
         JLabel lblIzena = new JLabel(j.getIzena() + " " + j.getAbizena());
         lblIzena.setFont(new Font("Arial", Font.BOLD, 12));
         lblIzena.setHorizontalAlignment(SwingConstants.CENTER);
-        
+
         JLabel lblInfo = new JLabel("#" + j.getDortsala() + " - " + j.getPosizio());
         lblInfo.setFont(new Font("Arial", Font.PLAIN, 10));
         lblInfo.setForeground(Color.GRAY);
         lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
-        
+
         panelDatos.add(lblIzena);
         panelDatos.add(lblInfo);
 
@@ -196,10 +213,10 @@ public class PanelTaldeak extends JPanel {
         return karta;
     }
 
- 
+
     public void eguneratuTaldeak(ArrayList<Talde> taldeakBerriak, int urteaBerria) {
         this.urtea = urteaBerria;
-        
+
         // Entzulea kendu une batez bikoizketak edo erroreak saihesteko
         java.awt.event.ActionListener[] listeners = comboTaldeak.getActionListeners();
         for (java.awt.event.ActionListener al : listeners) {
@@ -207,7 +224,7 @@ public class PanelTaldeak extends JPanel {
         }
 
         comboTaldeak.removeAllItems(); // Desplegablea hustu
-        
+
         if (taldeakBerriak != null) {
             for (Talde t : taldeakBerriak) {
                 comboTaldeak.addItem(t); // Talde berriak sartu
@@ -222,7 +239,7 @@ public class PanelTaldeak extends JPanel {
         // Lehenengoa aukeratu eta pantaila eguneratu zerbait badago
         if (comboTaldeak.getItemCount() > 0) {
             comboTaldeak.setSelectedIndex(0);
-            kargatuDatuak(); 
+            kargatuDatuak();
         } else {
             panelJokalariak.removeAll();
             panelInfoTaldea.removeAll();

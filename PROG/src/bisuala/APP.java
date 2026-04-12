@@ -1,10 +1,30 @@
 package bisuala;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import model.*;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
+
+import model.DenboraldiTalde;
+import model.Denboraldia;
+import model.Erabiltzaile;
+import model.ErabiltzaileAdministraria;
+import model.ErabiltzaileEpaile;
+import model.ErabiltzailePresi;
+import model.Federazioa;
+import model.Talde;
 
 public class APP extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -23,7 +43,7 @@ public class APP extends JFrame {
 
 		setTitle("FNS Kudeaketa - " + erab.getErabiltzaile());
 		setBounds(100, 100, 950, 700);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 		// --- GOIKO MENUA ---
 		JPanel pnlGoikoa = new JPanel(new BorderLayout());
@@ -74,8 +94,9 @@ public class APP extends JFrame {
 
 		tabs.addChangeListener(e -> {
 			int index = tabs.getSelectedIndex();
-			if (index == -1)
+			if (index == -1) {
 				return;
+			}
 
 			Component panelAktiboa = tabs.getSelectedComponent();
 			String titulua = tabs.getTitleAt(index);

@@ -1,12 +1,15 @@
 package bisuala;
 
-import javax.swing.*;
-import java.awt.event.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.JOptionPane;
+
 import model.Federazioa;
 
 public class ItziKonfirmazioa extends WindowAdapter {
 
-	private APP app; 
+	private APP app;
 	private Federazioa federazioa;
 
 	public ItziKonfirmazioa(APP app, Federazioa federazioa) {

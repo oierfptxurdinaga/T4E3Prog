@@ -1,8 +1,18 @@
 package bisuala;
 
-import javax.swing.*;
-import java.awt.*;
-import model.*;
+import java.awt.Color;
+import java.awt.EventQueue;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.WindowConstants;
+
+import model.Erabiltzaile;
+import model.Federazioa;
 import utils.DatuKarga;
 
 public class Login extends JFrame {
@@ -38,7 +48,7 @@ public class Login extends JFrame {
 		setTitle("Saioa Hasi");
 		setLayout(null);
 		setBounds(100, 100, 400, 300);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
 

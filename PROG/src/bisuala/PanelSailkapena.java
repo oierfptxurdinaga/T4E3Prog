@@ -1,14 +1,29 @@
 package bisuala;
 
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Image;
+import java.net.URL;
+import java.util.ArrayList;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import java.awt.*;
-import java.net.URL;
-import java.util.ArrayList;
-import model.*; 
+
+import model.DenboraldiTalde;
 
 public class PanelSailkapena extends JPanel {
     private static final long serialVersionUID = 1L;
@@ -35,8 +50,9 @@ public class PanelSailkapena extends JPanel {
         // Zerrenda ordenatu: Lehenengo puntuak, gero gol diferentzia
         listaStats.sort((t1, t2) -> {
             int diffPuntuak = Integer.compare(t2.getPts(), t1.getPts());
-            if (diffPuntuak != 0)
-                return diffPuntuak;
+            if (diffPuntuak != 0) {
+				return diffPuntuak;
+			}
             return Integer.compare(t2.getDG(), t1.getDG());
         });
 
@@ -49,11 +65,11 @@ public class PanelSailkapena extends JPanel {
             int average = dt.getDG();
 
             data[i][0] = i + 1; // Posizioa
-            
+
             // Objektu osoa pasatzen dugu, gero Rendererrak aterako ditu izena eta argazkia
-            data[i][1] = dt; 
-            
-            data[i][2] = dt.getPJ(); 
+            data[i][1] = dt;
+
+            data[i][2] = dt.getPJ();
             data[i][3] = dt.getG();  // Irabaziak
             data[i][4] = dt.getE();  // Berdinduak
             data[i][5] = dt.getP();  // Galduak
@@ -75,14 +91,15 @@ public class PanelSailkapena extends JPanel {
             // Hau beharrezkoa da Rendererrak jakin dezan 1. zutabea objektu bat dela
             @Override
             public Class<?> getColumnClass(int columnIndex) {
-                if (columnIndex == 1)
-                    return DenboraldiTalde.class;
+                if (columnIndex == 1) {
+					return DenboraldiTalde.class;
+				}
                 return super.getColumnClass(columnIndex);
             }
         };
 
         taula = new JTable(modeloa);
-        
+
         // Inprimatzeko botoia
         JButton btnPrint = new JButton("Inprimatu / PDF");
         btnPrint.addActionListener(e -> {
@@ -167,17 +184,17 @@ public class PanelSailkapena extends JPanel {
                     }
                 }
 
-                setHorizontalAlignment(JLabel.LEFT);
+                setHorizontalAlignment(SwingConstants.LEFT);
                 setBorder(new EmptyBorder(0, 10, 0, 0));
             } else {
-                if (zentratu)
-                    setHorizontalAlignment(JLabel.CENTER);
-                else {
-                    setHorizontalAlignment(JLabel.LEFT);
+                if (zentratu) {
+					setHorizontalAlignment(SwingConstants.CENTER);
+				} else {
+                    setHorizontalAlignment(SwingConstants.LEFT);
                     setBorder(new EmptyBorder(0, 10, 0, 0));
                 }
             }
-            
+
             // Ilaretako koloreak tartekatu
             if (!isSelected) {
                 setBackground(row % 2 == 0 ? Color.WHITE : new Color(245, 245, 250));
@@ -190,12 +207,12 @@ public class PanelSailkapena extends JPanel {
             return this;
         }
     }
-    
+
     public void eguneratuSailkapena(ArrayList<DenboraldiTalde> listaStatsBerria, int urteaBerria) {
         this.urtea = urteaBerria;
-        
+
         // Taula hustu
-        modeloa.setRowCount(0); 
+        modeloa.setRowCount(0);
 
         if (listaStatsBerria == null || listaStatsBerria.isEmpty()) {
             return; // Ez badago daturik, hutsik uzten dugu
@@ -204,7 +221,9 @@ public class PanelSailkapena extends JPanel {
         // Zerrenda berriro ordenatu: Lehenengo puntuak, gero gol diferentzia
         listaStatsBerria.sort((t1, t2) -> {
             int diffPuntuak = Integer.compare(t2.getPts(), t1.getPts());
-            if (diffPuntuak != 0) return diffPuntuak;
+            if (diffPuntuak != 0) {
+				return diffPuntuak;
+			}
             return Integer.compare(t2.getDG(), t1.getDG());
         });
 
@@ -216,14 +235,14 @@ public class PanelSailkapena extends JPanel {
             Object[] errenkada = new Object[10];
             errenkada[0] = i + 1; // Posizioa
             errenkada[1] = dt.getTalde();    // Objektua (Renderer-ak irudia jarriko du)
-            errenkada[2] = dt.getPJ(); 
-            errenkada[3] = dt.getG();  
-            errenkada[4] = dt.getE();  
-            errenkada[5] = dt.getP();  
-            errenkada[6] = dt.getGF(); 
-            errenkada[7] = dt.getGC(); 
+            errenkada[2] = dt.getPJ();
+            errenkada[3] = dt.getG();
+            errenkada[4] = dt.getE();
+            errenkada[5] = dt.getP();
+            errenkada[6] = dt.getGF();
+            errenkada[7] = dt.getGC();
             errenkada[8] = average > 0 ? "+" + average : average;
-            errenkada[9] = dt.getPts(); 
+            errenkada[9] = dt.getPts();
 
             modeloa.addRow(errenkada); // Ilarak gehitu modeloari
         }

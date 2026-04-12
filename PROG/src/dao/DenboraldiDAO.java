@@ -1,12 +1,10 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 
 import db.DBConnection;
 import model.DenboraldiTalde;
@@ -99,8 +97,9 @@ public class DenboraldiDAO {
 			return false;
 		} finally {
 			try {
-				if (cn != null)
+				if (cn != null) {
 					cn.setAutoCommit(true);
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

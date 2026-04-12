@@ -2,7 +2,10 @@ package utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import model.*;
+
+import model.Jardunaldi;
+import model.Partidua;
+import model.Talde;
 
 public class PartiduKudeatzailea {
 
@@ -11,13 +14,13 @@ public class PartiduKudeatzailea {
      */
     public static ArrayList<Jardunaldi> sortuEgutegia(ArrayList<Talde> taldeak) {
         ArrayList<Jardunaldi> egutegia = new ArrayList<>();
-        
+
         // 1. Copiamos la lista para no modificar la original y la barajamos (Aleatorio)
         ArrayList<Talde> kopia = new ArrayList<>(taldeak);
         Collections.shuffle(kopia); // <-- ESTO LO HACE ALEATORIO
 
         int taldeKop = kopia.size();
-        
+
         // Si es impar, añadimos un equipo "fantasma" (el que juegue contra él descansa)
         if (taldeKop % 2 != 0) {
             kopia.add(new Talde(0,"Deskantsua", null, null, null, null, false, null, 0));
@@ -30,7 +33,7 @@ public class PartiduKudeatzailea {
         // --- JOANEKOA (IDA) ---
         for (int i = 0; i < jardunaldiKop; i++) {
             Jardunaldi j = new Jardunaldi(i + 1); // Jornada 1, 2, 3...
-            
+
             for (int k = 0; k < partiduakJardunaldiko; k++) {
                 // Algoritmo cíclico
                 Talde etxekoa = kopia.get(k);

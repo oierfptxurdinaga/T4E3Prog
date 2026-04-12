@@ -1,13 +1,35 @@
 package bisuala;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.net.URL;
-import model.*;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 import dao.PartiduaDAO;
+import model.Denboraldia;
+import model.ErabiltzaileEpaile;
+import model.Jardunaldi;
+import model.Partidua;
+import model.Talde;
 
 public class PanelEpailea extends JPanel {
 
@@ -46,8 +68,9 @@ public class PanelEpailea extends JPanel {
 		String izenburua = editagarria ? "Sartu Emaitzak - Jardunaldia: " : "Emaitzak Ikusi (ITXITA) - Jardunaldia: ";
 		JLabel lblIzenburua = new JLabel(izenburua);
 		lblIzenburua.setFont(new Font("Arial", Font.BOLD, 14));
-		if (!editagarria)
+		if (!editagarria) {
 			lblIzenburua.setForeground(Color.GRAY);
+		}
 
 		panelGoikoa.add(lblIzenburua);
 
@@ -79,8 +102,9 @@ public class PanelEpailea extends JPanel {
 	private void datuakKargatu() {
 		// Listener-ak desgaitu kargatzean
 		ActionListener[] listeners = comboJardunaldiak.getActionListeners();
-		for (ActionListener al : listeners)
+		for (ActionListener al : listeners) {
 			comboJardunaldiak.removeActionListener(al);
+		}
 
 		comboJardunaldiak.removeAllItems();
 		panelPartiduak.removeAll();
@@ -92,8 +116,9 @@ public class PanelEpailea extends JPanel {
 		}
 
 		// Listener-ak berriro jarri
-		for (ActionListener al : listeners)
+		for (ActionListener al : listeners) {
 			comboJardunaldiak.addActionListener(al);
+		}
 
 		if (comboJardunaldiak.getItemCount() > 0) {
 			comboJardunaldiak.setSelectedIndex(0);
@@ -116,7 +141,7 @@ public class PanelEpailea extends JPanel {
 
 			if (jardunaldia.getPartiduak() != null) {
 	            for (Partidua p : jardunaldia.getPartiduak()) {
-	                panelPartiduak.add(sortuPartiduEditagarria(p, jardunaldia)); 
+	                panelPartiduak.add(sortuPartiduEditagarria(p, jardunaldia));
 	                panelPartiduak.add(Box.createRigidArea(new Dimension(0, 10)));
 	            }
 			}
@@ -126,13 +151,13 @@ public class PanelEpailea extends JPanel {
 	}
 
 	// --- ALDAKETA NAGUSIA HEMEN DAGO ---
-	private JPanel sortuPartiduEditagarria(Partidua p, Jardunaldi jardunaldia) { 
+	private JPanel sortuPartiduEditagarria(Partidua p, Jardunaldi jardunaldia) {
         JPanel panelErrenkada = new JPanel(new BorderLayout(10, 0));
         panelErrenkada.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(KOLORE_BORDER, 1),
                 new EmptyBorder(10, 10, 10, 10)
         ));
-        panelErrenkada.setMaximumSize(new Dimension(Integer.MAX_VALUE, 80)); 
+        panelErrenkada.setMaximumSize(new Dimension(Integer.MAX_VALUE, 80));
         panelErrenkada.setPreferredSize(new Dimension(600, 80));
         panelErrenkada.setBackground(Color.WHITE);
 
@@ -146,17 +171,17 @@ public class PanelEpailea extends JPanel {
         pnlEmaitzak.setPreferredSize(new Dimension(220, 0));
 
         JTextField txtEtxekoa = new JTextField(2);
-        txtEtxekoa.setHorizontalAlignment(JTextField.CENTER);
+        txtEtxekoa.setHorizontalAlignment(SwingConstants.CENTER);
         txtEtxekoa.setFont(new Font("Arial", Font.BOLD, 18));
-        
+
         JTextField txtKanpokoa = new JTextField(2);
-        txtKanpokoa.setHorizontalAlignment(JTextField.CENTER);
+        txtKanpokoa.setHorizontalAlignment(SwingConstants.CENTER);
         txtKanpokoa.setFont(new Font("Arial", Font.BOLD, 18));
-        
+
         // 3. LOGIKA: Editagarria ez bada, inputak desgaitu
         txtEtxekoa.setEditable(this.editagarria);
         txtKanpokoa.setEditable(this.editagarria);
-        
+
         if (!this.editagarria) {
             txtEtxekoa.setBackground(new Color(245, 245, 245));
             txtKanpokoa.setBackground(new Color(245, 245, 245));
@@ -174,7 +199,7 @@ public class PanelEpailea extends JPanel {
         btnGorde.setBackground(new Color(70, 130, 180));
         btnGorde.setForeground(Color.WHITE);
         btnGorde.setFocusPainted(false);
-        
+
         // 4. LOGIKA: Editagarria ez bada, botoia desgaitu
         btnGorde.setEnabled(this.editagarria);
         if (!this.editagarria) {
@@ -187,7 +212,9 @@ public class PanelEpailea extends JPanel {
                 String strEtxekoa = txtEtxekoa.getText().trim();
                 String strKanpokoa = txtKanpokoa.getText().trim();
 
-                if (strEtxekoa.isEmpty() || strKanpokoa.isEmpty()) return;
+                if (strEtxekoa.isEmpty() || strKanpokoa.isEmpty()) {
+					return;
+				}
 
                 int golEtxekoa = Integer.parseInt(strEtxekoa);
                 int golKanpokoa = Integer.parseInt(strKanpokoa);
@@ -199,8 +226,8 @@ public class PanelEpailea extends JPanel {
 
                 if (epaileAktiboa != null) {
                     epaileAktiboa.sartuEmaitza(denboraldia, p.getEtxekoTaldea(), p.getKanpokoTaldea(), golEtxekoa, golKanpokoa);
-                    
-          
+
+
                     boolean ondoGordeta = PartiduaDAO.eguneratuEmaitzaDB(
                             jardunaldia.getId(),
                             p.getEtxekoTaldea().getId(),
@@ -211,13 +238,13 @@ public class PanelEpailea extends JPanel {
 
                     if (ondoGordeta) {
                         if (app != null) {
-                            app.setAldaketakDauden(true); 
+                            app.setAldaketakDauden(true);
                         }
-                        
-                        utils.LogKudeatzailea.gehituLog("Emaitza Eguneratua: " + 
-                                p.getEtxekoTaldea().getIzena() + " " + golEtxekoa + " - " + 
+
+                        utils.LogKudeatzailea.gehituLog("Emaitza Eguneratua: " +
+                                p.getEtxekoTaldea().getIzena() + " " + golEtxekoa + " - " +
                                 golKanpokoa + " " + p.getKanpokoTaldea().getIzena());
-                                
+
                         btnGorde.setBackground(new Color(46, 139, 87));
                         btnGorde.setText("OK");
                     } else {
@@ -228,7 +255,7 @@ public class PanelEpailea extends JPanel {
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Zenbakiak bakarrik sartu.", "Errorea", JOptionPane.ERROR_MESSAGE);
             }
-        }); 
+        });
 
         pnlEmaitzak.add(txtEtxekoa);
         pnlEmaitzak.add(lblGidoia);
@@ -245,13 +272,13 @@ public class PanelEpailea extends JPanel {
 
 
 	private JPanel sortuTaldePanela(Talde t, int alineazioa) {
-        JPanel p = new JPanel(new BorderLayout(10, 0)); 
+        JPanel p = new JPanel(new BorderLayout(10, 0));
         p.setBackground(Color.WHITE);
-        p.setPreferredSize(new Dimension(220, 50)); 
+        p.setPreferredSize(new Dimension(220, 50));
 
         JLabel lblIzena = new JLabel(t.getIzena());
         lblIzena.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-        
+
         JLabel lblEzkutua = new JLabel();
         if (t.getEzkutua() != null) {
             URL url = getClass().getResource("/images/TaldeArmarria"+t.getEzkutua());
@@ -262,7 +289,7 @@ public class PanelEpailea extends JPanel {
             }
         }
 
-        if (alineazioa == SwingConstants.RIGHT) { 
+        if (alineazioa == SwingConstants.RIGHT) {
             lblIzena.setHorizontalAlignment(SwingConstants.RIGHT);
             p.add(lblIzena, BorderLayout.CENTER);
             p.add(lblEzkutua, BorderLayout.EAST);
@@ -271,7 +298,7 @@ public class PanelEpailea extends JPanel {
             p.add(lblEzkutua, BorderLayout.WEST);
             p.add(lblIzena, BorderLayout.CENTER);
         }
-        
+
         return p;
     }
 }

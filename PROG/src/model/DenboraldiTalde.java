@@ -14,7 +14,7 @@ import utils.RutaEzkutuaAdapter;
  *
  * Talde bakoitzari denboraldi honetan jokatutako partida kopurua, irabaziak,
  * berdinketak, galduak, gol kopuruak eta puntuazioa gordetzen ditu.
- * 
+ *
  * Estatistika hauek {@link #emaitzakEguneratu(int, int)} metodoaren bidez
  * eguneratzen dira partiduen emaitzen arabera.
  */
@@ -79,7 +79,7 @@ public class DenboraldiTalde {
     public Integer getTaldeSorreraData() {
         return (talde != null) ? talde.getSorreraData() : null;
     }
-    
+
     /**
      * Partida baten emaitzak eguneratzen ditu talde honen estatistiketan.
      * <p>

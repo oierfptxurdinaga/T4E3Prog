@@ -1,12 +1,30 @@
 package bisuala;
 
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.util.ArrayList;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import dao.DenboraldiDAO;
-
-import java.awt.*;
-import java.util.ArrayList;
-import model.*;
+import model.DenboraldiTalde;
+import model.Denboraldia;
+import model.Federazioa;
+import model.Talde;
 import utils.PartiduKudeatzailea;
 
 public class LeihoaDenboraldiBerria extends JDialog {
@@ -14,8 +32,8 @@ public class LeihoaDenboraldiBerria extends JDialog {
 	private JTextField txtUrtea;
     private Federazioa federazioa;
     private ArrayList<JCheckBox> checkTaldeak;
-    private JLabel lblKontagailua; 
-    private final int MAX_TALDEAK = 6; 
+    private JLabel lblKontagailua;
+    private final int MAX_TALDEAK = 6;
     private boolean ondoSortuDa = false;
     private DenboraldiDAO ddao;
 
@@ -57,12 +75,12 @@ public class LeihoaDenboraldiBerria extends JDialog {
         // Informazio panela eta kontagailua
         JPanel pnlInfo = new JPanel(new FlowLayout(FlowLayout.LEFT));
         pnlInfo.add(new JLabel("Aukeratu taldeak (Zehazki 6):"));
-        
+
         lblKontagailua = new JLabel("0 / " + MAX_TALDEAK);
         lblKontagailua.setFont(new Font("Arial", Font.BOLD, 14));
         lblKontagailua.setForeground(Color.BLUE);
         pnlInfo.add(lblKontagailua);
-        
+
         pnlLista.add(pnlInfo);
         pnlLista.add(Box.createRigidArea(new Dimension(0, 5)));
 
@@ -70,7 +88,7 @@ public class LeihoaDenboraldiBerria extends JDialog {
             int count = 0;
             for (Talde t : federazioa.getTaldeGuztiak()) {
                 JCheckBox chk = new JCheckBox(t.getIzena() + " (" + t.getHiria() + ")");
-                
+
                 // LEHENENGO 6ak BAKARRIK markatu defektuz (bestela errorea emango luke hasieran)
                 if (count < MAX_TALDEAK) {
                     chk.setSelected(true);
@@ -78,7 +96,7 @@ public class LeihoaDenboraldiBerria extends JDialog {
                 }
 
                 chk.putClientProperty("taldeObj", t);
-                
+
                 // --- ENTZULEA (LISTENER) GEHITU ---
                 // Honek deituko du 'eguneratuCheckak()' CheckBox bakoitza aldatzen denean
                 chk.addItemListener(e -> eguneratuCheckak());
@@ -138,7 +156,7 @@ public class LeihoaDenboraldiBerria extends JDialog {
         if (aukeratuak == MAX_TALDEAK) {
             lblKontagailua.setForeground(new Color(0, 150, 0));
         } else {
-            lblKontagailua.setForeground(Color.RED); 
+            lblKontagailua.setForeground(Color.RED);
         }
 
 
@@ -171,13 +189,13 @@ public class LeihoaDenboraldiBerria extends JDialog {
             int urtea = Integer.parseInt(txtUrtea.getText().trim());
 
             Denboraldia d = new Denboraldia(urtea);
-            
+
             ArrayList<DenboraldiTalde> dtAukeratuak = new ArrayList<>();
             for (Talde t : taldeAukeratuak) {
                 dtAukeratuak.add(new DenboraldiTalde(t, true));
             }
             d.setLigakoTaldeak(dtAukeratuak);
-            
+
             d.setLigakoJardunaldi(PartiduKudeatzailea.sortuEgutegia(taldeAukeratuak));
             boolean ondo = ddao.txertatuDenboraldiaOsoa(d);
             if (ondo) {
@@ -190,7 +208,7 @@ public class LeihoaDenboraldiBerria extends JDialog {
             	utils.LogKudeatzailea.gehituLog("Denboraldi "+urtea+" sortzerakoan errore bat egon da.");
             	JOptionPane.showMessageDialog(this, "Zerbait txarto joan da.", "Errorea", JOptionPane.WARNING_MESSAGE);
             }
-            
+
 
 
         } catch (Exception ex) {

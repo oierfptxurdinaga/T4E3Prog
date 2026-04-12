@@ -1,6 +1,9 @@
 package utils;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import model.Erabiltzaile;
 
 public class BDOOKudeatzailea {
@@ -15,7 +18,7 @@ public class BDOOKudeatzailea {
         try {
             // Bilatzen dugu primary key-a
             user = em.find(Erabiltzaile.class, usuario);
-            
+
             // Aurkitzen badu bilatzen dugu pasahitza
             if (user != null && user.getPasahitza().equals(password)) {
                 return user; //Bueltatzen dugu erabiltzailea
@@ -24,7 +27,7 @@ public class BDOOKudeatzailea {
             em.close();
             emf.close();
         }
-        
+
         return null;
     }
 }

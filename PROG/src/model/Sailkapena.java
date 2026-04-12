@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /**
  * Liga edo denboraldi bateko sailkapena irudikatzen duen klasea.
- * 
+ *
  * Sailkapenak taldeak eta haien puntuak paraleloan gordetzen ditu,
  * eta puntu kopuruaren arabera ordenatzeko funtzionalitatea eskaintzen du.
  */
@@ -31,7 +31,7 @@ public class Sailkapena implements Serializable{
 	    this.taldeak = new ArrayList<>();
 	    this.puntuak = new ArrayList<>();
 	}
-	
+
 	// Getterrak eta setterrak
     public ArrayList<Talde> getTaldeak() {
 		return taldeak;
@@ -51,28 +51,32 @@ public class Sailkapena implements Serializable{
 
 	/**
      * Talde berri bat sailkapenean gehitzen du.
-     * 
+     *
      * Taldea hasieran 0 punturekin sartzen da.
-     * 
+     *
      * @param t gehitu nahi den taldea
      */
 	public void gehituTaldea(Talde t) {
-        if (this.taldeak == null) this.taldeak = new ArrayList<>();
+        if (this.taldeak == null) {
+			this.taldeak = new ArrayList<>();
+		}
         this.taldeak.add(t);
 
-        if (this.puntuak == null) this.puntuak = new ArrayList<>();
-        this.puntuak.add(0); 
+        if (this.puntuak == null) {
+			this.puntuak = new ArrayList<>();
+		}
+        this.puntuak.add(0);
     }
-    
+
 	/**
      * Sailkapena puntu kopuruaren arabera ordenatzen du.
      *
      * Ordenazioa beheranzkoa da (puntu gehienetik gutxienera),
      * eta burbuila-algoritmoa (Bubble Sort) erabiltzen da.
-     * 
+     *
      * Puntuak ordenatzean, dagokien taldeak ere elkarrekin
      * trukatzen dira koherentzia mantentzeko.
-     * 
+     *
      * @param s ordenatu beharreko sailkapena
      */
     public void SailkapenaOrdenatu(Sailkapena s) {
@@ -82,10 +86,10 @@ public class Sailkapena implements Serializable{
         // Burbuja metodoa
         for (int i = 0; i < p.size() - 1; i++) {
             for (int j = 0; j < p.size() - i - 1; j++) {
-                
+
                 // Behekoak goikoak baino puntu gehiago baditu...
                 if (p.get(j) < p.get(j + 1)) {
-                    
+
                     // 1. Puntuak trukatzen ditugu
                     int tempPuntos = p.get(j);
                     p.set(j, p.get(j + 1));

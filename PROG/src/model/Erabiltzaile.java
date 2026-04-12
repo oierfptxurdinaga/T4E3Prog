@@ -2,13 +2,14 @@ package model;
 
 import java.io.Serializable;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  * Erabiltzaile orokor bat irudikatzen duen klase abstraktua.
  * Sistema erabiltzen duten profil guztien (Administraria, Epailea, Presidentea)
  * oinarrizko atributuak eta metodoak definitzen ditu.
- * 
+ *
  * {@link Serializable} interfazea inplementatzen du, objektuak fitxategietan
  * gorde eta berreskuratu ahal izateko.
  */
@@ -18,11 +19,11 @@ public abstract class Erabiltzaile implements Serializable {
 
 	/** Objektuaren bertsioa serializazioan kontrolatzeko identifikatzailea */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	protected String erabiltzaile;
     protected String pasahitza;
-    
+
     public Erabiltzaile() {}
 
     /**
@@ -41,5 +42,5 @@ public abstract class Erabiltzaile implements Serializable {
 
 	public abstract void setErabiltzaile(String string);
 
-	public abstract void setPasahitza(String string);   
+	public abstract void setPasahitza(String string);
 }
