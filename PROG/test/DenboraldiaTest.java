@@ -34,6 +34,14 @@ class DenboraldiaTest {
 	}
 
 	@Test
+	void gehituDenboraldiTaldeNullTest() {
+		DenboraldiTalde dt1 = new DenboraldiTalde(t1, false);
+		denboraldia.setLigakoTaldeak(null);
+		denboraldia.gehituDenboraldiTaldea(dt1);
+		assertNotNull(denboraldia.getLigakoTaldeak());
+	}
+	
+	@Test
     void gehituTaldeaEtaAddJardunaldiaTest() {
         assertEquals(0, denboraldia.getLigakoTaldeak().size());
         assertEquals(0, denboraldia.getLigakoJardunaldi().size());
