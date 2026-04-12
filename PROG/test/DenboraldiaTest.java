@@ -2,6 +2,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.ArrayList;
 
@@ -33,6 +34,27 @@ class DenboraldiaTest {
         j1 = new Jardunaldi(1);
 	}
 
+	
+	@Test
+	void getJardunaldiIDNullNegTest() {
+		int zenbakia = -5;
+		assertNull(denboraldia.getJardunaldiID(zenbakia));
+	}
+	
+	@Test
+	void getJardunaldiIDNullOverTest() {
+		int zenbakia = 100;
+		assertNull(denboraldia.getJardunaldiID(zenbakia));
+	}
+	
+	@Test
+	void getJardunaldiIDTest() {
+		j1.addPartidua(p1);
+		j1.addPartidua(p2);
+		denboraldia.addJardunaldia(j1);
+		int zenbakia = 1;
+		assertEquals(denboraldia.getJardunaldiID(zenbakia),j1);
+	}
 	@Test
 	void gehituDenboraldiTaldeNullTest() {
 		DenboraldiTalde dt1 = new DenboraldiTalde(t1, false);
