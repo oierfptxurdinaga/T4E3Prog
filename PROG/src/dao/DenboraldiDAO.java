@@ -12,13 +12,17 @@ import model.Jardunaldi;
 import model.Jokalari;
 import model.Partidua;
 import model.Talde;
-
+/**
+ * DenboraldiakDBan sortzeko DAOa
+ * Hemen Denboraldi bakoitzaren Taldeak, Jokalariak, Jardunaldiak eta Partiduak sortzen dira.
+ * DBren karga bakarrik.
+ */
 public class DenboraldiDAO {
     private Connection cn;
     public DenboraldiDAO(Connection cn) {
         this.cn = cn;
     }
-
+/** Denboraldi berri bat sortzeko metodoa */
     public boolean txertatuDenboraldiaOsoa(Denboraldia denboraldia) {
         String sqlDenboraldia = "INSERT INTO denboraldiak (urtea) VALUES (?)";
         String sqlDenbTaldeak = "INSERT INTO denboraldi_taldeak (denboraldia_urtea, id_taldea) VALUES (?, ?)";

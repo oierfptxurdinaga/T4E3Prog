@@ -6,9 +6,11 @@ import javax.persistence.Persistence;
 
 import model.Erabiltzaile;
 
-
+/**
+ * Erabiltzaile berri bat gordetzeko Metodoa
+ */
 public class ErabiltzaileDAO {
-
+/** @param erab pasatzen diogu eta erabiltzailea persistitzen du. */
 	public boolean gordeErabiltzaileaODB(Erabiltzaile erab) {
 	    String dbFile = "src/data/erabiltzaileak.odb";
 	    EntityManagerFactory emf = Persistence.createEntityManagerFactory(dbFile);

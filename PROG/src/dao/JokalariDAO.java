@@ -5,14 +5,22 @@ import java.sql.SQLException;
 
 import db.DBConnection;
 
+/**
+ * JokalariDAO klasea Jokalariekin DBren aurka lan egiteko.
+ */
 public class JokalariDAO {
-	
+	/** Connection DBreking */
 	 private Connection cn;
 
 	    public JokalariDAO(Connection cn) {
 	        this.cn = cn;
 	    }
-
+ /**
+  * Jokalariak talde batetik bestera mugitzen duen metodoa
+  * @param jokalariId Ze jokalari mugitzen ari da
+  * @param taldeBerriaId Ze taldera mugitzen ari den
+  * @return
+  */
     public boolean aldatuJokalariarenTaldeaDB(int jokalariId, int taldeBerriaId) {
         String sql = "UPDATE jokalariak SET id_taldea = ? WHERE id_jokalaria = ?";
 
