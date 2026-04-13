@@ -9,9 +9,14 @@ import db.DBConnection;
  * JokalariDAO klasea Jokalariekin DBren aurka lan egiteko.
  */
 public class JokalariDAO {
-	/** Connection DBreking */
+	/** Connection DBrekin */
 	 private Connection cn;
 
+		/**
+		 * DAOari connection bat pasatzen diogu, DBrekin lan egiteko.
+		 * 
+		 * @param cn
+		 */
 	    public JokalariDAO(Connection cn) {
 	        this.cn = cn;
 	    }
