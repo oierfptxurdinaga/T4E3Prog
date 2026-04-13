@@ -3,46 +3,57 @@ package model;
 import javax.persistence.Entity;
 
 /**
- * Presidente motako erabiltzailea irudikatzen duen klasea.
- *
- * Erabiltzaile mota honek sisteman pribilegio gehienak ditu,
- * normalean kudeaketa orokorreko funtzioak betetzeko erabiltzen da.
+ * Presidente motako erabiltzailea.
+ * Sisteman pribilegio gehienak dituen profila da.
  */
-
 @Entity
 public class ErabiltzailePresi extends Erabiltzaile {
 
-	/** Objektuaren bertsioa serializazioan kontrolatzeko identifikatzailea */
-	private static final long serialVersionUID = 1L;
+    /** Serializaziorako bertsioa. */
+    private static final long serialVersionUID = 1L;
 
-	/**
-     * Presidente motako erabiltzaile berri bat sortzen du.
+    /**
+     * Presidente erabiltzaile berri bat sortzen du.
      *
-     * @param erabiltzaile erabiltzailearen izena
-     * @param pasahitza erabiltzailearen pasahitza
+     * @param erabiltzaile erabiltzaile-izena
+     * @param pasahitza    pasahitza
      */
-	public ErabiltzailePresi(String erabiltzaile, String pasahitza) {
-		super(erabiltzaile, pasahitza);
-	}
-	public ErabiltzailePresi() {
+    public ErabiltzailePresi(String erabiltzaile, String pasahitza) {
+        super(erabiltzaile, pasahitza);
+    }
 
-	}
+    /** Eraikitzaile hutsa. */
+    public ErabiltzailePresi() {}
 
-	// Getterrak eta setterrak
-	@Override
-	public String getErabiltzaile() {
-		return erabiltzaile;
-	}
-	@Override
-	public void setErabiltzaile(String erabiltzaile) {
-		this.erabiltzaile = erabiltzaile;
-	}
-	@Override
-	public String getPasahitza() {
-		return pasahitza;
-	}
-	@Override
-	public void setPasahitza(String pasahitza) {
-		this.pasahitza = pasahitza;
-	}
+    /**
+     * Erabiltzaile-izena itzultzen du.
+     *
+     * @return erabiltzaile-izena
+     */
+    @Override
+    public String getErabiltzaile() { return erabiltzaile; }
+
+    /**
+     * Erabiltzaile-izena ezartzen du.
+     *
+     * @param erabiltzaile erabiltzaile-izen berria
+     */
+    @Override
+    public void setErabiltzaile(String erabiltzaile) { this.erabiltzaile = erabiltzaile; }
+
+    /**
+     * Pasahitza itzultzen du.
+     *
+     * @return pasahitza
+     */
+    @Override
+    public String getPasahitza() { return pasahitza; }
+
+    /**
+     * Pasahitza ezartzen du.
+     *
+     * @param pasahitza pasahitz berria
+     */
+    @Override
+    public void setPasahitza(String pasahitza) { this.pasahitza = pasahitza; }
 }

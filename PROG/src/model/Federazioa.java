@@ -10,33 +10,32 @@ import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
- * Futbol edo kirol federazio bat irudikatzen duen klasea.
- *
- * Federazioak talde guztiak eta historikoki jokatutako denboraldiak kudeatzen ditu.
- * Talde eta denboraldi berriak gehitzeko metodoak eskaintzen ditu,
- * baita uneko denboraldia lortzeko funtzionalitatea ere.
+ * Kirol federazio bat irudikatzen duen klasea.
+ * Talde guztiak, denboraldiak eta erabiltzaileak kudeatzen ditu.
  */
 @XmlRootElement(name = "Federazioa")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Federazioa implements Serializable {
-	/** Objektuaren bertsioa serializazioan kontrolatzeko identifikatzailea */
+
+    /** Serializaziorako bertsioa. */
     private static final long serialVersionUID = 1L;
 
-    // 1. TALDE GUZTIAK (Masterra: Hemen 12ak egongo dira)
+    /** Federazioko talde guztien zerrenda (12 talde). */
     @XmlElementWrapper(name = "TaldeGuztiak")
     @XmlElement(name = "Talde")
     private ArrayList<Talde> taldeGuztiak;
 
-    // 2. DENBORALDIAK (Historiala)
+    /** Jokatutako denboraldien historia. */
     @XmlElementWrapper(name = "Denboraldiak")
     @XmlElement(name = "Denboraldia")
     private ArrayList<Denboraldia> denboraldiak;
 
+    /** Sistemako erabiltzaileen zerrenda. */
     @XmlElementWrapper(name = "Erabiltzaileak")
     @XmlElement(name = "Erabiltzailea")
-    private ArrayList <Erabiltzaile> erabiltzaileak;
+    private ArrayList<Erabiltzaile> erabiltzaileak;
 
-
+    /** Eraikitzaile hutsa, zerrendak hasieratuta. */
     public Federazioa() {
         this.taldeGuztiak = new ArrayList<>();
         this.denboraldiak = new ArrayList<>();
@@ -44,11 +43,10 @@ public class Federazioa implements Serializable {
     }
 
     /**
-     * Talde berri bat federazioan gehitzen du.
+     * Erabiltzaileen zerrenda itzultzen du.
+     * Zerrenda null bada, automatikoki sortzen da.
      *
-     * Taldea jada existitzen bada, ez da errepikatuko.
-     *
-     * @param t gehitu nahi den taldea
+     * @return erabiltzaileen zerrenda
      */
     public ArrayList<Erabiltzaile> getErabiltzaileak() {
         if (this.erabiltzaileak == null) {
@@ -57,9 +55,12 @@ public class Federazioa implements Serializable {
         return this.erabiltzaileak;
     }
 
-    // --- KUDEAKETA METODOAK ---
-
-
+    /**
+     * Talde berri bat federazioan gehitzen du.
+     * Jada badago, ez da errepikatuko.
+     *
+     * @param t gehitu nahi den taldea
+     */
     public void gehituTaldea(Talde t) {
         if (!taldeGuztiak.contains(t)) {
             taldeGuztiak.add(t);
@@ -75,22 +76,31 @@ public class Federazioa implements Serializable {
         this.denboraldiak.add(d);
     }
 
-    // Getterrak eta setterrak
-    public ArrayList<Talde> getTaldeGuztiak() {
-        return taldeGuztiak;
-    }
-
-    public ArrayList<Denboraldia> getDenboraldiak() {
-        return denboraldiak;
-    }
-    public void setDenboraldiak(ArrayList<Denboraldia> denboraldiak) {
-        this.denboraldiak = denboraldiak;
-    }
+    /**
+     * Federazioko talde guztien zerrenda itzultzen du.
+     *
+     * @return taldeen zerrenda
+     */
+    public ArrayList<Talde> getTaldeGuztiak() { return taldeGuztiak; }
 
     /**
-     * Federazioan une honetan dagoen azken denboraldia itzultzen du.
+     * Denboraldien zerrenda itzultzen du.
      *
-     * @return azken denboraldia, edo {@code null} denboraldiik ez badaude
+     * @return denboraldien zerrenda
+     */
+    public ArrayList<Denboraldia> getDenboraldiak() { return denboraldiak; }
+
+    /**
+     * Denboraldien zerrenda ezartzen du.
+     *
+     * @param denboraldiak denboraldi berrien zerrenda
+     */
+    public void setDenboraldiak(ArrayList<Denboraldia> denboraldiak) { this.denboraldiak = denboraldiak; }
+
+    /**
+     * Uneko (azken) denboraldia itzultzen du.
+     *
+     * @return azken denboraldia, edo null zerrenda hutsik badago
      */
     public Denboraldia getUnekoDenboraldia() {
         if (denboraldiak != null && !denboraldiak.isEmpty()) {

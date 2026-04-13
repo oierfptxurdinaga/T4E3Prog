@@ -29,27 +29,56 @@ import model.Federazioa;
 import model.Jokalari;
 import model.Talde;
 
+/**
+ * Administratzailearen panela.
+ * Bi zerrendetako jokalariak talde batetik bestera mugitzeko aukera ematen du
+ * merkatu-leiho baten antzera.
+ */
 public class PanelAdmin extends JPanel {
 
     private static final long serialVersionUID = 1L;
 
+    /** Aplikazioaren leiho nagusia. */
     private APP app;
+
+    /** Federazioaren datuak. */
     private Federazioa federazioa;
+
+    /** Denboraldian parte hartzen duten taldeen zerrenda. */
     private ArrayList<Talde> taldeAktiboak;
 
-    // UI Osagaiak
+    /** Ezkerreko taldea aukeratzeko combo-box-a. */
     private JComboBox<Talde> comboEzkerra;
+
+    /** Eskumako taldea aukeratzeko combo-box-a. */
     private JComboBox<Talde> comboEskuma;
 
+    /** Ezkerreko jokalarien zerrenda-modeloa. */
     private DefaultListModel<Jokalari> modelEzkerra;
+
+    /** Eskumako jokalarien zerrenda-modeloa. */
     private DefaultListModel<Jokalari> modelEskuma;
 
+    /** Ezkerreko jokalarien zerrenda bisual. */
     private JList<Jokalari> listEzkerra;
+
+    /** Eskumako jokalarien zerrenda bisual. */
     private JList<Jokalari> listEskuma;
 
+    /** Jokalaria eskuinera mugitzeko botoia. */
     private JButton btnMugituEskuinera;
+
+    /** Jokalaria ezkerrera mugitzeko botoia. */
     private JButton btnMugituEzkerrera;
 
+    /**
+     * Admin panela sortzen du bi zerrendekin eta mugitzeko botoiekin.
+     *
+     * @param erab          erabiltzaile aktiboak (erreferentziarako)
+     * @param federazioa    federazioaren datuak
+     * @param taldeAktiboak denboraldian parte hartzen duten taldeak
+     * @param app           aplikazioaren leiho nagusia
+     */
     public PanelAdmin(Erabiltzaile erab, Federazioa federazioa, ArrayList<Talde> taldeAktiboak, APP app) {
         this.app = app;
         this.federazioa = federazioa;
@@ -59,7 +88,6 @@ public class PanelAdmin extends JPanel {
         setBackground(Color.WHITE);
         setBorder(new EmptyBorder(20, 20, 20, 20));
 
-        // --- IZENBURUA ---
         JLabel lblIzenburua = new JLabel("ADMINISTRAZIOA - Jokalarien Kudeaketa (Merkatu leihoa)");
         lblIzenburua.setFont(new Font("Arial", Font.BOLD, 22));
         lblIzenburua.setForeground(new Color(50, 50, 50));
@@ -67,20 +95,17 @@ public class PanelAdmin extends JPanel {
         lblIzenburua.setBorder(new EmptyBorder(0, 0, 20, 0));
         add(lblIzenburua, BorderLayout.NORTH);
 
-        // --- PANEL NAGUSIA ---
         JPanel panelNagusia = new JPanel(new GridLayout(1, 3, 20, 0));
         panelNagusia.setBackground(Color.WHITE);
 
-        // EZKERRA
         JPanel pnlEzkerra = new JPanel(new BorderLayout(0, 10));
         pnlEzkerra.setOpaque(false);
-        comboEzkerra = sortuTaldeCombo(); // Usa taldeAktiboak
+        comboEzkerra = sortuTaldeCombo();
         pnlEzkerra.add(comboEzkerra, BorderLayout.NORTH);
         modelEzkerra = new DefaultListModel<>();
         listEzkerra = sortuJokalariLista(modelEzkerra);
         pnlEzkerra.add(new JScrollPane(listEzkerra), BorderLayout.CENTER);
 
-        // BOTOIAK
         JPanel pnlBotoiak = new JPanel(new GridBagLayout());
         pnlBotoiak.setOpaque(false);
         btnMugituEskuinera = sortuBotoia("Hona Mugitu  >>>", new Color(70, 130, 180));
@@ -91,10 +116,9 @@ public class PanelAdmin extends JPanel {
         gbc.gridy = 1;
         pnlBotoiak.add(btnMugituEzkerrera, gbc);
 
-        // ESKUMA
         JPanel pnlEskuma = new JPanel(new BorderLayout(0, 10));
         pnlEskuma.setOpaque(false);
-        comboEskuma = sortuTaldeCombo(); // Usa taldeAktiboak
+        comboEskuma = sortuTaldeCombo();
         pnlEskuma.add(comboEskuma, BorderLayout.NORTH);
         modelEskuma = new DefaultListModel<>();
         listEskuma = sortuJokalariLista(modelEskuma);
@@ -103,24 +127,22 @@ public class PanelAdmin extends JPanel {
         panelNagusia.add(pnlEzkerra);
         panelNagusia.add(pnlBotoiak);
         panelNagusia.add(pnlEskuma);
-
         add(panelNagusia, BorderLayout.CENTER);
 
-        // LISTENERS
         comboEzkerra.addActionListener(e -> { eguneratuLista(comboEzkerra, modelEzkerra); botoiakEguneratu(); });
         comboEskuma.addActionListener(e -> { eguneratuLista(comboEskuma, modelEskuma); botoiakEguneratu(); });
         btnMugituEskuinera.addActionListener(e -> mugituJokalaria(true));
         btnMugituEzkerrera.addActionListener(e -> mugituJokalaria(false));
 
-        if (comboEzkerra.getItemCount() > 0) {
-			comboEzkerra.setSelectedIndex(0);
-		}
-        if (comboEskuma.getItemCount() > 1) {
-			comboEskuma.setSelectedIndex(1);
-		}
+        if (comboEzkerra.getItemCount() > 0) comboEzkerra.setSelectedIndex(0);
+        if (comboEskuma.getItemCount() > 1) comboEskuma.setSelectedIndex(1);
     }
 
-    // --- METODO LAGUNTZAILEAK ---
+    /**
+     * Taldeak aukeratzeko combo-box bat sortzen du talde aktiboekin.
+     *
+     * @return taldeen combo-box-a
+     */
     private JComboBox<Talde> sortuTaldeCombo() {
         JComboBox<Talde> combo = new JComboBox<>();
         for (Talde t : taldeAktiboak) {
@@ -130,6 +152,12 @@ public class PanelAdmin extends JPanel {
         return combo;
     }
 
+    /**
+     * Jokalarien zerrenda bisual bat sortzen du, izenarekin eta abizenarekin.
+     *
+     * @param model zerrendaren modeloa
+     * @return jokalarien JList-a
+     */
     private JList<Jokalari> sortuJokalariLista(DefaultListModel<Jokalari> model) {
         JList<Jokalari> list = new JList<>(model);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -147,6 +175,13 @@ public class PanelAdmin extends JPanel {
         return list;
     }
 
+    /**
+     * Botoi bat sortzen du kolore eta testu batekin.
+     *
+     * @param text botoiaren testua
+     * @param bg   botoiaren atzeko kolorea
+     * @return sortutako botoia
+     */
     private JButton sortuBotoia(String text, Color bg) {
         JButton btn = new JButton(text);
         btn.setBackground(bg);
@@ -156,16 +191,23 @@ public class PanelAdmin extends JPanel {
         return btn;
     }
 
+    /**
+     * Combo-box bateko aukeratutako taldearen jokalariak zerrendan kargatzen ditu.
+     *
+     * @param combo aukeratutako taldea duen combo-box-a
+     * @param model eguneratu beharreko zerrendaren modeloa
+     */
     private void eguneratuLista(JComboBox<Talde> combo, DefaultListModel<Jokalari> model) {
         model.clear();
         Talde t = (Talde) combo.getSelectedItem();
         if (t != null && t.getJokalariak() != null) {
-            for (Jokalari j : t.getJokalariak()) {
-				model.addElement(j);
-			}
+            for (Jokalari j : t.getJokalariak()) model.addElement(j);
         }
     }
 
+    /**
+     * Bi taldeetan talde bera aukeratuta badago, mugitzeko botoiak desgaitzen ditu.
+     */
     private void botoiakEguneratu() {
         Talde t1 = (Talde) comboEzkerra.getSelectedItem();
         Talde t2 = (Talde) comboEskuma.getSelectedItem();
@@ -174,7 +216,12 @@ public class PanelAdmin extends JPanel {
         btnMugituEzkerrera.setEnabled(!berdinak);
     }
 
-    // --- LOGIKA NAGUSIA: "ISPILU EFEKTUA" ---
+    /**
+     * Hautatutako jokalaria jatorrizko taldetik helburu-taldera mugitzen du.
+     * Aldaketa pantailan, federazioaren zerrendan eta datu-basean egiten da.
+     *
+     * @param eskuinera true bada ezkerretik eskuinera mugitzen du; false bada alderantziz
+     */
     private void mugituJokalaria(boolean eskuinera) {
         JList<Jokalari> jatorrizkoLista = eskuinera ? listEzkerra : listEskuma;
         DefaultListModel<Jokalari> jatorrizkoModel = eskuinera ? modelEzkerra : modelEskuma;
@@ -184,77 +231,60 @@ public class PanelAdmin extends JPanel {
         Talde helburuTaldea = (Talde) (eskuinera ? comboEskuma.getSelectedItem() : comboEzkerra.getSelectedItem());
         Jokalari hautatua = jatorrizkoLista.getSelectedValue();
 
-        if (hautatua == null || jatorrizkoTaldea == null || helburuTaldea == null) {
-			return;
-		}
+        if (hautatua == null || jatorrizkoTaldea == null || helburuTaldea == null) return;
 
-        // 1. MUGIMENDUA ORAIN
         jatorrizkoTaldea.getJokalariak().remove(hautatua);
         helburuTaldea.sartuJokalaria(hautatua);
 
-        // UI eguneratu
         jatorrizkoModel.removeElement(hautatua);
         helburuModel.addElement(hautatua);
 
-        // 2. MUGIMENDUA ETORKIZUNERAKO
         aplikatuAldaketaFederazioan(jatorrizkoTaldea, helburuTaldea, hautatua);
 
-        // 3. --- DATU-BASEAN EGUNERATU ---
         boolean ondoGordeta = dao.JokalariDAO.aldatuJokalariarenTaldeaDB(hautatua.getId(), helburuTaldea.getId());
 
         if (ondoGordeta) {
-            if (app != null) {
-				app.setAldaketakDauden(true);
-			}
+            if (app != null) app.setAldaketakDauden(true);
             utils.LogKudeatzailea.gehituLog("DB EGUNERAKETA: " + hautatua.getIzena() + " " + hautatua.getAbizena() + " - " + hautatua.getDortsala() + " jokalariaren taldea aldatu da.");
         } else {
-            // Datu-baseak huts egiten badu, abisua eman
-            JOptionPane.showMessageDialog(this,
-                "Errorea egon da jokalaria datu-basean eguneratzean.",
-                "Errorea DBan",
-                JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Errorea egon da jokalaria datu-basean eguneratzean.", "Errorea DBan", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    // Metodo honek aldaketa bera bilatzen du Federazioaren zerrenda nagusian
+    /**
+     * Aldaketa berbera federazioaren zerrenda nagusian bilatzen eta aplikatzen du.
+     * Objektu ezberdinak direnez, izenaren bidez bilatzen du.
+     *
+     * @param tOrig jatorrizko taldea
+     * @param tDest helburu-taldea
+     * @param jok   mugitu beharreko jokalaria
+     */
     private void aplikatuAldaketaFederazioan(Talde tOrig, Talde tDest, Jokalari jok) {
-        // 1. Bilatu benetako taldeak Federazioan (Izena erabiliz)
         Talde masterOrig = null;
         Talde masterDest = null;
 
-        for(Talde t : federazioa.getTaldeGuztiak()) {
-            if(t.getIzena().equals(tOrig.getIzena())) {
-				masterOrig = t;
-			}
-            if(t.getIzena().equals(tDest.getIzena())) {
-				masterDest = t;
-			}
+        for (Talde t : federazioa.getTaldeGuztiak()) {
+            if (t.getIzena().equals(tOrig.getIzena())) masterOrig = t;
+            if (t.getIzena().equals(tDest.getIzena())) masterDest = t;
         }
 
-        // 2. Taldeak aurkitu badira, bilatu jokalaria
-        if(masterOrig != null && masterDest != null) {
+        if (masterOrig != null && masterDest != null) {
             Jokalari masterJok = null;
 
-            // Jokalaria bilatu behar dugu izenaren eta abizenaren bidez (objektu ezberdinak direlako)
-            for(Jokalari j : masterOrig.getJokalariak()) {
-                if(j.getIzena().equals(jok.getIzena()) && j.getAbizena().equals(jok.getAbizena())) {
+            for (Jokalari j : masterOrig.getJokalariak()) {
+                if (j.getIzena().equals(jok.getIzena()) && j.getAbizena().equals(jok.getAbizena())) {
                     masterJok = j;
                     break;
                 }
             }
 
-            // 3. Mugimendua egin zerrenda nagusian
-            if(masterJok != null) {
-            	// 1. Ezabatu jatorrizkotik
+            if (masterJok != null) {
                 masterOrig.getJokalariak().remove(masterJok);
-                // 2. Gehitu berrira
                 masterDest.getJokalariak().add(masterJok);
 
-                // --- LOG ---
                 String logMezua = "FITXAKETA: " + masterJok.getIzena() + " " + masterJok.getAbizena() +
                                   " mugitu da (" + masterOrig.getIzena() + " -> " + masterDest.getIzena() + ")";
                 utils.LogKudeatzailea.gehituLog(logMezua);
-                // -----------
             }
         }
     }

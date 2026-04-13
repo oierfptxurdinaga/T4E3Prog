@@ -2,8 +2,8 @@ package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap; // <--- Hau gehitu
-import java.util.Map;     // <--- Hau gehitu
+import java.util.HashMap;
+import java.util.Map;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -13,46 +13,90 @@ import jakarta.xml.bind.annotation.XmlElementWrapper;
 
 /**
  * Liga bateko denboraldi bat irudikatzen duen klasea.
- *
- * Denboraldiak urte bati lotuta daude, eta barnean
- * ligako taldeak eta jardunaldiak kudeatzen ditu.
- * Partiduen egoeraren arabera, denboraldia hasita
- * edo amaituta dagoen zehaztu daiteke.
+ * Denboraldiak urte bati lotuta daude eta ligako taldeak eta jardunaldiak gordetzen ditu.
  */
-
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Denboraldia implements Serializable {
 
-	/** Objektuaren bertsioa serializazioan kontrolatzeko identifikatzailea */
+    /** Serializaziorako bertsioa. */
     private static final long serialVersionUID = 1L;
 
+    /** Denboraldiaren urtea. */
     @XmlAttribute(name = "urtea")
     private int urtea;
 
+    /** Denboraldian parte hartzen duten taldeen zerrenda. */
     @XmlElementWrapper(name = "DenboraldikoTaldeak")
     @XmlElement(name = "Talde")
     private ArrayList<DenboraldiTalde> ligakoTaldeak;
 
+    /** Denboraldiko jardunaldien zerrenda. */
     @XmlElementWrapper(name = "Jardunaldiak")
     @XmlElement(name = "Jardunaldi")
     private ArrayList<Jardunaldi> ligakoJardunaldi;
 
+    /** JAXB-rako eraikitzaile hutsa. */
     public Denboraldia() {}
 
+    /**
+     * Denboraldi berri bat sortzen du urte batekin.
+     *
+     * @param urtea denboraldiaren urtea
+     */
     public Denboraldia(int urtea) {
         this.urtea = urtea;
         this.ligakoTaldeak = new ArrayList<>();
         this.ligakoJardunaldi = new ArrayList<>();
     }
 
-    // Getterrak eta setterrak
+    /**
+     * Denboraldiaren urtea itzultzen du.
+     *
+     * @return urtea
+     */
     public int getUrtea() { return urtea; }
+
+    /**
+     * Denboraldiko taldeen zerrenda itzultzen du.
+     *
+     * @return taldeen zerrenda
+     */
     public ArrayList<DenboraldiTalde> getLigakoTaldeak() { return ligakoTaldeak; }
+
+    /**
+     * Denboraldiko taldeen zerrenda ezartzen du.
+     *
+     * @param ligakoTaldeak talde berrien zerrenda
+     */
     public void setLigakoTaldeak(ArrayList<DenboraldiTalde> ligakoTaldeak) { this.ligakoTaldeak = ligakoTaldeak; }
+
+    /**
+     * Denboraldiko jardunaldien zerrenda itzultzen du.
+     *
+     * @return jardunaldien zerrenda
+     */
     public ArrayList<Jardunaldi> getLigakoJardunaldi() { return ligakoJardunaldi; }
+
+    /**
+     * Denboraldiko jardunaldien zerrenda ezartzen du.
+     *
+     * @param ligakoJardunaldi jardunaldi berrien zerrenda
+     */
     public void setLigakoJardunaldi(ArrayList<Jardunaldi> ligakoJardunaldi) { this.ligakoJardunaldi = ligakoJardunaldi; }
 
+    /**
+     * Jardunaldi bat zerrendara gehitzen du.
+     *
+     * @param j gehitu nahi den jardunaldia
+     */
     public void addJardunaldia(Jardunaldi j) { this.ligakoJardunaldi.add(j); }
+
+    /**
+     * DenboraldiTalde bat zerrendara gehitzen du.
+     * Zerrenda null bada, automatikoki sortzen da.
+     *
+     * @param dt gehitu nahi den denboraldi-taldea
+     */
     public void gehituDenboraldiTaldea(DenboraldiTalde dt) {
         if (this.ligakoTaldeak == null) {
             this.ligakoTaldeak = new ArrayList<>();
@@ -61,22 +105,19 @@ public class Denboraldia implements Serializable {
     }
 
     /**
-     * Método de compatibilidad (EL ANTIGUO):
-     * Si alguna parte del programa (como los tests) le pasa un Talde normal,
-     * este método crea la caja automáticamente y llama al método de arriba.
+     * Talde arrunt bat DenboraldiTalde bihurtu eta zerrendara gehitzen du.
+     *
+     * @param t gehitu nahi den taldea
      */
     public void gehituTaldea(Talde t) {
         this.gehituDenboraldiTaldea(new DenboraldiTalde(t, true));
     }
 
     /**
-     * Denboraldia hasita dagoen ala ez adierazten du.
+     * Denboraldia hasita dagoen edo ez egiaztatzen du.
+     * Gutxienez partida bat jokatu bada, hasitatzat jotzen da.
      *
-     * Gutxienez partida bat jokatu bada, denboraldia
-     * hasitzat jotzen da, jardunaldia osorik amaitu
-     * ez bada ere.
-     *
-     * @return {@code true} denboraldia hasita badago; bestela {@code false}
+     * @return true denboraldia hasita badago
      */
     public boolean isHasiDa() {
         if (this.ligakoJardunaldi == null || this.ligakoJardunaldi.isEmpty()) {
@@ -95,12 +136,10 @@ public class Denboraldia implements Serializable {
     }
 
     /**
-     * Denboraldia amaituta dagoen ala ez adierazten du.
+     * Denboraldia amaituta dagoen edo ez egiaztatzen du.
+     * Partida guztiak jokatu badira, amaitutzat jotzen da.
      *
-     * Jardunaldi guztietako partida guztiak jokatu badira,
-     * denboraldia amaitutzat hartzen da.
-     *
-     * @return {@code true} denboraldia amaituta badago; bestela {@code false}
+     * @return true denboraldia amaituta badago
      */
     public boolean isAmaituta() {
         if (this.ligakoJardunaldi == null || this.ligakoJardunaldi.isEmpty()) {
@@ -119,14 +158,20 @@ public class Denboraldia implements Serializable {
     }
 
     /**
-     * PanelAdmin-ekin bateragarritasuna mantentzeko erabilitako metodoa.
+     * isHasiDa()-ren baliokidea, PanelAdmin-ekin bateragarritasunerako.
      *
-     * @return {@link #isHasiDa()} metodoaren emaitza
+     * @return true denboraldia hasita badago
      */
     public boolean isDenboraldiaHasiDa() {
         return isHasiDa();
     }
 
+    /**
+     * Zenbaki baten arabera jardunaldia itzultzen du.
+     *
+     * @param zenbakia jardunaldiaren zenbakia (1etik aurrera)
+     * @return jardunaldia, edo null ez bada existitzen
+     */
     public Jardunaldi getJardunaldiID(int zenbakia) {
         if (zenbakia > 0 && zenbakia <= ligakoJardunaldi.size()) {
             return ligakoJardunaldi.get(zenbakia - 1);
@@ -134,38 +179,35 @@ public class Denboraldia implements Serializable {
         return null;
     }
 
+    /**
+     * Denboraldiaren urtea kate gisa itzultzen du.
+     *
+     * @return urtea String formatuan
+     */
     @Override
     public String toString() {
         return String.valueOf(urtea);
     }
 
     /**
-     * Uneko sailkapena kalkulatzen du jokatutako partiduen emaitzetan oinarrituta.
+     * Jokatutako partiduen emaitzetan oinarrituta sailkapena kalkulatzen du.
      *
-     * Talde bakoitzerako estatistikak hasieratzen dira eta
-     * jokatutako partida bakoitzaren emaitzen arabera
-     * eguneratzen dira.
-     *
-     * @return denboraldiko sailkapena adierazten duen zerrenda
+     * @return taldeen sailkapena DenboraldiTalde zerrenda gisa
      */
     public ArrayList<DenboraldiTalde> getSailkapena() {
         Map<String, DenboraldiTalde> statsMap = new HashMap<>();
 
-        // 1. Taldeak hasieratu (0 puntu)
         if (this.ligakoTaldeak != null) {
-            // HEMEN DAGO ALDAKETA: Zerrendak orain DenboraldiTalde ditu
             for (DenboraldiTalde dt : this.ligakoTaldeak) {
-                Talde t = dt.getTalde(); // Kaxatik Talde originala atera
+                Talde t = dt.getTalde();
                 statsMap.put(t.getIzena().trim(), new DenboraldiTalde(t, true));
             }
         }
 
-        // 2. Partiduak prozesatu eta puntuak batu
         if (this.ligakoJardunaldi != null) {
             for (Jardunaldi j : this.ligakoJardunaldi) {
                 if (j.getPartiduak() != null) {
                     for (Partidua p : j.getPartiduak()) {
-                        // Jokatu gabe badago, hurrengoa
                         if (!p.jokatutaDago()) {
 							continue;
 						}
@@ -177,7 +219,6 @@ public class Denboraldia implements Serializable {
                         DenboraldiTalde sVisit = statsMap.get(visitNom);
 
                         if (sLocal != null && sVisit != null) {
-                            // DenboraldiTalde klaseko metodoa erabili datuak eguneratzeko
                             sLocal.emaitzakEguneratu(p.getEtxekoGolak(), p.getKanpokoGolak());
                             sVisit.emaitzakEguneratu(p.getKanpokoGolak(), p.getEtxekoGolak());
                         }
@@ -185,10 +226,16 @@ public class Denboraldia implements Serializable {
                 }
             }
         }
-        // Zerrenda itzuli
         return new ArrayList<>(statsMap.values());
     }
 
+    /**
+     * Partida bat jardunaldi jakin batean gehitzen du.
+     * Jardunaldia existitzen ez bada, automatikoki sortzen da.
+     *
+     * @param jardunaldiZenbakia partida gehitu nahi den jardunaldiaren zenbakia
+     * @param p gehitu nahi den partida
+     */
     public void gehituPartiduaJardunaldira(int jardunaldiZenbakia, Partidua p) {
         if (this.ligakoJardunaldi == null) {
             this.ligakoJardunaldi = new ArrayList<>();
@@ -196,7 +243,6 @@ public class Denboraldia implements Serializable {
 
         Jardunaldi aurkitutakoa = null;
 
-        // Bilatu ea jardunaldia existitzen den zerrendan
         for (Jardunaldi j : this.ligakoJardunaldi) {
             if (j.getJardunaldiZbk() == jardunaldiZenbakia) {
                 aurkitutakoa = j;
@@ -204,14 +250,11 @@ public class Denboraldia implements Serializable {
             }
         }
 
-        // Ez bada existitzen, berria sortu
         if (aurkitutakoa == null) {
             aurkitutakoa = new Jardunaldi(jardunaldiZenbakia);
             this.ligakoJardunaldi.add(aurkitutakoa);
         }
 
-        // Partidua gehitu
         aurkitutakoa.getPartiduak().add(p);
     }
-
 }

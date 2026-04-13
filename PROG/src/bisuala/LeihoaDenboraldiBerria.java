@@ -27,16 +27,40 @@ import model.Federazioa;
 import model.Talde;
 import utils.PartiduKudeatzailea;
 
+/**
+ * Denboraldi berri bat konfiguratzeko elkarrizketa-leihoa.
+ * Erabiltzaileak urtea eta parte hartuko duten 6 taldeak aukeratzen ditu.
+ * Denboraldia sortzean egutegia automatikoki kalkulatzen da.
+ */
 public class LeihoaDenboraldiBerria extends JDialog {
 	private static final long serialVersionUID = 1L;
-	private JTextField txtUrtea;
-    private Federazioa federazioa;
-    private ArrayList<JCheckBox> checkTaldeak;
-    private JLabel lblKontagailua;
-    private final int MAX_TALDEAK = 6;
-    private boolean ondoSortuDa = false;
-    private DenboraldiDAO ddao;
 
+	/** Denboraldiaren urtea sartzeko eremua. */
+	private JTextField txtUrtea;
+
+	/** Federazioaren datuak. */
+	private Federazioa federazioa;
+
+	/** Taldeen checkbox zerrenda. */
+	private ArrayList<JCheckBox> checkTaldeak;
+
+	/** Aukeratutako talde kopurua erakusten duen etiketa. */
+	private JLabel lblKontagailua;
+
+	/** Denboraldian parte har dezaketen talde kopuru maximoa. */
+	private final int MAX_TALDEAK = 6;
+
+	/** Denboraldia ondo sortu den ala ez adierazten du. */
+	private boolean ondoSortuDa = false;
+
+	/** Datu-basera sarbidea. */
+	private DenboraldiDAO ddao;
+
+	/**
+	 * Denboraldi berria konfiguratzeko leihoa sortzen du.
+	 *
+	 * @param federazioa federazioaren datuak
+	 */
     public LeihoaDenboraldiBerria(Federazioa federazioa) {
     	ddao = new DenboraldiDAO();
         this.federazioa = federazioa;
@@ -48,7 +72,6 @@ public class LeihoaDenboraldiBerria extends JDialog {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-        // --- 0. DATUAK PRESTATU ---
         Denboraldia azkena = null;
         ArrayList<Denboraldia> zerrenda = federazioa.getDenboraldiak();
         if (zerrenda != null && !zerrenda.isEmpty()) {
@@ -56,7 +79,6 @@ public class LeihoaDenboraldiBerria extends JDialog {
         }
         int hurrengoUrtea = (azkena != null) ? azkena.getUrtea() + 1 : 2024;
 
-        // --- 1. GOIKO ALDEA: URTEA ---
         JPanel pnlUrtea = new JPanel();
         pnlUrtea.add(new JLabel("Denboraldiaren Urtea:"));
         txtUrtea = new JTextField(String.valueOf(hurrengoUrtea), 10);
@@ -67,12 +89,10 @@ public class LeihoaDenboraldiBerria extends JDialog {
         pnlUrtea.add(txtUrtea);
         add(pnlUrtea, BorderLayout.NORTH);
 
-        // --- 2. ERDIKO ALDEA: TALDEAK ---
         JPanel pnlLista = new JPanel();
         pnlLista.setLayout(new BoxLayout(pnlLista, BoxLayout.Y_AXIS));
         pnlLista.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // Informazio panela eta kontagailua
         JPanel pnlInfo = new JPanel(new FlowLayout(FlowLayout.LEFT));
         pnlInfo.add(new JLabel("Aukeratu taldeak (Zehazki 6):"));
 
@@ -88,26 +108,18 @@ public class LeihoaDenboraldiBerria extends JDialog {
             int count = 0;
             for (Talde t : federazioa.getTaldeGuztiak()) {
                 JCheckBox chk = new JCheckBox(t.getIzena() + " (" + t.getHiria() + ")");
-
-                // LEHENENGO 6ak BAKARRIK markatu defektuz (bestela errorea emango luke hasieran)
                 if (count < MAX_TALDEAK) {
                     chk.setSelected(true);
                     count++;
                 }
-
                 chk.putClientProperty("taldeObj", t);
-
-                // --- ENTZULEA (LISTENER) GEHITU ---
-                // Honek deituko du 'eguneratuCheckak()' CheckBox bakoitza aldatzen denean
                 chk.addItemListener(e -> eguneratuCheckak());
-
                 pnlLista.add(chk);
                 checkTaldeak.add(chk);
             }
         }
         add(new JScrollPane(pnlLista), BorderLayout.CENTER);
 
-        // --- 3. BEHEKO ALDEA ---
         JPanel pnlBotoiak = new JPanel(new BorderLayout());
         pnlBotoiak.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -129,29 +141,31 @@ public class LeihoaDenboraldiBerria extends JDialog {
         pnlBotoiak.add(pnlBenetakoBotoiak, BorderLayout.CENTER);
         add(pnlBotoiak, BorderLayout.SOUTH);
 
-        // Hasierako egoera eguneratu (blokeoak aplikatzeko)
         eguneratuCheckak();
     }
 
-    // Getter PanelPresi-rentzat
+    /**
+     * Denboraldia ondo sortu den ala ez itzultzen du.
+     *
+     * @return true ondo sortu bada
+     */
     public boolean isOndoSortuDa() {
         return ondoSortuDa;
     }
 
     /**
-     * Metodo honek denbora errealean kudeatzen du CheckBox-en egoera.
+     * Checkbox-en egoera denbora errealean kudeatzen du.
+     * 6 talde aukeratuta daudenean, gainerakoak blokeatzen ditu.
      */
     private void eguneratuCheckak() {
         int aukeratuak = 0;
 
-        // 1. Zenbatu
         for (JCheckBox chk : checkTaldeak) {
             if (chk.isSelected()) {
                 aukeratuak++;
             }
         }
 
-        // 2. Etiketa eguneratu
         lblKontagailua.setText(aukeratuak + " / " + MAX_TALDEAK);
         if (aukeratuak == MAX_TALDEAK) {
             lblKontagailua.setForeground(new Color(0, 150, 0));
@@ -159,17 +173,18 @@ public class LeihoaDenboraldiBerria extends JDialog {
             lblKontagailua.setForeground(Color.RED);
         }
 
-
         boolean mugaIritsia = (aukeratuak >= MAX_TALDEAK);
-
         for (JCheckBox chk : checkTaldeak) {
             if (!chk.isSelected()) {
-
                 chk.setEnabled(!mugaIritsia);
             }
         }
     }
 
+    /**
+     * Aukeratutako datuekin denboraldia sortzen du eta datu-basean gordetzen du.
+     * 6 talde aukeratu ez badira, errore bat erakusten da.
+     */
     private void sortuDenboraldia() {
         try {
             ArrayList<Talde> taldeAukeratuak = new ArrayList<>();
@@ -187,7 +202,6 @@ public class LeihoaDenboraldiBerria extends JDialog {
             }
 
             int urtea = Integer.parseInt(txtUrtea.getText().trim());
-
             Denboraldia d = new Denboraldia(urtea);
 
             ArrayList<DenboraldiTalde> dtAukeratuak = new ArrayList<>();
@@ -195,21 +209,19 @@ public class LeihoaDenboraldiBerria extends JDialog {
                 dtAukeratuak.add(new DenboraldiTalde(t, true));
             }
             d.setLigakoTaldeak(dtAukeratuak);
-
             d.setLigakoJardunaldi(PartiduKudeatzailea.sortuEgutegia(taldeAukeratuak));
+
             boolean ondo = ddao.txertatuDenboraldiaOsoa(d);
             if (ondo) {
-            federazioa.gehituDenboraldia(d);
-            utils.LogKudeatzailea.gehituLog("Denboraldi berria sortu da: " + urtea + " (" + taldeAukeratuak.size() + " talde)");
-            this.ondoSortuDa = true;
-            JOptionPane.showMessageDialog(this, "Denboraldia (" + urtea + ") ondo sortu da!");
-            dispose();
+                federazioa.gehituDenboraldia(d);
+                utils.LogKudeatzailea.gehituLog("Denboraldi berria sortu da: " + urtea + " (" + taldeAukeratuak.size() + " talde)");
+                this.ondoSortuDa = true;
+                JOptionPane.showMessageDialog(this, "Denboraldia (" + urtea + ") ondo sortu da!");
+                dispose();
             } else {
             	utils.LogKudeatzailea.gehituLog("Denboraldi "+urtea+" sortzerakoan errore bat egon da.");
             	JOptionPane.showMessageDialog(this, "Zerbait txarto joan da.", "Errorea", JOptionPane.WARNING_MESSAGE);
             }
-
-
 
         } catch (Exception ex) {
             ex.printStackTrace();

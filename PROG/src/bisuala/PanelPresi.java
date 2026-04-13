@@ -35,40 +35,58 @@ import model.Erabiltzaile;
 import model.Federazioa;
 import model.Jokalari;
 import model.Talde;
+
+/**
+ * Presidentearen panela.
+ * Federazioko talde guztiak erakusten ditu, denboraldian aktiboak berde eta ez-aktiboak gorriz.
+ * Denboraldi berria sortu eta erabiltzaile berriak gehitzeko botoiak ditu.
+ */
 public class PanelPresi extends JPanel {
     private static final long serialVersionUID = 1L;
+
+    /** Ez-aktiboak markatzeko argi gorria. */
     private final Color LIGHTRED = new Color(219, 175, 175);
+
+    /** Aktiboak markatzeko argi berdea. */
     private final Color LIGHTGREEN = new Color(218, 245, 213);
+
+    /** Aplikazioaren leiho nagusia. */
     private APP aplikazioNagusia;
+
+    /** Federazioaren datuak. */
     private Federazioa federazioa;
 
+    /**
+     * Presidentearen panela sortzen du federazioaren talde guztiekin.
+     *
+     * @param erab               presidente erabiltzailea
+     * @param federazioa         federazioaren datuak
+     * @param unekoDenboraldia   uneko denboraldia (aktiboak zehazteko)
+     * @param app                aplikazioaren leiho nagusia
+     */
     public PanelPresi(Erabiltzaile erab, Federazioa federazioa, Denboraldia unekoDenboraldia, APP app) {
         this.aplikazioNagusia = app;
         this.federazioa = federazioa;
         setLayout(new BorderLayout());
 
-        // 1. DATUAK LORTU
         ArrayList<Talde> taldeGuztiak = federazioa.getTaldeGuztiak();
         ArrayList<Talde> taldeJokatzen = new ArrayList<>();
         if (unekoDenboraldia != null && unekoDenboraldia.getLigakoTaldeak() != null) {
             for (DenboraldiTalde dt : unekoDenboraldia.getLigakoTaldeak()) {
-                taldeJokatzen.add(dt.getTalde()); // Sacamos el equipo de la "caja"
+                taldeJokatzen.add(dt.getTalde());
             }
         }
-        // --- IZENBURUA (NORTH) ---
+
         JLabel lblIzenburua = new JLabel("Federazioko Presidentea: " + erab.getErabiltzaile());
         lblIzenburua.setHorizontalAlignment(SwingConstants.CENTER);
         lblIzenburua.setFont(new Font("Arial", Font.BOLD, 16));
         lblIzenburua.setBorder(new EmptyBorder(10, 0, 10, 0));
         add(lblIzenburua, BorderLayout.NORTH);
 
-        // --- ZERRENDA PANELA (CENTER) ---
         JPanel pnlZerrenda = new JPanel();
         pnlZerrenda.setLayout(new BoxLayout(pnlZerrenda, BoxLayout.Y_AXIS));
 
         if (taldeGuztiak != null && !taldeGuztiak.isEmpty()) {
-
-            // 1. Kopia eta Ordenaketa
             ArrayList<Talde> taldeOrdenatuak = new ArrayList<>(taldeGuztiak);
 
             Collections.sort(taldeOrdenatuak, new Comparator<Talde>() {
@@ -76,37 +94,25 @@ public class PanelPresi extends JPanel {
                 public int compare(Talde t1, Talde t2) {
                     boolean t1Jokatzen = taldeJokatzen.contains(t1);
                     boolean t2Jokatzen = taldeJokatzen.contains(t2);
-
-                    if (t1Jokatzen && !t2Jokatzen) {
-                        return -1; // t1 goian
-                    } else if (!t1Jokatzen && t2Jokatzen) {
-                        return 1;  // t2 goian
-                    } else {
-                        return t1.getIzena().compareToIgnoreCase(t2.getIzena());
-                    }
+                    if (t1Jokatzen && !t2Jokatzen) return -1;
+                    else if (!t1Jokatzen && t2Jokatzen) return 1;
+                    else return t1.getIzena().compareToIgnoreCase(t2.getIzena());
                 }
             });
 
-            // 2. Elementuak sortu
             for (Talde t : taldeOrdenatuak) {
                 boolean jokatzenAriDa = taldeJokatzen.contains(t);
                 Color kolorea = jokatzenAriDa ? LIGHTGREEN : LIGHTRED;
-
-                // --- TALDEAREN EDUKIA ---
-                JPanel pnlTaldeaPresi = sortuTaldePanela(t, kolorea, jokatzenAriDa);
-                pnlZerrenda.add(pnlTaldeaPresi);
+                pnlZerrenda.add(sortuTaldePanela(t, kolorea, jokatzenAriDa));
             }
         }
 
-        // ScrollPane gehitu (BEHIN BAKARRIK)
         JScrollPane scroll = new JScrollPane(pnlZerrenda);
         scroll.getVerticalScrollBar().setUnitIncrement(20);
         add(scroll, BorderLayout.CENTER);
 
-        // --- BOTOIAK (SOUTH) ---
         JPanel pnlBotoiak = new JPanel();
 
-        // 1. Botoia: Denboraldia Hasi
         JButton btnHasi = new JButton("Denboraldia hasi");
         btnHasi.addActionListener(e -> {
             LeihoaDenboraldiBerria leihoa = new LeihoaDenboraldiBerria(federazioa);
@@ -119,39 +125,39 @@ public class PanelPresi extends JPanel {
         });
         pnlBotoiak.add(btnHasi);
 
-        // 2. Botoia: ERABILTZAILE BERRIA
         JButton btnUserBerria = new JButton("Erabiltzaile Berria");
         btnUserBerria.setBackground(new Color(70, 130, 180));
         btnUserBerria.setForeground(Color.WHITE);
-
         btnUserBerria.addActionListener(e -> {
             LeihoaErabiltzaileBerria leihoaUser = new LeihoaErabiltzaileBerria(aplikazioNagusia, federazioa, aplikazioNagusia);
             leihoaUser.setVisible(true);
         });
 
-        // Espazio txiki bat botoien artean
         pnlBotoiak.add(Box.createHorizontalStrut(20));
         pnlBotoiak.add(btnUserBerria);
 
         add(pnlBotoiak, BorderLayout.SOUTH);
     }
 
- // --- METODO LAGUNTZAILEA: KODEA GARBIAGO IZATEKO ---
+    /**
+     * Talde baten panel osoa sortzen du: ezkutua, datuak eta jokalarien zerrenda.
+     *
+     * @param t              erakutsi nahi den taldea
+     * @param kolorea        panelaren atze-kolorea
+     * @param jokatzenAriDa  true bada denboraldian aktibo dago
+     * @return sortutako talde-panela
+     */
     private JPanel sortuTaldePanela(Talde t, Color kolorea, boolean jokatzenAriDa) {
         JPanel pnlTaldeaPresi = new JPanel(new BorderLayout(20, 0));
         pnlTaldeaPresi.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createMatteBorder(0, 0, 2, 0, new Color(220, 220, 220)),
                 new EmptyBorder(15, 10, 15, 10)));
-
         pnlTaldeaPresi.setBackground(kolorea);
         pnlTaldeaPresi.setMaximumSize(new Dimension(Integer.MAX_VALUE, 300));
 
-        // A. IRUDIA ETA BOTOIA
         JLabel lblEskutua = new JLabel();
         String path = "/images/TaldeArmarria/" + t.getEzkutua();
         URL imgUrl = getClass().getResource(path);
-
-
         kargatuEskutua(lblEskutua, imgUrl);
 
         JButton btnAldatuEskutua = new JButton("Aldatu");
@@ -159,19 +165,15 @@ public class PanelPresi extends JPanel {
         btnAldatuEskutua.setMargin(new Insets(2, 5, 2, 5));
         btnAldatuEskutua.setFocusPainted(false);
 
-
         btnAldatuEskutua.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Aukeratu " + t.getIzena() + " taldearen ezkutu berria");
-
             fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Irudiak (PNG, JPG, JPEG)", "png", "jpg", "jpeg"));
 
             int erantzuna = fileChooser.showOpenDialog(this);
             if (erantzuna == JFileChooser.APPROVE_OPTION) {
                 File jatorrizkoFitxategia = fileChooser.getSelectedFile();
                 String fitxategiIzena = jatorrizkoFitxategia.getName();
-
-
                 File helmugaFitxategia = new File("src/images/TaldeArmarria", fitxategiIzena);
 
                 try {
@@ -183,18 +185,12 @@ public class PanelPresi extends JPanel {
                     Image irudiaEskalatuta = irudia.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
                     lblEskutua.setIcon(new ImageIcon(irudiaEskalatuta));
                     lblEskutua.setText("");
-
                     JOptionPane.showMessageDialog(this,
                         "Ezkutua ondo aldatu da.\nGogoan izan 'Saioa Itxi' edo 'Gorde' sakatzea aldaketak XML-an mantentzeko.",
-                        "Ezkutua Aldatuta",
-                        JOptionPane.INFORMATION_MESSAGE);
-
+                        "Ezkutua Aldatuta", JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    JOptionPane.showMessageDialog(this,
-                        "Errorea irudia gordetzean: " + ex.getMessage(),
-                        "Errorea",
-                        JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Errorea irudia gordetzean: " + ex.getMessage(), "Errorea", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -202,21 +198,16 @@ public class PanelPresi extends JPanel {
         JPanel pnlIrudiaBotoia = new JPanel();
         pnlIrudiaBotoia.setLayout(new BoxLayout(pnlIrudiaBotoia, BoxLayout.Y_AXIS));
         pnlIrudiaBotoia.setBackground(kolorea);
-
         lblEskutua.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnAldatuEskutua.setAlignmentX(Component.CENTER_ALIGNMENT);
-
         pnlIrudiaBotoia.add(Box.createVerticalGlue());
         pnlIrudiaBotoia.add(lblEskutua);
         pnlIrudiaBotoia.add(Box.createRigidArea(new Dimension(0, 5)));
         pnlIrudiaBotoia.add(btnAldatuEskutua);
         pnlIrudiaBotoia.add(Box.createVerticalGlue());
-
         pnlIrudiaBotoia.setPreferredSize(new Dimension(100, 130));
-
         pnlTaldeaPresi.add(pnlIrudiaBotoia, BorderLayout.WEST);
 
-        // B. DATUAK
         JPanel pnlDatuak = new JPanel();
         pnlDatuak.setLayout(new BoxLayout(pnlDatuak, BoxLayout.Y_AXIS));
         pnlDatuak.setBackground(kolorea);
@@ -242,7 +233,6 @@ public class PanelPresi extends JPanel {
         pnlDatuak.add(lblEgoera);
         pnlDatuak.add(Box.createRigidArea(new Dimension(0, 12)));
 
-        // C. JOKALARIAK
         JPanel pnlJokalariak = new JPanel(new GridLayout(0, 2, 10, 5));
         pnlJokalariak.setBackground(kolorea);
         pnlJokalariak.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -273,14 +263,20 @@ public class PanelPresi extends JPanel {
         return pnlTaldeaPresi;
     }
 
-    // Metodo auxiliar para cargar y escalar la imagen
+    /**
+     * Ezkutuaren irudia kargatu eta etiketan jartzen du.
+     * Irudia aurkitzen ez bada, "Ez dago" testua jartzen du.
+     *
+     * @param lblEskutua irudia jasoko duen etiketa
+     * @param imgUrl     irudiaren URL-a
+     */
     private void kargatuEskutua(JLabel lblEskutua, URL imgUrl) {
         if (imgUrl != null) {
             ImageIcon ikonoOriginala = new ImageIcon(imgUrl);
             Image irudia = ikonoOriginala.getImage();
             Image irudiaEskalatuta = irudia.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
             lblEskutua.setIcon(new ImageIcon(irudiaEskalatuta));
-            lblEskutua.setText(""); // Quitar texto si hay imagen
+            lblEskutua.setText("");
         } else {
             lblEskutua.setIcon(null);
             lblEskutua.setText("Ez dago");

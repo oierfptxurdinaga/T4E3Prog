@@ -5,65 +5,80 @@ import javax.swing.JOptionPane;
 
 /**
  * Administratzaile motako erabiltzailea.
- * Erabiltzaile honek jokalariak talde
- * batetik bestera transferitu ahal ditu.
+ * Jokalariak talde batetik bestera transferitzeko gaitasuna du.
  */
-
 @Entity
 public class ErabiltzaileAdministraria extends Erabiltzaile {
 
-	/** Objektuaren bertsioa serializazioan kontrolatzeko identifikatzailea */
-	private static final long serialVersionUID = 1L;
+    /** Serializaziorako bertsioa. */
+    private static final long serialVersionUID = 1L;
 
-	/**
-     * Erabiltzaile Administratzailearen eraikitzailea.
+    /**
+     * Administratzaile erabiltzaile berri bat sortzen du.
      *
-     * @param erabiltzaile Erabiltzaile-izena (login egiteko).
-     * @param pasahitza    Sarbide-pasahitza.
+     * @param erabiltzaile erabiltzaile-izena
+     * @param pasahitza    pasahitza
      */
-	public ErabiltzaileAdministraria(String erabiltzaile, String pasahitza) {
-		super(erabiltzaile, pasahitza);
-	}
+    public ErabiltzaileAdministraria(String erabiltzaile, String pasahitza) {
+        super(erabiltzaile, pasahitza);
+    }
 
-	public ErabiltzaileAdministraria() {
+    /** Eraikitzaile hutsa. */
+    public ErabiltzaileAdministraria() {
         super();
     }
 
-	// Getterrak eta setterrak
-	@Override
-	public String getErabiltzaile() {
-		return erabiltzaile;
-	}
-	@Override
-	public void setErabiltzaile(String erabiltzaile) {
-		this.erabiltzaile = erabiltzaile;
-	}
-	@Override
-	public String getPasahitza() {
-		return pasahitza;
-	}
-	@Override
-	public void setPasahitza(String pasahitza) {
-		this.pasahitza = pasahitza;
-	}
+    /**
+     * Erabiltzaile-izena itzultzen du.
+     *
+     * @return erabiltzaile-izena
+     */
+    @Override
+    public String getErabiltzaile() { return erabiltzaile; }
 
-	/**
-	 * Jokalari bat talde batetik bestera pasatzeko balio du
-	 *
-	 * @param jokalari     Zein jokalari aldatu nahi duzun taldez
-	 * @param taldeZaharra jokalaria dagoen taldea
-	 * @param taldeBerria  jokalria eramango den taldea
-	 */
-	public void aldatuJokalariak(Jokalari jokalari, Talde taldeZaharra, Talde taldeBerria, boolean denboraldiaHasiDa) {
-		if (!denboraldiaHasiDa) {
-			if (taldeZaharra.getJokalariak().contains(jokalari)) {
-				taldeZaharra.getJokalariak().remove(jokalari);
-				taldeBerria.getJokalariak().add(jokalari);
-			} else {
-				JOptionPane.showMessageDialog(null, "Jokalari hori ez dago talde horretan", "ERROR", JOptionPane.ERROR_MESSAGE);
-			}
-		} else {
-			JOptionPane.showMessageDialog(null, "Ezin dituzu jokalariak aldatu denboraldia hasi delako", "ERROR", JOptionPane.ERROR_MESSAGE);
-		}
-	}
+    /**
+     * Erabiltzaile-izena ezartzen du.
+     *
+     * @param erabiltzaile erabiltzaile-izen berria
+     */
+    @Override
+    public void setErabiltzaile(String erabiltzaile) { this.erabiltzaile = erabiltzaile; }
+
+    /**
+     * Pasahitza itzultzen du.
+     *
+     * @return pasahitza
+     */
+    @Override
+    public String getPasahitza() { return pasahitza; }
+
+    /**
+     * Pasahitza ezartzen du.
+     *
+     * @param pasahitza pasahitz berria
+     */
+    @Override
+    public void setPasahitza(String pasahitza) { this.pasahitza = pasahitza; }
+
+    /**
+     * Jokalari bat talde batetik bestera aldatzen du.
+     * Denboraldia hasi bada, ez da aldaketarik onartzen.
+     *
+     * @param jokalari         aldatu nahi den jokalaria
+     * @param taldeZaharra     jokalariak dagoen taldea
+     * @param taldeBerria      jokalaria joan behar den taldea
+     * @param denboraldiaHasiDa denboraldia hasita dagoen ala ez
+     */
+    public void aldatuJokalariak(Jokalari jokalari, Talde taldeZaharra, Talde taldeBerria, boolean denboraldiaHasiDa) {
+        if (!denboraldiaHasiDa) {
+            if (taldeZaharra.getJokalariak().contains(jokalari)) {
+                taldeZaharra.getJokalariak().remove(jokalari);
+                taldeBerria.getJokalariak().add(jokalari);
+            } else {
+                JOptionPane.showMessageDialog(null, "Jokalari hori ez dago talde horretan", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Ezin dituzu jokalariak aldatu denboraldia hasi delako", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 }

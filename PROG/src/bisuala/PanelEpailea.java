@@ -31,25 +31,47 @@ import model.Jardunaldi;
 import model.Partidua;
 import model.Talde;
 
+/**
+ * Epailearen panela.
+ * Jardunaldi bat aukeratuta, jokatutako partiduen emaitzak sartu edo ikusteko aukera ematen du.
+ * Denboraldia editagarria ez bada, eremu guztiak desgaituta agertzen dira.
+ */
 public class PanelEpailea extends JPanel {
 
+	/** Aplikazioaren leiho nagusia. */
 	private APP app;
 
 	private static final long serialVersionUID = 1L;
 
+	/** Fondoaren kolorea. */
 	private final Color KOLORE_FONDOA = Color.WHITE;
+
+	/** Ertzaren kolorea. */
 	private final Color KOLORE_BORDER = new Color(220, 220, 220);
 
+	/** Jardunaldiak aukeratzeko combo-box-a. */
 	private JComboBox<String> comboJardunaldiak;
+
+	/** Partiduak erakusten dituen panela. */
 	private JPanel panelPartiduak;
 
+	/** Emaitzak sartu nahi diren denboraldia. */
 	private Denboraldia denboraldia;
+
+	/** Emaitzak sartzen dituen epailea. */
 	private ErabiltzaileEpaile epaileAktiboa;
 
-	// 1. VARIABLE BERRIA: Denboraldia editatu daitekeen ala ez
+	/** Denboraldia editatu daitekeen ala ez adierazten du. */
 	private boolean editagarria;
 
-	// 2. ERAIKITZAILEA ALDATU (boolean editagarria gehitu)
+	/**
+	 * Epailearen panela sortzen du.
+	 *
+	 * @param d           emaitzak sartu nahi diren denboraldia
+	 * @param epaile      epaile erabiltzailea
+	 * @param editagarria true bada emaitzak sartu daitezke; false bada ikusi bakarrik
+	 * @param app         aplikazioaren leiho nagusia
+	 */
 	public PanelEpailea(Denboraldia d, ErabiltzaileEpaile epaile, boolean editagarria, APP app) {
 		this.denboraldia = d;
 		this.epaileAktiboa = epaile;
@@ -59,12 +81,10 @@ public class PanelEpailea extends JPanel {
 		setLayout(new BorderLayout());
 		setBackground(KOLORE_FONDOA);
 
-		// --- GOIKO ALDEA ---
 		JPanel panelGoikoa = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panelGoikoa.setBackground(KOLORE_FONDOA);
 		panelGoikoa.setBorder(new EmptyBorder(15, 15, 5, 15));
 
-		// Testua aldatu egoeraren arabera
 		String izenburua = editagarria ? "Sartu Emaitzak - Jardunaldia: " : "Emaitzak Ikusi (ITXITA) - Jardunaldia: ";
 		JLabel lblIzenburua = new JLabel(izenburua);
 		lblIzenburua.setFont(new Font("Arial", Font.BOLD, 14));
@@ -81,7 +101,6 @@ public class PanelEpailea extends JPanel {
 		panelGoikoa.add(comboJardunaldiak);
 		add(panelGoikoa, BorderLayout.NORTH);
 
-		// --- ERDIKO ALDEA ---
 		panelPartiduak = new JPanel();
 		panelPartiduak.setLayout(new BoxLayout(panelPartiduak, BoxLayout.Y_AXIS));
 		panelPartiduak.setBackground(KOLORE_FONDOA);
@@ -96,15 +115,11 @@ public class PanelEpailea extends JPanel {
 	}
 
 	/**
-	 * Datuak kargatu, etc. (Metodo hauek berdin jarraitzen dute, kopiatu aurreko
-	 * kodea hemen, ez dago aldaketarik datuakKargatu edo eguneratuPartiduak-en)
+	 * Combo-box-a betetzeko jardunaldiak kargatzen ditu eta lehenengoa aukeratzen du.
 	 */
 	private void datuakKargatu() {
-		// Listener-ak desgaitu kargatzean
 		ActionListener[] listeners = comboJardunaldiak.getActionListeners();
-		for (ActionListener al : listeners) {
-			comboJardunaldiak.removeActionListener(al);
-		}
+		for (ActionListener al : listeners) comboJardunaldiak.removeActionListener(al);
 
 		comboJardunaldiak.removeAllItems();
 		panelPartiduak.removeAll();
@@ -115,10 +130,7 @@ public class PanelEpailea extends JPanel {
 			}
 		}
 
-		// Listener-ak berriro jarri
-		for (ActionListener al : listeners) {
-			comboJardunaldiak.addActionListener(al);
-		}
+		for (ActionListener al : listeners) comboJardunaldiak.addActionListener(al);
 
 		if (comboJardunaldiak.getItemCount() > 0) {
 			comboJardunaldiak.setSelectedIndex(0);
@@ -132,6 +144,9 @@ public class PanelEpailea extends JPanel {
 		}
 	}
 
+	/**
+	 * Aukeratutako jardunaldiko partiduak pantailan kargatzen ditu.
+	 */
 	private void eguneratuPartiduak() {
 		panelPartiduak.removeAll();
 
@@ -150,7 +165,14 @@ public class PanelEpailea extends JPanel {
 		panelPartiduak.repaint();
 	}
 
-	// --- ALDAKETA NAGUSIA HEMEN DAGO ---
+	/**
+	 * Partida bat erakusteko panel bat sortzen du.
+	 * Editagarria bada, emaitzak sartzeko eremuekin; bestela, irakurtzeko soilik.
+	 *
+	 * @param p          erakutsi nahi den partida
+	 * @param jardunaldia partida dagoen jardunaldia
+	 * @return sortutako partida-panela
+	 */
 	private JPanel sortuPartiduEditagarria(Partidua p, Jardunaldi jardunaldia) {
         JPanel panelErrenkada = new JPanel(new BorderLayout(10, 0));
         panelErrenkada.setBorder(BorderFactory.createCompoundBorder(
@@ -161,11 +183,9 @@ public class PanelEpailea extends JPanel {
         panelErrenkada.setPreferredSize(new Dimension(600, 80));
         panelErrenkada.setBackground(Color.WHITE);
 
-        // TALDEAK
         JPanel pnlEtxekoa = sortuTaldePanela(p.getEtxekoTaldea(), SwingConstants.RIGHT);
         JPanel pnlKanpokoa = sortuTaldePanela(p.getKanpokoTaldea(), SwingConstants.LEFT);
 
-        // ERDIKO ZONA
         JPanel pnlEmaitzak = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 15));
         pnlEmaitzak.setBackground(Color.WHITE);
         pnlEmaitzak.setPreferredSize(new Dimension(220, 0));
@@ -178,7 +198,6 @@ public class PanelEpailea extends JPanel {
         txtKanpokoa.setHorizontalAlignment(SwingConstants.CENTER);
         txtKanpokoa.setFont(new Font("Arial", Font.BOLD, 18));
 
-        // 3. LOGIKA: Editagarria ez bada, inputak desgaitu
         txtEtxekoa.setEditable(this.editagarria);
         txtKanpokoa.setEditable(this.editagarria);
 
@@ -199,8 +218,6 @@ public class PanelEpailea extends JPanel {
         btnGorde.setBackground(new Color(70, 130, 180));
         btnGorde.setForeground(Color.WHITE);
         btnGorde.setFocusPainted(false);
-
-        // 4. LOGIKA: Editagarria ez bada, botoia desgaitu
         btnGorde.setEnabled(this.editagarria);
         if (!this.editagarria) {
             btnGorde.setText("Itxita");
@@ -212,9 +229,7 @@ public class PanelEpailea extends JPanel {
                 String strEtxekoa = txtEtxekoa.getText().trim();
                 String strKanpokoa = txtKanpokoa.getText().trim();
 
-                if (strEtxekoa.isEmpty() || strKanpokoa.isEmpty()) {
-					return;
-				}
+                if (strEtxekoa.isEmpty() || strKanpokoa.isEmpty()) return;
 
                 int golEtxekoa = Integer.parseInt(strEtxekoa);
                 int golKanpokoa = Integer.parseInt(strKanpokoa);
@@ -227,7 +242,6 @@ public class PanelEpailea extends JPanel {
                 if (epaileAktiboa != null) {
                     epaileAktiboa.sartuEmaitza(denboraldia, p.getEtxekoTaldea(), p.getKanpokoTaldea(), golEtxekoa, golKanpokoa);
 
-
                     boolean ondoGordeta = PartiduaDAO.eguneratuEmaitzaDB(
                             jardunaldia.getId(),
                             p.getEtxekoTaldea().getId(),
@@ -237,21 +251,16 @@ public class PanelEpailea extends JPanel {
                     );
 
                     if (ondoGordeta) {
-                        if (app != null) {
-                            app.setAldaketakDauden(true);
-                        }
-
+                        if (app != null) app.setAldaketakDauden(true);
                         utils.LogKudeatzailea.gehituLog("Emaitza Eguneratua: " +
                                 p.getEtxekoTaldea().getIzena() + " " + golEtxekoa + " - " +
                                 golKanpokoa + " " + p.getKanpokoTaldea().getIzena());
-
                         btnGorde.setBackground(new Color(46, 139, 87));
                         btnGorde.setText("OK");
                     } else {
                         JOptionPane.showMessageDialog(this, "Errorea datu-basean gordetzean.", "Errorea", JOptionPane.ERROR_MESSAGE);
                     }
                 }
-
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Zenbakiak bakarrik sartu.", "Errorea", JOptionPane.ERROR_MESSAGE);
             }
@@ -270,7 +279,13 @@ public class PanelEpailea extends JPanel {
         return panelErrenkada;
     }
 
-
+	/**
+	 * Talde baten izena eta ezkutua erakusten dituen panel bat sortzen du.
+	 *
+	 * @param t          erakutsi nahi den taldea
+	 * @param alineazioa SwingConstants.RIGHT edo LEFT
+	 * @return sortutako talde-panela
+	 */
 	private JPanel sortuTaldePanela(Talde t, int alineazioa) {
         JPanel p = new JPanel(new BorderLayout(10, 0));
         p.setBackground(Color.WHITE);

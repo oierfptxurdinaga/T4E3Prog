@@ -15,14 +15,28 @@ import model.Erabiltzaile;
 import model.Federazioa;
 import utils.DatuKarga;
 
+/**
+ * Saioa hasteko leihoa.
+ * Erabiltzaile-izena eta pasahitza egiaztatu ondoren APP leiho nagusia irekitzen du.
+ * Aplikazioaren sarrera puntua da.
+ */
 public class Login extends JFrame {
 	private static final long serialVersionUID = 1L;
 
+	/** Erabiltzaile-izena sartzeko eremua. */
 	private JTextField txtUser;
+
+	/** Pasahitza sartzeko eremua. */
 	private JPasswordField txtPass;
 
+	/** Federazioaren datuak datu-basekoak kargatzen dira. */
 	private Federazioa federazioa;
 
+	/**
+	 * Aplikazioaren sarrera puntua.
+	 *
+	 * @param args komando-lerroko argumentuak (ez dira erabiltzen)
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(() -> {
 			try {
@@ -34,17 +48,17 @@ public class Login extends JFrame {
 		});
 	}
 
+	/**
+	 * Login leihoa sortzen du eta federazioaren datuak kargatzen ditu.
+	 * Federazioa null bada, hutsik sortzen da.
+	 */
 	public Login() {
-		// 1. Datuak kargatu (SOILIK FEDERAZIOA)
-		// DatuKarga.kargatuErabiltzaileak() ez dugu gehiago behar
 		federazioa = DatuKarga.kargatuFederazioaDB();
 
-		// Federazioa null bada (fitxategia ez da existitzen), sortu berria
 		if (federazioa == null) {
 			federazioa = new Federazioa();
 		}
 
-		// 3. Leihoaren konfigurazioa
 		setTitle("Saioa Hasi");
 		setLayout(null);
 		setBounds(100, 100, 400, 300);
@@ -52,7 +66,6 @@ public class Login extends JFrame {
 		setLocationRelativeTo(null);
 		setResizable(false);
 
-		// --- UI OSAGAIAK ---
 		JLabel lblUser = new JLabel("Erabiltzailea:");
 		lblUser.setBounds(50, 50, 100, 25);
 		add(lblUser);
@@ -76,18 +89,14 @@ public class Login extends JFrame {
 		add(btnLogin);
 		this.getRootPane().setDefaultButton(btnLogin);
 
-		// --- LOGIKA ---
 		btnLogin.addActionListener(e -> {
 			String u = txtUser.getText();
 			String p = new String(txtPass.getPassword());
 
-			// Comprobamos el usuario en ObjectDB
 			Erabiltzaile userLogueado = utils.BDOOKudeatzailea.login(u, p);
 
 			if (userLogueado != null) {
 				utils.LogKudeatzailea.gehituLog("Saioa hasi da: " + userLogueado.getErabiltzaile());
-
-				// IMPORTANTE: Pasamos el usuario de ObjectDB y la federación de MySQL
 				new APP(userLogueado, federazioa).setVisible(true);
 				dispose();
 			} else {

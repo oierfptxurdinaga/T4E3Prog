@@ -23,24 +23,42 @@ import javax.swing.border.EmptyBorder;
 import model.Jokalari;
 import model.Talde;
 
-
+/**
+ * Taldeak ikusteko panela.
+ * Combo-box baten bidez taldea aukeratu eta haren informazioa eta
+ * jokalarien karta guztiak grid formatuan erakusten ditu.
+ */
 public class PanelTaldeak extends JPanel {
 
     private static final long serialVersionUID = 1L;
+
+    /** Taldeak aukeratzeko combo-box-a. */
     private JComboBox<Talde> comboTaldeak;
+
+    /** Taldearen informazioa (ezkutua + testua) erakusten duen panela. */
     private JPanel panelInfoTaldea;
+
+    /** Jokalarien kartak erakusten dituen grid-panela. */
     private JPanel panelJokalariak;
+
+    /** Denboraldiaren urtea. */
     private int urtea;
 
+    /**
+     * Taldeak panela sortzen du emandako taldeeen zerrendarekin.
+     *
+     * @param taldeak erakutsi nahi diren taldeak
+     * @param urtea   denboraldiaren urtea
+     */
     public PanelTaldeak(ArrayList<Talde> taldeak, int urtea) {
         this.urtea = urtea;
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
 
-        // --- 1. IPARRALDEKO ZONA (Bi zati: ComboBox + InfoTaldea) ---
         JPanel panelNorteContainer = new JPanel();
         panelNorteContainer.setLayout(new BoxLayout(panelNorteContainer, BoxLayout.Y_AXIS));
         panelNorteContainer.setBackground(Color.WHITE);
+
         JPanel panelCombo = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelCombo.setBackground(Color.WHITE);
         panelCombo.setBorder(new EmptyBorder(15, 15, 5, 15));
@@ -60,11 +78,8 @@ public class PanelTaldeak extends JPanel {
         panelCombo.add(lblTitulo);
         panelCombo.add(comboTaldeak);
 
-
-        // B. TALDE INFO PANELA
         panelInfoTaldea = new JPanel(new BorderLayout());
         panelInfoTaldea.setBackground(Color.WHITE);
-        // Borde gris fina behean
         panelInfoTaldea.setBorder(BorderFactory.createCompoundBorder(
             new EmptyBorder(5, 20, 15, 20),
             BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(220, 220, 220))
@@ -73,10 +88,8 @@ public class PanelTaldeak extends JPanel {
 
         panelNorteContainer.add(panelCombo);
         panelNorteContainer.add(panelInfoTaldea);
-
         add(panelNorteContainer, BorderLayout.NORTH);
 
-        // --- 2. ERDIA: JOKALARIEN GRID-A ---
         panelJokalariak = new JPanel(new GridLayout(0, 4, 15, 15));
         panelJokalariak.setBackground(Color.WHITE);
         panelJokalariak.setBorder(new EmptyBorder(10, 15, 10, 15));
@@ -86,17 +99,17 @@ public class PanelTaldeak extends JPanel {
         scroll.getVerticalScrollBar().setUnitIncrement(16);
         add(scroll, BorderLayout.CENTER);
 
-        // Hasierako karga
         if (taldeak != null && !taldeak.isEmpty()) {
             kargatuDatuak();
         }
     }
 
+    /**
+     * Aukeratutako taldearen informazioa eta jokalariak kargatzen ditu.
+     */
     private void kargatuDatuak() {
         Talde aukeratua = (Talde) comboTaldeak.getSelectedItem();
-        if (aukeratua == null) {
-			return;
-		}
+        if (aukeratua == null) return;
 
         eguneratuTaldeInfo(aukeratua);
 
@@ -115,16 +128,18 @@ public class PanelTaldeak extends JPanel {
         panelJokalariak.repaint();
     }
 
-    // --- TALDEAREN INFORMAZIOA (ESCUDO + TEXTO CLÁSICO) ---
+    /**
+     * Goiko panelean taldearen ezkutua eta informazioa (izena, hiria, estadioa) erakusten ditu.
+     *
+     * @param t erakutsi nahi den taldea
+     */
     private void eguneratuTaldeInfo(Talde t) {
         panelInfoTaldea.removeAll();
 
-        // 1. EZKUTUA
         JLabel lblEscudo = new JLabel();
         lblEscudo.setPreferredSize(new Dimension(80, 80));
         lblEscudo.setHorizontalAlignment(SwingConstants.CENTER);
 
-        // ALDAKETA NAGUSIA HEMEN: Objektuari galdetzen diogu bidea
         String irudiBidea = "/images/TaldeArmarria/" + t.getEzkutua();
 
         if (irudiBidea != null && !irudiBidea.isEmpty()) {
@@ -135,29 +150,27 @@ public class PanelTaldeak extends JPanel {
                     Image img = original.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
                     lblEscudo.setIcon(new ImageIcon(img));
                 } else {
-                     // Bidea existitzen da baina fitxategia ez
-                     lblEscudo.setText("No Img");
+                    lblEscudo.setText("No Img");
                 }
             } catch (Exception e) {
                 lblEscudo.setText("Errorea");
             }
         } else {
-             lblEscudo.setText("No Img");
+            lblEscudo.setText("No Img");
         }
 
-        // 2. TESTUA (Estilo garbia)
         JPanel pnlText = new JPanel(new GridLayout(2, 1));
         pnlText.setBackground(Color.WHITE);
         pnlText.setBorder(new EmptyBorder(0, 20, 0, 0));
 
         JLabel lblIzena = new JLabel(t.getIzena().toUpperCase());
         lblIzena.setFont(new Font("Arial", Font.BOLD, 24));
-        lblIzena.setForeground(new Color(50, 50, 50)); // Gris iluna
+        lblIzena.setForeground(new Color(50, 50, 50));
 
         String azpiTestua = "Hiria: " + t.getHiria() + "  |  Estadioa: " + t.getFutbolZelaia();
         JLabel lblAzpi = new JLabel(azpiTestua);
         lblAzpi.setFont(new Font("Arial", Font.PLAIN, 14));
-        lblAzpi.setForeground(Color.GRAY); // Gris argiagoa
+        lblAzpi.setForeground(Color.GRAY);
 
         pnlText.add(lblIzena);
         pnlText.add(lblAzpi);
@@ -169,7 +182,12 @@ public class PanelTaldeak extends JPanel {
         panelInfoTaldea.repaint();
     }
 
-    // --- JOKALARI KARTA ---
+    /**
+     * Jokalari bat erakusten duen karta panel bat sortzen du argazkiarekin eta datuekin.
+     *
+     * @param j erakutsi nahi den jokalaria
+     * @return sortutako jokalari karta
+     */
     private JPanel sortuJokalariKarta(Jokalari j) {
         JPanel karta = new JPanel(new BorderLayout());
         karta.setBackground(new Color(250, 250, 252));
@@ -179,8 +197,7 @@ public class PanelTaldeak extends JPanel {
         lblIrudia.setHorizontalAlignment(SwingConstants.CENTER);
         lblIrudia.setPreferredSize(new Dimension(100, 100));
 
-        // Cargamos la imagen desde la carpeta de recursos
-        String bidea = "/images/JokalariAvatar/" + j.getArgazkia(); // La ruta donde metas los PNGs
+        String bidea = "/images/JokalariAvatar/" + j.getArgazkia();
         URL url = getClass().getResource(bidea);
 
         if (url != null) {
@@ -189,7 +206,6 @@ public class PanelTaldeak extends JPanel {
         } else {
             lblIrudia.setText("Sin foto");
         }
-
 
         JPanel panelDatos = new JPanel(new GridLayout(2, 1));
         panelDatos.setBackground(null);
@@ -213,30 +229,32 @@ public class PanelTaldeak extends JPanel {
         return karta;
     }
 
-
+    /**
+     * Combo-box-a talde berri batekin eguneratzen du eta lehenengoa aukeratzen du.
+     *
+     * @param taldeakBerriak talde berrien zerrenda
+     * @param urteaBerria    denboraldi berriaren urtea
+     */
     public void eguneratuTaldeak(ArrayList<Talde> taldeakBerriak, int urteaBerria) {
         this.urtea = urteaBerria;
 
-        // Entzulea kendu une batez bikoizketak edo erroreak saihesteko
         java.awt.event.ActionListener[] listeners = comboTaldeak.getActionListeners();
         for (java.awt.event.ActionListener al : listeners) {
             comboTaldeak.removeActionListener(al);
         }
 
-        comboTaldeak.removeAllItems(); // Desplegablea hustu
+        comboTaldeak.removeAllItems();
 
         if (taldeakBerriak != null) {
             for (Talde t : taldeakBerriak) {
-                comboTaldeak.addItem(t); // Talde berriak sartu
+                comboTaldeak.addItem(t);
             }
         }
 
-        // Entzulea berriro jarri
         for (java.awt.event.ActionListener al : listeners) {
             comboTaldeak.addActionListener(al);
         }
 
-        // Lehenengoa aukeratu eta pantaila eguneratu zerbait badago
         if (comboTaldeak.getItemCount() > 0) {
             comboTaldeak.setSelectedIndex(0);
             kargatuDatuak();

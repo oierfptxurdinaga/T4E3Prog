@@ -4,69 +4,80 @@ import javax.persistence.Entity;
 
 /**
  * Epaile motako erabiltzailea.
- * Erabiltzaile honek jokatutako partiduen emaitzak
- * sisteman sartu ahal ditu.
+ * Jokatutako partiduen emaitzak sisteman sartzeko gaitasuna du.
  */
-
 @Entity
 public class ErabiltzaileEpaile extends Erabiltzaile {
 
-	/** Objektuaren bertsioa serializazioan kontrolatzeko identifikatzailea */
-	private static final long serialVersionUID = 1L;
+    /** Serializaziorako bertsioa. */
+    private static final long serialVersionUID = 1L;
 
-	 /**
-     * Epaile motako erabiltzaile berri bat sortzen du.
+    /**
+     * Epaile erabiltzaile berri bat sortzen du.
      *
-     * @param erabiltzaile erabiltzailearen izena
-     * @param pasahitza erabiltzailearen pasahitza
+     * @param erabiltzaile erabiltzaile-izena
+     * @param pasahitza    pasahitza
      */
-	public ErabiltzaileEpaile(String erabiltzaile, String pasahitza) {
-		super(erabiltzaile, pasahitza);
-	}
-	public ErabiltzaileEpaile() {
-		// TODO Auto-generated constructor stub
+    public ErabiltzaileEpaile(String erabiltzaile, String pasahitza) {
+        super(erabiltzaile, pasahitza);
     }
 
-	// getters and setters
-	@Override
-	public String getErabiltzaile() {
-		return erabiltzaile;
-	}
-	@Override
-	public void setErabiltzaile(String erabiltzaile) {
-		this.erabiltzaile = erabiltzaile;
-	}
-	@Override
-	public String getPasahitza() {
-		return pasahitza;
-	}
-	@Override
-	public void setPasahitza(String pasahitza) {
-		this.pasahitza = pasahitza;
-	}
+    /** Eraikitzaile hutsa. */
+    public ErabiltzaileEpaile() {}
 
-	/**
-     * Partidu baten emaitza sisteman erregistratzen du.
+    /**
+     * Erabiltzaile-izena itzultzen du.
      *
-     * @param denboraldia   Partidua dagokion denboraldia.
-     * @param etxekoTaldea  Etxeko taldea.
-     * @param kanpokoTaldea Kanpoko taldea.
-     * @param etxekoGolak   Etxeko taldeak sartutako gol kopurua.
-     * @param kanpokoGolak  Kanpoko taldeak sartutako gol kopurua.
+     * @return erabiltzaile-izena
      */
-	public void sartuEmaitza(Denboraldia denboraldia, Talde etxekoTaldea, Talde kanpokoTaldea, int etxekoGolak,
-			int kanpokoGolak) {
-		for (Jardunaldi element : denboraldia.getLigakoJardunaldi()) {
-			for (Partidua element2 : element.getPartiduak()) {
-				if (element2.getEtxekoTaldea()
-						.equals(etxekoTaldea)
-						&& element2.getKanpokoTaldea()
-								.equals(kanpokoTaldea)) {
-					element2.setEtxekoGolak(etxekoGolak);
-					element2.setKanpokoGolak(kanpokoGolak);
-					return;
-				}
-			}
-		}
-	}
+    @Override
+    public String getErabiltzaile() { return erabiltzaile; }
+
+    /**
+     * Erabiltzaile-izena ezartzen du.
+     *
+     * @param erabiltzaile erabiltzaile-izen berria
+     */
+    @Override
+    public void setErabiltzaile(String erabiltzaile) { this.erabiltzaile = erabiltzaile; }
+
+    /**
+     * Pasahitza itzultzen du.
+     *
+     * @return pasahitza
+     */
+    @Override
+    public String getPasahitza() { return pasahitza; }
+
+    /**
+     * Pasahitza ezartzen du.
+     *
+     * @param pasahitza pasahitz berria
+     */
+    @Override
+    public void setPasahitza(String pasahitza) { this.pasahitza = pasahitza; }
+
+    /**
+     * Partida baten emaitza sisteman erregistratzen du.
+     * Taldeak eta denboraldia bilatuta, dagokion partiduaren golak ezartzen ditu.
+     *
+     * @param denboraldia   emaitza sartu nahi den denboraldia
+     * @param etxekoTaldea  etxean jokatzen duen taldea
+     * @param kanpokoTaldea kanpoan jokatzen duen taldea
+     * @param etxekoGolak   etxeko taldeak sartutako golak
+     * @param kanpokoGolak  kanpoko taldeak sartutako golak
+     */
+    public void sartuEmaitza(Denboraldia denboraldia, Talde etxekoTaldea, Talde kanpokoTaldea,
+            int etxekoGolak, int kanpokoGolak) {
+        for (Jardunaldi element : denboraldia.getLigakoJardunaldi()) {
+            for (Partidua element2 : element.getPartiduak()) {
+                if (element2.getEtxekoTaldea().equals(etxekoTaldea)
+                        && element2.getKanpokoTaldea().equals(kanpokoTaldea)) {
+                    element2.setEtxekoGolak(etxekoGolak);
+                    element2.setKanpokoGolak(kanpokoGolak);
+                    return;
+                }
+            }
+        }
+    }
 }

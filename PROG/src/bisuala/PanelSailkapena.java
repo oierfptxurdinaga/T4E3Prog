@@ -25,21 +25,35 @@ import javax.swing.table.JTableHeader;
 
 import model.DenboraldiTalde;
 
+/**
+ * Sailkapena erakusten duen panela.
+ * Taularen bidez taldeak puntu eta gol-diferentziaren arabera ordenatuta erakusten ditu.
+ * Inprimatzeko eta PDFa sortzeko aukera du.
+ */
 public class PanelSailkapena extends JPanel {
     private static final long serialVersionUID = 1L;
+
+    /** Sailkapenaren taula bisual. */
     private JTable taula;
+
+    /** Taularen datu-modeloa. */
     private DefaultTableModel modeloa;
+
+    /** Sailkapenaren urtea (inprimatzean erabiltzen da). */
     private int urtea;
 
-    // Datuak zuzenean jasotzen ditugu
-    // Ez dugu hemen kalkulurik egiten, datuak erakutsi bakarrik.
+    /**
+     * Sailkapena panela sortzen du emandako estatistika zerrendarekin.
+     *
+     * @param listaStats taldeen estatistiken zerrenda
+     * @param urtea      denboraldiaren urtea
+     */
     public PanelSailkapena(ArrayList<DenboraldiTalde> listaStats, int urtea) {
         setLayout(new BorderLayout());
         setBorder(new EmptyBorder(20, 20, 20, 20));
         setBackground(Color.WHITE);
         this.urtea = urtea;
 
-        // Izenburua
         JLabel lblIzenburua = new JLabel("SAILKAPENA");
         lblIzenburua.setFont(new Font("Arial", Font.BOLD, 24));
         lblIzenburua.setForeground(new Color(135, 21, 33));
@@ -47,60 +61,45 @@ public class PanelSailkapena extends JPanel {
         lblIzenburua.setBorder(new EmptyBorder(0, 0, 20, 0));
         add(lblIzenburua, BorderLayout.NORTH);
 
-        // Zerrenda ordenatu: Lehenengo puntuak, gero gol diferentzia
         listaStats.sort((t1, t2) -> {
             int diffPuntuak = Integer.compare(t2.getPts(), t1.getPts());
-            if (diffPuntuak != 0) {
-				return diffPuntuak;
-			}
+            if (diffPuntuak != 0) return diffPuntuak;
             return Integer.compare(t2.getDG(), t1.getDG());
         });
 
-        // Taulako datuak prestatu
         String[] zutabeak = { "Pos", "Taldea", "PJ", "I", "B", "G", "GF", "GC", "AVG", "PTS" };
         Object[][] data = new Object[listaStats.size()][10];
 
         for (int i = 0; i < listaStats.size(); i++) {
             DenboraldiTalde dt = listaStats.get(i);
             int average = dt.getDG();
-
-            data[i][0] = i + 1; // Posizioa
-
-            // Objektu osoa pasatzen dugu, gero Rendererrak aterako ditu izena eta argazkia
+            data[i][0] = i + 1;
             data[i][1] = dt;
-
             data[i][2] = dt.getPJ();
-            data[i][3] = dt.getG();  // Irabaziak
-            data[i][4] = dt.getE();  // Berdinduak
-            data[i][5] = dt.getP();  // Galduak
-            data[i][6] = dt.getGF(); // Aldeko golak
-            data[i][7] = dt.getGC(); // Kontrako golak
+            data[i][3] = dt.getG();
+            data[i][4] = dt.getE();
+            data[i][5] = dt.getP();
+            data[i][6] = dt.getGF();
+            data[i][7] = dt.getGC();
             data[i][8] = average > 0 ? "+" + average : average;
-            data[i][9] = dt.getPts(); // Puntuak
+            data[i][9] = dt.getPts();
         }
 
-        // Modeloa sortu
         modeloa = new DefaultTableModel(data, zutabeak) {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
+            public boolean isCellEditable(int row, int column) { return false; }
 
-            // Hau beharrezkoa da Rendererrak jakin dezan 1. zutabea objektu bat dela
             @Override
             public Class<?> getColumnClass(int columnIndex) {
-                if (columnIndex == 1) {
-					return DenboraldiTalde.class;
-				}
+                if (columnIndex == 1) return DenboraldiTalde.class;
                 return super.getColumnClass(columnIndex);
             }
         };
 
         taula = new JTable(modeloa);
 
-        // Inprimatzeko botoia
         JButton btnPrint = new JButton("Inprimatu / PDF");
         btnPrint.addActionListener(e -> {
             try {
@@ -114,10 +113,8 @@ public class PanelSailkapena extends JPanel {
                 JOptionPane.showMessageDialog(null, "Arazoa inprimatzean: " + pe.getMessage());
             }
         });
-
         this.add(btnPrint, BorderLayout.SOUTH);
 
-        // Diseinua aplikatu
         konfiguratuDiseinua();
 
         JScrollPane scroll = new JScrollPane(taula);
@@ -126,6 +123,9 @@ public class PanelSailkapena extends JPanel {
         add(scroll, BorderLayout.CENTER);
     }
 
+    /**
+     * Taularen itxura konfiguratu: tamainak, koloreak eta errenderatzaileak.
+     */
     private void konfiguratuDiseinua() {
         taula.setRowHeight(40);
         taula.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -147,94 +147,30 @@ public class PanelSailkapena extends JPanel {
         }
     }
 
-    // --- RENDERER PERTSONALIZATUA ---
-    // Gelaxkak nola margotu definitzen du (batez ere irudiak jartzeko)
-    private class EstiloRenderer extends DefaultTableCellRenderer {
-        private static final long serialVersionUID = 1L;
-        private boolean zentratu;
-
-        public EstiloRenderer(boolean zentratu) {
-            this.zentratu = zentratu;
-        }
-
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-                int row, int column) {
-            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-            setIcon(null);
-
-            // 1. zutabea bada eta DenboraldiTalde motakoa bada, datuak atera
-            if (column == 1 && value instanceof DenboraldiTalde) {
-                DenboraldiTalde stats = (DenboraldiTalde) value;
-
-                // Taldearen izena
-                setText(stats.getTalde().getIzena());
-
-                // Irudia kargatu
-                String rutaImagen = "/images/TaldeArmarria/"+stats.getTalde().getEzkutua();
-                if (rutaImagen != null) {
-                    URL imgUrl = getClass().getResource(rutaImagen);
-                    if (imgUrl != null) {
-                        ImageIcon icon = new ImageIcon(imgUrl);
-                        Image img = icon.getImage();
-                        // Eskalatu txikiagoa izan dadin
-                        Image newImg = img.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-                        setIcon(new ImageIcon(newImg));
-                    }
-                }
-
-                setHorizontalAlignment(SwingConstants.LEFT);
-                setBorder(new EmptyBorder(0, 10, 0, 0));
-            } else {
-                if (zentratu) {
-					setHorizontalAlignment(SwingConstants.CENTER);
-				} else {
-                    setHorizontalAlignment(SwingConstants.LEFT);
-                    setBorder(new EmptyBorder(0, 10, 0, 0));
-                }
-            }
-
-            // Ilaretako koloreak tartekatu
-            if (!isSelected) {
-                setBackground(row % 2 == 0 ? Color.WHITE : new Color(245, 245, 250));
-            }
-            // Letra beltza lehenengo eta azken zutabean
-            if (column == 0 || column == 9) {
-                setFont(getFont().deriveFont(Font.BOLD));
-            }
-
-            return this;
-        }
-    }
-
+    /**
+     * Sailkapena datu berri batekin eguneratzen du.
+     *
+     * @param listaStatsBerria estatistika berrien zerrenda
+     * @param urteaBerria      denboraldi berriaren urtea
+     */
     public void eguneratuSailkapena(ArrayList<DenboraldiTalde> listaStatsBerria, int urteaBerria) {
         this.urtea = urteaBerria;
-
-        // Taula hustu
         modeloa.setRowCount(0);
 
-        if (listaStatsBerria == null || listaStatsBerria.isEmpty()) {
-            return; // Ez badago daturik, hutsik uzten dugu
-        }
+        if (listaStatsBerria == null || listaStatsBerria.isEmpty()) return;
 
-        // Zerrenda berriro ordenatu: Lehenengo puntuak, gero gol diferentzia
         listaStatsBerria.sort((t1, t2) -> {
             int diffPuntuak = Integer.compare(t2.getPts(), t1.getPts());
-            if (diffPuntuak != 0) {
-				return diffPuntuak;
-			}
+            if (diffPuntuak != 0) return diffPuntuak;
             return Integer.compare(t2.getDG(), t1.getDG());
         });
 
-        // Datu berriak taulara sartu banan-banan
         for (int i = 0; i < listaStatsBerria.size(); i++) {
             DenboraldiTalde dt = listaStatsBerria.get(i);
             int average = dt.getDG();
-
             Object[] errenkada = new Object[10];
-            errenkada[0] = i + 1; // Posizioa
-            errenkada[1] = dt.getTalde();    // Objektua (Renderer-ak irudia jarriko du)
+            errenkada[0] = i + 1;
+            errenkada[1] = dt.getTalde();
             errenkada[2] = dt.getPJ();
             errenkada[3] = dt.getG();
             errenkada[4] = dt.getE();
@@ -243,8 +179,81 @@ public class PanelSailkapena extends JPanel {
             errenkada[7] = dt.getGC();
             errenkada[8] = average > 0 ? "+" + average : average;
             errenkada[9] = dt.getPts();
+            modeloa.addRow(errenkada);
+        }
+    }
 
-            modeloa.addRow(errenkada); // Ilarak gehitu modeloari
+    /**
+     * Taula-gelaxkak nola margotu definitzen duen renderer pertsonalizatua.
+     * Taldearen zutabeak ezkutua eta izena erakusten ditu; gainerakoak zentratu.
+     */
+    private class EstiloRenderer extends DefaultTableCellRenderer {
+        private static final long serialVersionUID = 1L;
+
+        /** true bada testua zentratu; false bada ezkerrera lerrokatu. */
+        private boolean zentratu;
+
+        /**
+         * Renderer bat sortzen du lerrokatze batekin.
+         *
+         * @param zentratu true bada zentratu; false bada ezkerrera
+         */
+        public EstiloRenderer(boolean zentratu) {
+            this.zentratu = zentratu;
+        }
+
+        /**
+         * Gelaxka bakoitza margotzen du: talde-zutabeak ezkutua jartzen du;
+         * gainerakoek kolore txandakatuak dituzte.
+         *
+         * @param table      taula
+         * @param value      gelaxkaren balioa
+         * @param isSelected hautatuta dagoen ala ez
+         * @param hasFocus   fokua duen ala ez
+         * @param row        ilara-indizea
+         * @param column     zutabe-indizea
+         * @return margotutako osagaia
+         */
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+                int row, int column) {
+            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+            setIcon(null);
+
+            if (column == 1 && value instanceof DenboraldiTalde) {
+                DenboraldiTalde stats = (DenboraldiTalde) value;
+                setText(stats.getTalde().getIzena());
+
+                String rutaImagen = "/images/TaldeArmarria/"+stats.getTalde().getEzkutua();
+                if (rutaImagen != null) {
+                    URL imgUrl = getClass().getResource(rutaImagen);
+                    if (imgUrl != null) {
+                        ImageIcon icon = new ImageIcon(imgUrl);
+                        Image img = icon.getImage();
+                        Image newImg = img.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+                        setIcon(new ImageIcon(newImg));
+                    }
+                }
+
+                setHorizontalAlignment(SwingConstants.LEFT);
+                setBorder(new EmptyBorder(0, 10, 0, 0));
+            } else {
+                if (zentratu) setHorizontalAlignment(SwingConstants.CENTER);
+                else {
+                    setHorizontalAlignment(SwingConstants.LEFT);
+                    setBorder(new EmptyBorder(0, 10, 0, 0));
+                }
+            }
+
+            if (!isSelected) {
+                setBackground(row % 2 == 0 ? Color.WHITE : new Color(245, 245, 250));
+            }
+            if (column == 0 || column == 9) {
+                setFont(getFont().deriveFont(Font.BOLD));
+            }
+
+            return this;
         }
     }
 }

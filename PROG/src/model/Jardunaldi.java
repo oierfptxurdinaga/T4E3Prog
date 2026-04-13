@@ -9,73 +9,105 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 
 /**
- * Liga edo denboraldi bateko jardunaldi bat irudikatzen duen klasea.
- *
- * Jardunaldiak zenbaki baten bidez identifikatzen dira eta barnean
- * partida guztiak gordetzen ditu.
- *
- * Partidak gehitzeko eta kudeatzeko metodoak eskaintzen ditu.
+ * Denboraldi bateko jardunaldi bat irudikatzen duen klasea.
+ * Jardunaldiak zenbaki baten bidez identifikatzen dira eta haien partiduak gordetzen ditu.
  */
-
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Jardunaldi implements Serializable{
+public class Jardunaldi implements Serializable {
 
-	/** Objektuaren bertsioa serializazioan kontrolatzeko identifikatzailea */
-	private static final long serialVersionUID = 1L;
+    /** Serializaziorako bertsioa. */
+    private static final long serialVersionUID = 1L;
 
-	private int id;
-	@XmlAttribute(name = "zenbakia")
-	private int jardunaldiZbk;
+    /** Jardunaldiaren datu-base IDa. */
+    private int id;
 
-	@XmlElement(name = "Partidua")
-	private ArrayList<Partidua> partiduak;
+    /** Jardunaldiaren zenbakia (1, 2, 3...). */
+    @XmlAttribute(name = "zenbakia")
+    private int jardunaldiZbk;
 
-	public Jardunaldi() {}
+    /** Jardunaldiko partiduen zerrenda. */
+    @XmlElement(name = "Partidua")
+    private ArrayList<Partidua> partiduak;
 
-	public Jardunaldi(int jardunaldiZbk, ArrayList<Partidua> partiduak, int id) {
-		this.id = id;
-		this.jardunaldiZbk = jardunaldiZbk;
-		this.partiduak = partiduak;
-	}
-	public int getId() {
-		return id;
-	}
+    /** JAXB-rako eraikitzaile hutsa. */
+    public Jardunaldi() {}
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    /**
+     * Jardunaldi berri bat sortzen du zenbaki, partida zerrenda eta ID batekin.
+     *
+     * @param jardunaldiZbk jardunaldiaren zenbakia
+     * @param partiduak     partiduen zerrenda
+     * @param id            datu-base IDa
+     */
+    public Jardunaldi(int jardunaldiZbk, ArrayList<Partidua> partiduak, int id) {
+        this.id = id;
+        this.jardunaldiZbk = jardunaldiZbk;
+        this.partiduak = partiduak;
+    }
 
-	public Jardunaldi(int jardunaldiZbk) {
+    /**
+     * Jardunaldi berri bat sortzen du zenbaki batekin.
+     * Partida zerrenda hutsik sortzen da.
+     *
+     * @param jardunaldiZbk jardunaldiaren zenbakia
+     */
+    public Jardunaldi(int jardunaldiZbk) {
         this.jardunaldiZbk = jardunaldiZbk;
         this.partiduak = new ArrayList<>();
     }
 
-	//getters and setters
-	public int getJardunaldiZbk() {
-		return jardunaldiZbk;
-	}
-	public void setJardunaldiZbk(int jardunaldiZbk) {
-		this.jardunaldiZbk = jardunaldiZbk;
-	}
-	public ArrayList<Partidua> getPartiduak() {
-		return partiduak;
-	}
-	public void setPartiduak(ArrayList<Partidua> partiduak) {
-		this.partiduak = partiduak;
-	}
-
-	/**
-     * Partida berri bat jardunaldian gehitzen du.
+    /**
+     * Datu-base IDa itzultzen du.
      *
-     * Barneko lista automatikoki sortzen da {@code null} bada.
+     * @return id
+     */
+    public int getId() { return id; }
+
+    /**
+     * Datu-base IDa ezartzen du.
+     *
+     * @param id id berria
+     */
+    public void setId(int id) { this.id = id; }
+
+    /**
+     * Jardunaldiaren zenbakia itzultzen du.
+     *
+     * @return jardunaldiaren zenbakia
+     */
+    public int getJardunaldiZbk() { return jardunaldiZbk; }
+
+    /**
+     * Jardunaldiaren zenbakia ezartzen du.
+     *
+     * @param jardunaldiZbk zenbaki berria
+     */
+    public void setJardunaldiZbk(int jardunaldiZbk) { this.jardunaldiZbk = jardunaldiZbk; }
+
+    /**
+     * Jardunaldiko partiduen zerrenda itzultzen du.
+     *
+     * @return partiduen zerrenda
+     */
+    public ArrayList<Partidua> getPartiduak() { return partiduak; }
+
+    /**
+     * Jardunaldiko partiduen zerrenda ezartzen du.
+     *
+     * @param partiduak partida berrien zerrenda
+     */
+    public void setPartiduak(ArrayList<Partidua> partiduak) { this.partiduak = partiduak; }
+
+    /**
+     * Partida berri bat jardunaldian gehitzen du.
+     * Zerrenda null bada, automatikoki sortzen da.
      *
      * @param p gehitu nahi den partida
      */
-	public void addPartidua(Partidua p) {
+    public void addPartidua(Partidua p) {
         if (this.partiduak == null) {
             this.partiduak = new ArrayList<>();
         }
-
         this.partiduak.add(p);
     }
 }

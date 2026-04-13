@@ -23,21 +23,44 @@ import model.ErabiltzaileEpaile;
 import model.ErabiltzailePresi;
 import model.Federazioa;
 
+/**
+ * Erabiltzaile berri bat sortzeko elkarrizketa-leihoa.
+ * Izena, pasahitza eta mota (Administraria, Epailea, Presidentea) sartzeko aukera ematen du.
+ */
 public class LeihoaErabiltzaileBerria extends JDialog {
 
     private static final long serialVersionUID = 1L;
+
+    /** Erabiltzaile-izena sartzeko eremua. */
     private JTextField txtUser;
+
+    /** Pasahitza sartzeko eremua. */
     private JPasswordField txtPass;
+
+    /** Erabiltzaile mota aukeratzeko combo-box-a. */
     private JComboBox<String> cbMota;
+
+    /** Federazioaren datuak, erabiltzaileak egiaztatzeko. */
     private Federazioa federazioa;
+
+    /** Aplikazioaren leiho nagusia, aldaketak markatzeko. */
     private APP app;
+
+    /** Datu-basera sarbidea. */
     private ErabiltzaileDAO edao;
 
-    // Sortutako erabiltzailea hemen gordeko dugu erreferentzia izateko
+    /** Sortutako erabiltzailea, kanpotik eskuratzeko. */
     private Erabiltzaile sortutakoa = null;
 
+    /**
+     * Erabiltzaile berria sortzeko leihoa sortzen du.
+     *
+     * @param parent     leihoa sortu duen frame nagusia
+     * @param federazioa federazioaren datuak
+     * @param app        aplikazioaren leiho nagusia
+     */
     public LeihoaErabiltzaileBerria(JFrame parent, Federazioa federazioa, APP app) {
-        super(parent, "Erabiltzaile Berria", true); // true = MODAL
+        super(parent, "Erabiltzaile Berria", true);
         this.federazioa = federazioa;
         this.app = app;
 
@@ -49,17 +72,14 @@ public class LeihoaErabiltzaileBerria extends JDialog {
         pnlForm.setBorder(new EmptyBorder(20, 20, 20, 20));
         pnlForm.setBackground(Color.WHITE);
 
-        // 1. IZENA
         pnlForm.add(new JLabel("Erabiltzaile Izena:"));
         txtUser = new JTextField();
         pnlForm.add(txtUser);
 
-        // 2. PASAHITZA
         pnlForm.add(new JLabel("Pasahitza:"));
         txtPass = new JPasswordField();
         pnlForm.add(txtPass);
 
-        // 3. MOTA (Presidentea gehitu dugu zerrendara)
         pnlForm.add(new JLabel("Erabiltzaile Mota:"));
         String[] motak = { "Administraria", "Epailea", "Presidentea" };
         cbMota = new JComboBox<>(motak);
@@ -67,7 +87,6 @@ public class LeihoaErabiltzaileBerria extends JDialog {
 
         add(pnlForm, BorderLayout.CENTER);
 
-        // --- BOTOIAK ---
         JPanel pnlBotoiak = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton btnUtzi = new JButton("Utzi");
         JButton btnGorde = new JButton("Gorde");
@@ -76,7 +95,6 @@ public class LeihoaErabiltzaileBerria extends JDialog {
         btnGorde.setForeground(Color.WHITE);
 
         btnUtzi.addActionListener(e -> dispose());
-
         btnGorde.addActionListener(e -> gordeErabiltzailea());
 
         pnlBotoiak.add(btnUtzi);
@@ -85,6 +103,10 @@ public class LeihoaErabiltzaileBerria extends JDialog {
         this.getRootPane().setDefaultButton(btnGorde);
     }
 
+    /**
+     * Formularioko datuak baliozkotu eta erabiltzaile berria gordetzen du.
+     * Eremu hutsik badago edo erabiltzailea jada existitzen bada, errore bat erakusten da.
+     */
     private void gordeErabiltzailea() {
         String user = txtUser.getText().trim();
         String pass = new String(txtPass.getPassword());
@@ -95,7 +117,6 @@ public class LeihoaErabiltzaileBerria extends JDialog {
             return;
         }
 
-        // Konprobatu ea existitzen den
         for (Erabiltzaile e : federazioa.getErabiltzaileak()) {
             if (e.getErabiltzaile().equalsIgnoreCase(user)) {
                 JOptionPane.showMessageDialog(this, "Erabiltzaile hori existitzen da jada.", "Errorea", JOptionPane.ERROR_MESSAGE);
@@ -103,26 +124,21 @@ public class LeihoaErabiltzaileBerria extends JDialog {
             }
         }
 
-        // Objektua sortu
         Erabiltzaile berria;
         if (mota.equals("Administraria")) {
             berria = new ErabiltzaileAdministraria(user, pass);
         } else if (mota.equals("Epailea")) {
             berria = new ErabiltzaileEpaile(user, pass);
         } else {
-            // Presidentea kasua
             berria = new ErabiltzailePresi(user, pass);
         }
 
         edao = new ErabiltzaileDAO();
         edao.gordeErabiltzaileaODB(berria);
-     // --- LOG ---
         utils.LogKudeatzailea.gehituLog("Erabiltzaile berria sortu da: " + user + " [" + mota + "]");
-        // -----------
         JOptionPane.showMessageDialog(this, "Erabiltzailea ondo sortu da!");
-        this.sortutakoa = berria; // Erreferentzia gorde
+        this.sortutakoa = berria;
 
-        // 2. Aldaketak markatu APP-an
         if (app != null) {
             app.setAldaketakDauden(true);
         }
@@ -130,7 +146,11 @@ public class LeihoaErabiltzaileBerria extends JDialog {
         dispose();
     }
 
-    // METODO HAU BEHARREZKOA DA PanelPresi ez kexatzeko
+    /**
+     * Sortutako erabiltzailea itzultzen du, edo null sortu ez bada.
+     *
+     * @return sortutako erabiltzailea
+     */
     public Erabiltzaile getErabiltzaileBerria() {
         return this.sortutakoa;
     }

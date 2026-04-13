@@ -27,26 +27,46 @@ import model.Jardunaldi;
 import model.Partidua;
 import model.Talde;
 
+/**
+ * Jardunaldiak ikusteko panela.
+ * Combo-box baten bidez jardunaldia aukeratu eta partida guztiak erakusten ditu,
+ * emaitzak eta koloreak barne (irabazia, galera edo berdinketa).
+ */
 public class PanelJardunaldiak extends JPanel {
 
     private static final long serialVersionUID = 1L;
 
-    // --- KOLOREAK ---
+    /** Irabazitako taldearen atze-kolorea. */
     private final Color KOLORE_IRABAZI = new Color(200, 255, 200);
+
+    /** Galdutako taldearen atze-kolorea. */
     private final Color KOLORE_GALDU = new Color(255, 220, 220);
+
+    /** Berdinketa kasuko atze-kolorea. */
     private final Color KOLORE_BERDINKETA = new Color(245, 245, 245);
+
+    /** Jokatu gabeko partiduen atze-kolorea. */
     private final Color KOLORE_JOKATU_GABE = Color.WHITE;
 
+    /** Jardunaldiak aukeratzeko combo-box-a. */
     private JComboBox<String> comboJardunaldiak;
+
+    /** Partiduak erakusten dituen panela. */
     private JPanel panelPartiduak;
+
+    /** Erakusten ari den denboraldia. */
     private Denboraldia denboraldia;
 
+    /**
+     * Jardunaldiak panela sortzen du emandako denboraldiarekin.
+     *
+     * @param d erakutsi nahi den denboraldia
+     */
     public PanelJardunaldiak(Denboraldia d) {
         this.denboraldia = d;
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
 
-        // --- GOIKO ALDEA ---
         JPanel panelGoikoa = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelGoikoa.setBackground(Color.WHITE);
         panelGoikoa.setBorder(new EmptyBorder(15, 15, 5, 15));
@@ -57,14 +77,11 @@ public class PanelJardunaldiak extends JPanel {
 
         comboJardunaldiak = new JComboBox<>();
         comboJardunaldiak.setPreferredSize(new Dimension(200, 30));
-
-        // Entzulea: Jardunaldia aldatzean partiduak eguneratu
         comboJardunaldiak.addActionListener(e -> eguneratuPartiduak());
 
         panelGoikoa.add(comboJardunaldiak);
         add(panelGoikoa, BorderLayout.NORTH);
 
-        // --- ERDIKO ALDEA ---
         panelPartiduak = new JPanel();
         panelPartiduak.setLayout(new BoxLayout(panelPartiduak, BoxLayout.Y_AXIS));
         panelPartiduak.setBackground(Color.WHITE);
@@ -75,28 +92,26 @@ public class PanelJardunaldiak extends JPanel {
         scroll.getVerticalScrollBar().setUnitIncrement(20);
         add(scroll, BorderLayout.CENTER);
 
-        // HASIERAKETA: Datuak kargatu
         datuakKargatu();
     }
 
     /**
-     * METODO GARRANTZITSUA: Kanpotik (APP.java-tik) denboraldia aldatzeko.
-     * Honek dena reset-eatzen du denboraldi berrirako.
+     * Denboraldia aldatzen denean panela eguneratzen du.
+     * APP.java-tik deitzen da denboraldia aldatzean.
+     *
+     * @param dBerria denboraldi berria
      */
     public void denboraldiaAldatu(Denboraldia dBerria) {
         this.denboraldia = dBerria;
-        datuakKargatu(); // Dena birkargatu
+        datuakKargatu();
     }
 
     /**
-     * ComboBox-a bete eta lehenengoa aukeratu.
+     * Combo-box-a jardunaldiekin betetzen du eta lehenengoa aukeratzen du.
      */
     private void datuakKargatu() {
-        // Listener-a momentuz kendu begizta infinituak saihesteko kargatzean
         ActionListener[] listeners = comboJardunaldiak.getActionListeners();
-        for (ActionListener al : listeners) {
-			comboJardunaldiak.removeActionListener(al);
-		}
+        for (ActionListener al : listeners) comboJardunaldiak.removeActionListener(al);
 
         comboJardunaldiak.removeAllItems();
         panelPartiduak.removeAll();
@@ -107,17 +122,12 @@ public class PanelJardunaldiak extends JPanel {
             }
         }
 
-        // Listener-a berriro jarri
-        for (ActionListener al : listeners) {
-			comboJardunaldiak.addActionListener(al);
-		}
+        for (ActionListener al : listeners) comboJardunaldiak.addActionListener(al);
 
-        // Zerbait badago, lehenengoa aukeratu eta pintatu
         if (comboJardunaldiak.getItemCount() > 0) {
             comboJardunaldiak.setSelectedIndex(0);
             eguneratuPartiduak();
         } else {
-            // Ez badago jardunaldirik
             JLabel lblHutsik = new JLabel("Ez dago jardunaldirik denboraldi honetan.");
             lblHutsik.setAlignmentX(Component.CENTER_ALIGNMENT);
             panelPartiduak.add(lblHutsik);
@@ -126,6 +136,9 @@ public class PanelJardunaldiak extends JPanel {
         }
     }
 
+    /**
+     * Aukeratutako jardunaldiko partiduak pantailan kargatzen ditu.
+     */
     private void eguneratuPartiduak() {
         panelPartiduak.removeAll();
 
@@ -144,10 +157,13 @@ public class PanelJardunaldiak extends JPanel {
         panelPartiduak.repaint();
     }
 
-
-
+    /**
+     * Partida bat erakusteko panel bat sortzen du emaitzarekin eta koloreekin.
+     *
+     * @param p erakutsi nahi den partida
+     * @return sortutako partida-panela
+     */
     private JPanel sortuPartiduPanela(Partidua p) {
-
         JPanel panelErrenkada = new JPanel(new BorderLayout(10, 0));
         panelErrenkada.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(220, 220, 220), 1),
@@ -198,6 +214,14 @@ public class PanelJardunaldiak extends JPanel {
         return panelErrenkada;
     }
 
+    /**
+     * Talde baten izena eta ezkutua erakusten dituen panel bat sortzen du.
+     *
+     * @param t             erakutsi nahi den taldea
+     * @param alineazioa    SwingConstants.RIGHT edo LEFT
+     * @param atzekoKolorea panelaren atze-kolorea
+     * @return sortutako talde-panela
+     */
     private JPanel sortuTaldePanela(Talde t, int alineazioa, Color atzekoKolorea) {
         JPanel p = new JPanel(new FlowLayout(alineazioa == SwingConstants.RIGHT ? FlowLayout.RIGHT : FlowLayout.LEFT, 10, 5));
         p.setBackground(atzekoKolorea);

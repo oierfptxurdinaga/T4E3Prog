@@ -7,16 +7,36 @@ import javax.swing.JOptionPane;
 
 import model.Federazioa;
 
+/**
+ * Leiho itxiera kudeatzeko klase laguntzailea.
+ * Leihoa ixten saiatzean aldaketak dauden egiaztatzen du eta
+ * gorde nahi duen galdetzen dio erabiltzaileari.
+ */
 public class ItziKonfirmazioa extends WindowAdapter {
 
+	/** Aplikazioaren leiho nagusia. */
 	private APP app;
+
+	/** Federazioaren datuak (erreferentziarako gordeta). */
 	private Federazioa federazioa;
 
+	/**
+	 * ItziKonfirmazioa entzulea sortzen du.
+	 *
+	 * @param app        aplikazioaren leiho nagusia
+	 * @param federazioa federazioaren datuak
+	 */
 	public ItziKonfirmazioa(APP app, Federazioa federazioa) {
 		this.app = app;
 		this.federazioa = federazioa;
 	}
 
+	/**
+	 * Leihoa ixten saiatzean deitzen da.
+	 * Aldaketak badaude, gorde nahi duen galdetzen du itxi aurretik.
+	 *
+	 * @param e leihoaren gertaera
+	 */
 	@Override
 	public void windowClosing(WindowEvent e) {
 	    if (app.isAldaketakDauden()) {

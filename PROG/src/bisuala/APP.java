@@ -26,16 +26,35 @@ import model.ErabiltzailePresi;
 import model.Federazioa;
 import model.Talde;
 
+/**
+ * Aplikazioaren leiho nagusia.
+ * Erabiltzaile aktiboarekin eta federazioko datuekin inicializatzen da,
+ * eta fitxen (tabs) bidez panel guztiak kudeatzen ditu.
+ */
 public class APP extends JFrame {
 	private static final long serialVersionUID = 1L;
 
+	/** Denboraldiak aukeratzeko combo-box-a. */
 	private JComboBox<Denboraldia> cbDenboraldiak;
+
+	/** Fitxak dituen panela. */
 	private JTabbedPane tabs;
 
+	/** Saioa hasi duen erabiltzailea. */
 	private Erabiltzaile erabAktiboa;
+
+	/** Federazioaren datu-egitura nagusia. */
 	private Federazioa federazioa;
+
+	/** Aldaketak egin diren ala ez adierazten du. */
 	private boolean aldaketakDauden = false;
 
+	/**
+	 * APP leiho nagusia sortzen du erabiltzaile eta federazioarekin.
+	 *
+	 * @param erab       saioa hasi duen erabiltzailea
+	 * @param federazioa federazioaren datuak
+	 */
 	public APP(Erabiltzaile erab, Federazioa federazioa) {
 		this.erabAktiboa = erab;
 		this.federazioa = federazioa;
@@ -59,7 +78,6 @@ public class APP extends JFrame {
 			for (Denboraldia d : denboraldiak) {
 				cbDenboraldiak.addItem(d);
 			}
-			// Azken denboraldia aukeratu defektuz
 			if (!denboraldiak.isEmpty()) {
 				cbDenboraldiak.setSelectedIndex(denboraldiak.size() - 1);
 			}
@@ -77,7 +95,6 @@ public class APP extends JFrame {
 			pnlEskubia.add(btnEsportatuXML);
 		}
 
-		// Botón de Logout (este lo ven todos)
 		JButton btnLogout = new JButton("Saioa Itxi");
 		btnLogout.setBackground(new Color(135, 21, 33));
 		btnLogout.setForeground(Color.WHITE);
@@ -101,7 +118,6 @@ public class APP extends JFrame {
 			Component panelAktiboa = tabs.getSelectedComponent();
 			String titulua = tabs.getTitleAt(index);
 
-			// Kudeatu ComboBox-aren ikusgarritasuna
 			if (panelAktiboa instanceof PanelPresi) {
 				labelDenboraldia.setVisible(false);
 				cbDenboraldiak.setVisible(false);
@@ -110,45 +126,37 @@ public class APP extends JFrame {
 				cbDenboraldiak.setVisible(true);
 			}
 
-			// --- FRESKATZE LOGIKA ---
 			Denboraldia aukeratutakoa = (Denboraldia) cbDenboraldiak.getSelectedItem();
 			if (aukeratutakoa != null) {
-
 				if (titulua.equals("Sailkapena")) {
-					// Sailkapena birkalkulatu
 					ArrayList<DenboraldiTalde> sailkapenBerria = aukeratutakoa.getSailkapena();
 					PanelSailkapena pBerria = new PanelSailkapena(sailkapenBerria, aukeratutakoa.getUrtea());
 					tabs.setComponentAt(index, pBerria);
 				} else if (titulua.equals("Taldeak")) {
-					// Extraer los Talde
 					ArrayList<Talde> taldeakBakarrik = new ArrayList<>();
 					if (aukeratutakoa.getLigakoTaldeak() != null) {
 						for (DenboraldiTalde dt : aukeratutakoa.getLigakoTaldeak()) {
 							taldeakBakarrik.add(dt.getTalde());
 						}
 					}
-					// Taldeak freskatu
 					PanelTaldeak pTaldeakBerria = new PanelTaldeak(taldeakBakarrik, aukeratutakoa.getUrtea());
 					tabs.setComponentAt(index, pTaldeakBerria);
-				}
-				// --- HAU DA GEHITU BEHAR DUZUNA ---
-				else if (titulua.equals("Jardunaldiak")) {
+				} else if (titulua.equals("Jardunaldiak")) {
 					PanelJardunaldiak pJardunaldiakBerria = new PanelJardunaldiak(aukeratutakoa);
 					tabs.setComponentAt(index, pJardunaldiakBerria);
 				}
 			}
 		});
 
-		// Ekintzak
 		cbDenboraldiak.addActionListener(e -> tabsEguneratu());
 		btnLogout.addActionListener(e -> kudeatuIrteera(true));
 
-		// Hasieratu
 		tabsEguneratu();
 	}
 
 	/**
-	 * Metodo honek fitxak (tabs) birsortzen ditu denboraldia aldatzean
+	 * Fitxa guztiak birsortzen ditu aukeratutako denboraldiaren arabera.
+	 * Denboraldia aldatzean automatikoki deitzen da.
 	 */
 	private void tabsEguneratu() {
 		int aukeratutakoIndizea = tabs.getSelectedIndex();
@@ -157,11 +165,9 @@ public class APP extends JFrame {
 		Denboraldia aukeratutakoa = (Denboraldia) cbDenboraldiak.getSelectedItem();
 
 		if (aukeratutakoa != null) {
-			// SAILKAPENA
 			ArrayList<DenboraldiTalde> sailkapena = aukeratutakoa.getSailkapena();
 			tabs.addTab("Sailkapena", new PanelSailkapena(sailkapena, aukeratutakoa.getUrtea()));
 
-			// TALDEAK
 			ArrayList<Talde> taldeakBakarrik = new ArrayList<>();
 			if (aukeratutakoa.getLigakoTaldeak() != null) {
 				for (DenboraldiTalde dt : aukeratutakoa.getLigakoTaldeak()) {
@@ -169,17 +175,12 @@ public class APP extends JFrame {
 				}
 			}
 			tabs.addTab("Taldeak", new PanelTaldeak(taldeakBakarrik, aukeratutakoa.getUrtea()));
-
-			// JARDUNALDIAK
 			tabs.addTab("Jardunaldiak", new PanelJardunaldiak(aukeratutakoa));
 
-			// PANEL BEREZIAK (Erabiltzailearen arabera)
 			if (erabAktiboa instanceof ErabiltzaileAdministraria) {
-
 				ArrayList<Talde> taldeakEditatzeko = new ArrayList<>();
 				if (!federazioa.getDenboraldiak().isEmpty()) {
 					Denboraldia azkena = federazioa.getDenboraldiak().get(federazioa.getDenboraldiak().size() - 1);
-					// Extraer los Talde
 					if (azkena.getLigakoTaldeak() != null) {
 						for (DenboraldiTalde dt : azkena.getLigakoTaldeak()) {
 							taldeakEditatzeko.add(dt.getTalde());
@@ -188,21 +189,17 @@ public class APP extends JFrame {
 				} else {
 					taldeakEditatzeko = federazioa.getTaldeGuztiak();
 				}
-
 				tabs.addTab("Admin - Jokalariak", new PanelAdmin(erabAktiboa, federazioa, taldeakEditatzeko, this));
 			} else if (erabAktiboa instanceof ErabiltzaileEpaile) {
 				boolean isUnekoDenboraldia = (aukeratutakoa == federazioa.getUnekoDenboraldia());
-
 				tabs.addTab("Epailea - Sartu Emaitzak",
 						new PanelEpailea(aukeratutakoa, (ErabiltzaileEpaile) erabAktiboa, isUnekoDenboraldia, this));
-
 			} else if (erabAktiboa instanceof ErabiltzailePresi) {
 				tabs.addTab("Presidentea - Taldea",
 						new PanelPresi(erabAktiboa, this.federazioa, federazioa.getUnekoDenboraldia(), this));
 			}
 		}
 
-		// Fitxa berreskuratu
 		final int indexFinala = aukeratutakoIndizea;
 		SwingUtilities.invokeLater(() -> {
 			if (indexFinala != -1 && indexFinala < tabs.getTabCount()) {
@@ -215,6 +212,10 @@ public class APP extends JFrame {
 		});
 	}
 
+	/**
+	 * Interfazea freskatu eta combo-box-a eguneratzen du denboraldi berriekin.
+	 * Denboraldi berri bat sortu ondoren deitzen da.
+	 */
 	public void interfazeaFreskatu() {
 		this.aldaketakDauden = true;
 
@@ -242,20 +243,32 @@ public class APP extends JFrame {
 		tabsEguneratu();
 	}
 
-	// --- GETTERS & SETTERS ---
+	/**
+	 * Aldaketak egin diren ala ez itzultzen du.
+	 *
+	 * @return true aldaketak badaude
+	 */
 	public boolean isAldaketakDauden() {
 		return aldaketakDauden;
 	}
 
+	/**
+	 * Aldaketen egoera ezartzen du.
+	 *
+	 * @param aldaketakDauden egoera berria
+	 */
 	public void setAldaketakDauden(boolean aldaketakDauden) {
 		this.aldaketakDauden = aldaketakDauden;
 	}
 
+	/**
+	 * Federazioaren datuak XML fitxategira esportatzen ditu.
+	 * Errorerik bada, erabiltzaileari mezu bat erakusten zaio.
+	 */
 	public void gordeDatuak() {
 		utils.LogKudeatzailea.gehituLog("Datuak gordetzen ...");
 		utils.XmlKudeatzailea xmlKudeatzailea = new utils.XmlKudeatzailea();
 
-		// Exportar el estado actual de la federación a XML
 		boolean xlmOndoBoolean = xmlKudeatzailea.esportatuXML(this.federazioa, "src/data/federazioa.xml");
 
 		if (!xlmOndoBoolean) {
@@ -270,7 +283,11 @@ public class APP extends JFrame {
 		}
 	}
 
-	// --- IRTEERA KUDEAKETA ---
+	/**
+	 * Irteera kudeatzen du: aldaketak badaude gorde nahi duen galdetzen du.
+	 *
+	 * @param isLogout true bada saioaren itxiera da; false bada programaren itxiera
+	 */
 	public void kudeatuIrteera(boolean isLogout) {
 		if (aldaketakDauden) {
 			int aukera = JOptionPane.showConfirmDialog(this, "Aldaketak egin dituzu. Gorde nahi dituzu irten aurretik?",
@@ -293,6 +310,11 @@ public class APP extends JFrame {
 		}
 	}
 
+	/**
+	 * Irteera benetan exekutatzen du: logout bada Login ikusten du, bestela programa ixten du.
+	 *
+	 * @param isLogout true bada Login pantailara itzultzen da
+	 */
 	private void exekutatuIrteera(boolean isLogout) {
 		if (isLogout) {
 			new Login().setVisible(true);
