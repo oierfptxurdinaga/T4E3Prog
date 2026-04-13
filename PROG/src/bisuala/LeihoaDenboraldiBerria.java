@@ -53,8 +53,6 @@ public class LeihoaDenboraldiBerria extends JDialog {
 	/** Denboraldia ondo sortu den ala ez adierazten du. */
 	private boolean ondoSortuDa = false;
 
-	/** Datu-basera sarbidea. */
-	private DenboraldiDAO ddao;
 
 	/**
 	 * Denboraldi berria konfiguratzeko leihoa sortzen du.
@@ -62,7 +60,6 @@ public class LeihoaDenboraldiBerria extends JDialog {
 	 * @param federazioa federazioaren datuak
 	 */
     public LeihoaDenboraldiBerria(Federazioa federazioa) {
-    	ddao = new DenboraldiDAO();
         this.federazioa = federazioa;
         this.checkTaldeak = new ArrayList<>();
 
@@ -211,7 +208,16 @@ public class LeihoaDenboraldiBerria extends JDialog {
             d.setLigakoTaldeak(dtAukeratuak);
             d.setLigakoJardunaldi(PartiduKudeatzailea.sortuEgutegia(taldeAukeratuak));
 
-            boolean ondo = ddao.txertatuDenboraldiaOsoa(d);
+            boolean ondo = false;
+            
+            try (java.sql.Connection conn = db.DBConnection.obtenerConexion()) {
+                DenboraldiDAO ddao = new DenboraldiDAO(conn);
+                ondo = ddao.txertatuDenboraldiaOsoa(d);
+                
+            } catch (java.sql.SQLException sqlEx) {
+                sqlEx.printStackTrace();
+            }
+
             if (ondo) {
                 federazioa.gehituDenboraldia(d);
                 utils.LogKudeatzailea.gehituLog("Denboraldi berria sortu da: " + urtea + " (" + taldeAukeratuak.size() + " talde)");
@@ -219,8 +225,8 @@ public class LeihoaDenboraldiBerria extends JDialog {
                 JOptionPane.showMessageDialog(this, "Denboraldia (" + urtea + ") ondo sortu da!");
                 dispose();
             } else {
-            	utils.LogKudeatzailea.gehituLog("Denboraldi "+urtea+" sortzerakoan errore bat egon da.");
-            	JOptionPane.showMessageDialog(this, "Zerbait txarto joan da.", "Errorea", JOptionPane.WARNING_MESSAGE);
+                utils.LogKudeatzailea.gehituLog("Denboraldi " + urtea + " sortzerakoan errore bat egon da datu-basean.");
+                JOptionPane.showMessageDialog(this, "Zerbait txarto joan da datu-basean gordetzean.", "Errorea", JOptionPane.WARNING_MESSAGE);
             }
 
         } catch (Exception ex) {

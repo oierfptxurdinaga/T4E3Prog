@@ -6,12 +6,17 @@ import java.sql.SQLException;
 import db.DBConnection;
 
 public class JokalariDAO {
+	
+	 private Connection cn;
 
-    public static boolean aldatuJokalariarenTaldeaDB(int jokalariId, int taldeBerriaId) {
-        String sql = "UPDATE jokalariak SET talde_id = ? WHERE id_jokalaria = ?";
+	    public JokalariDAO(Connection cn) {
+	        this.cn = cn;
+	    }
 
-        try (Connection cn = DBConnection.obtenerConexion();
-             PreparedStatement ps = cn.prepareStatement(sql)) {
+    public boolean aldatuJokalariarenTaldeaDB(int jokalariId, int taldeBerriaId) {
+        String sql = "UPDATE jokalariak SET id_taldea = ? WHERE id_jokalaria = ?";
+
+        try (PreparedStatement ps = this.cn.prepareStatement(sql)) {
 
             ps.setInt(1, taldeBerriaId);
             ps.setInt(2, jokalariId);

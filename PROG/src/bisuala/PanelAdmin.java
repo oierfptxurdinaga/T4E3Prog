@@ -24,6 +24,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import dao.JokalariDAO;
 import model.Erabiltzaile;
 import model.Federazioa;
 import model.Jokalari;
@@ -241,7 +242,14 @@ public class PanelAdmin extends JPanel {
 
         aplikatuAldaketaFederazioan(jatorrizkoTaldea, helburuTaldea, hautatua);
 
-        boolean ondoGordeta = dao.JokalariDAO.aldatuJokalariarenTaldeaDB(hautatua.getId(), helburuTaldea.getId());
+        
+        boolean ondoGordeta = false;
+        try (java.sql.Connection conn = db.DBConnection.obtenerConexion()) {
+        	JokalariDAO jDao = new JokalariDAO(conn);
+        	ondoGordeta = jDao.aldatuJokalariarenTaldeaDB(hautatua.getId(), helburuTaldea.getId());
+        }catch (java.sql.SQLException ex) {
+            ex.printStackTrace();
+        }
 
         if (ondoGordeta) {
             if (app != null) app.setAldaketakDauden(true);

@@ -242,13 +242,21 @@ public class PanelEpailea extends JPanel {
                 if (epaileAktiboa != null) {
                     epaileAktiboa.sartuEmaitza(denboraldia, p.getEtxekoTaldea(), p.getKanpokoTaldea(), golEtxekoa, golKanpokoa);
 
-                    boolean ondoGordeta = PartiduaDAO.eguneratuEmaitzaDB(
-                            jardunaldia.getId(),
-                            p.getEtxekoTaldea().getId(),
-                            p.getKanpokoTaldea().getId(),
-                            golEtxekoa,
-                            golKanpokoa
-                    );
+                 // PON ESTO EN SU LUGAR:
+                    boolean ondoGordeta = false;
+                    try (java.sql.Connection conn = db.DBConnection.obtenerConexion()) {
+                        PartiduaDAO partiduaDAO = new PartiduaDAO(conn);
+                        ondoGordeta = partiduaDAO.eguneratuEmaitzaDB(
+                                jardunaldia.getId(),
+                                p.getEtxekoTaldea().getId(),
+                                p.getKanpokoTaldea().getId(),
+                                golEtxekoa,
+                                golKanpokoa
+                        );
+                         
+                    } catch (java.sql.SQLException ex) {
+                        ex.printStackTrace();
+                    }
 
                     if (ondoGordeta) {
                         if (app != null) app.setAldaketakDauden(true);

@@ -1,19 +1,21 @@
-package dao; // Zure paketearen izena
+package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import db.DBConnection;
-
 public class PartiduaDAO {
+    
+    private Connection cn;
 
-    public static boolean eguneratuEmaitzaDB(int jardunaldiId, int etxekoId, int kanpokoId, int etxekoGolak, int kanpokoGolak) {
+    public PartiduaDAO(Connection cn) {
+        this.cn = cn;
+    }
+    public boolean eguneratuEmaitzaDB(int jardunaldiId, int etxekoId, int kanpokoId, int etxekoGolak, int kanpokoGolak) {
         String sql = "UPDATE partiduak SET etxeko_golak = ?, kanpoko_golak = ? "
-                   + "WHERE id_jardunaldi = ? AND etxeko_taldea_id = ? AND kanpoko_taldea_id = ?";
+                   + "WHERE id_jardunaldia = ? AND etxeko_taldea_id = ? AND kanpoko_taldea_id = ?";
 
-        try (Connection cn = DBConnection.obtenerConexion();
-             PreparedStatement ps = cn.prepareStatement(sql)) {
+        try (PreparedStatement ps = cn.prepareStatement(sql)) {
 
             ps.setInt(1, etxekoGolak);
             ps.setInt(2, kanpokoGolak);
