@@ -120,10 +120,9 @@ public class DatuKarga {
 			                d.gehituPartiduaJardunaldira(jardunaldiZenbakia, p);
 
 			                // 2. GAKOA: Jardunaldi horri bere ID errealak esleitu
-			                // Suposatuz d.getJardunaldiak() metodoak zenbakiaren arabera bilatzeko aukera ematen duela:
 			                Jardunaldi jard = d.getJardunaldiID(jardunaldiZenbakia);
 			                if (jard != null) {
-			                    jard.setId(idJardunaldi); // <--- Ziurtatu zure Jardunaldia modeloan setId(int id) duzula
+			                    jard.setId(idJardunaldi); 
 			                }
 
 			                DenboraldiTalde dtEtxe = mapaDenboraldiTaldeak.get(urtea + "-" + etxeId);

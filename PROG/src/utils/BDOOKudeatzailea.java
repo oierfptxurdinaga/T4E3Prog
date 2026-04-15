@@ -16,12 +16,9 @@ public class BDOOKudeatzailea {
         Erabiltzaile user = null;
 
         try {
-            // Bilatzen dugu primary key-a
             user = em.find(Erabiltzaile.class, usuario);
-
-            // Aurkitzen badu bilatzen dugu pasahitza
             if (user != null && user.getPasahitza().equals(password)) {
-                return user; //Bueltatzen dugu erabiltzailea
+                return user; 
             }
         } finally {
             em.close();

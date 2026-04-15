@@ -29,6 +29,8 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import dao.TaldeDAO;
+import db.DBConnection;
 import model.DenboraldiTalde;
 import model.Denboraldia;
 import model.Erabiltzaile;
@@ -174,7 +176,7 @@ public class PanelPresi extends JPanel {
             if (erantzuna == JFileChooser.APPROVE_OPTION) {
                 File jatorrizkoFitxategia = fileChooser.getSelectedFile();
                 String fitxategiIzena = jatorrizkoFitxategia.getName();
-                File helmugaFitxategia = new File("src/images/TaldeArmarria", fitxategiIzena);
+                File helmugaFitxategia = new File("resources/images/TaldeArmarria", fitxategiIzena);
 
                 try {
                     Files.copy(jatorrizkoFitxategia.toPath(), helmugaFitxategia.toPath(), StandardCopyOption.REPLACE_EXISTING);
@@ -185,6 +187,8 @@ public class PanelPresi extends JPanel {
                     Image irudiaEskalatuta = irudia.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
                     lblEskutua.setIcon(new ImageIcon(irudiaEskalatuta));
                     lblEskutua.setText("");
+                    TaldeDAO tdao = new TaldeDAO(DBConnection.obtenerConexion());
+                    boolean aldatu = tdao.aldatuArmarria(fitxategiIzena, t.getId());
                     JOptionPane.showMessageDialog(this,
                         "Ezkutua ondo aldatu da.\nGogoan izan 'Saioa Itxi' edo 'Gorde' sakatzea aldaketak XML-an mantentzeko.",
                         "Ezkutua Aldatuta", JOptionPane.INFORMATION_MESSAGE);
