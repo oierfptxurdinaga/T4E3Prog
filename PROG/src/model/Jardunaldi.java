@@ -7,6 +7,7 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
  * Denboraldi bateko jardunaldi bat irudikatzen duen klasea.
@@ -19,6 +20,7 @@ public class Jardunaldi implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /** Jardunaldiaren datu-base IDa. */
+    @XmlTransient
     private int id;
 
     /** Jardunaldiaren zenbakia (1, 2, 3...). */

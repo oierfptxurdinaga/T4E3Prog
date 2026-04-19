@@ -1155,7 +1155,6 @@
             </DenboraldikoTaldeak>
             <Jardunaldiak>
                 <Jardunaldi zenbakia="1">
-                    <id>1</id>
                     <Partidua>
                         <Emaitza etxekoGolak="4" kanpokoGolak="2"/>
                         <EtxekoEzkutua>barcelona</EtxekoEzkutua>
@@ -1179,7 +1178,6 @@
                     </Partidua>
                 </Jardunaldi>
                 <Jardunaldi zenbakia="2">
-                    <id>2</id>
                     <Partidua>
                         <Emaitza etxekoGolak="1" kanpokoGolak="2"/>
                         <EtxekoEzkutua>valdepenas</EtxekoEzkutua>
@@ -1203,7 +1201,6 @@
                     </Partidua>
                 </Jardunaldi>
                 <Jardunaldi zenbakia="3">
-                    <id>3</id>
                     <Partidua>
                         <Emaitza etxekoGolak="5" kanpokoGolak="0"/>
                         <EtxekoEzkutua>elpozo</EtxekoEzkutua>
@@ -1227,7 +1224,6 @@
                     </Partidua>
                 </Jardunaldi>
                 <Jardunaldi zenbakia="4">
-                    <id>4</id>
                     <Partidua>
                         <Emaitza etxekoGolak="2" kanpokoGolak="3"/>
                         <EtxekoEzkutua>valdepenas</EtxekoEzkutua>
@@ -1251,7 +1247,6 @@
                     </Partidua>
                 </Jardunaldi>
                 <Jardunaldi zenbakia="5">
-                    <id>5</id>
                     <Partidua>
                         <Emaitza etxekoGolak="5" kanpokoGolak="2"/>
                         <EtxekoEzkutua>inter</EtxekoEzkutua>
@@ -1275,7 +1270,6 @@
                     </Partidua>
                 </Jardunaldi>
                 <Jardunaldi zenbakia="6">
-                    <id>6</id>
                     <Partidua>
                         <Emaitza etxekoGolak="2" kanpokoGolak="5"/>
                         <EtxekoEzkutua>valdepenas</EtxekoEzkutua>
@@ -1299,7 +1293,6 @@
                     </Partidua>
                 </Jardunaldi>
                 <Jardunaldi zenbakia="7">
-                    <id>7</id>
                     <Partidua>
                         <Emaitza etxekoGolak="3" kanpokoGolak="1"/>
                         <EtxekoEzkutua>baleares</EtxekoEzkutua>
@@ -1323,7 +1316,6 @@
                     </Partidua>
                 </Jardunaldi>
                 <Jardunaldi zenbakia="8">
-                    <id>8</id>
                     <Partidua>
                         <Emaitza etxekoGolak="3" kanpokoGolak="4"/>
                         <EtxekoEzkutua>valdepenas</EtxekoEzkutua>
@@ -1347,7 +1339,6 @@
                     </Partidua>
                 </Jardunaldi>
                 <Jardunaldi zenbakia="9">
-                    <id>9</id>
                     <Partidua>
                         <Emaitza etxekoGolak="4" kanpokoGolak="1"/>
                         <EtxekoEzkutua>jaen</EtxekoEzkutua>
@@ -1371,7 +1362,6 @@
                     </Partidua>
                 </Jardunaldi>
                 <Jardunaldi zenbakia="10">
-                    <id>10</id>
                     <Partidua>
                         <Emaitza etxekoGolak="2" kanpokoGolak="4"/>
                         <EtxekoEzkutua>valdepenas</EtxekoEzkutua>
@@ -1455,8 +1445,8 @@
             </DenboraldikoTaldeak>
             <Jardunaldiak>
                 <Jardunaldi zenbakia="1">
-                    <id>11</id>
-                    <Partidua egoera="JokatuGabe">
+                    <Partidua>
+                        <Emaitza etxekoGolak="3" kanpokoGolak="2"/>
                         <EtxekoEzkutua>barcelona</EtxekoEzkutua>
                         <EtxekoTaldea>Barça Futsal</EtxekoTaldea>
                         <KanpokoEzkutua>valdepenas</KanpokoEzkutua>
@@ -1476,7 +1466,6 @@
                     </Partidua>
                 </Jardunaldi>
                 <Jardunaldi zenbakia="2">
-                    <id>12</id>
                     <Partidua egoera="JokatuGabe">
                         <EtxekoEzkutua>barcelona</EtxekoEzkutua>
                         <EtxekoTaldea>Barça Futsal</EtxekoTaldea>
@@ -1497,7 +1486,6 @@
                     </Partidua>
                 </Jardunaldi>
                 <Jardunaldi zenbakia="3">
-                    <id>13</id>
                     <Partidua egoera="JokatuGabe">
                         <EtxekoEzkutua>barcelona</EtxekoEzkutua>
                         <EtxekoTaldea>Barça Futsal</EtxekoTaldea>
@@ -1518,7 +1506,6 @@
                     </Partidua>
                 </Jardunaldi>
                 <Jardunaldi zenbakia="4">
-                    <id>14</id>
                     <Partidua egoera="JokatuGabe">
                         <EtxekoEzkutua>barcelona</EtxekoEzkutua>
                         <EtxekoTaldea>Barça Futsal</EtxekoTaldea>
@@ -1539,7 +1526,6 @@
                     </Partidua>
                 </Jardunaldi>
                 <Jardunaldi zenbakia="5">
-                    <id>15</id>
                     <Partidua egoera="JokatuGabe">
                         <EtxekoEzkutua>barcelona</EtxekoEzkutua>
                         <EtxekoTaldea>Barça Futsal</EtxekoTaldea>
@@ -1560,7 +1546,6 @@
                     </Partidua>
                 </Jardunaldi>
                 <Jardunaldi zenbakia="6">
-                    <id>16</id>
                     <Partidua egoera="JokatuGabe">
                         <EtxekoEzkutua>valdepenas</EtxekoEzkutua>
                         <EtxekoTaldea>Viña Albali Valdepeñas</EtxekoTaldea>
@@ -1581,7 +1566,6 @@
                     </Partidua>
                 </Jardunaldi>
                 <Jardunaldi zenbakia="7">
-                    <id>17</id>
                     <Partidua egoera="JokatuGabe">
                         <EtxekoEzkutua>baleares</EtxekoEzkutua>
                         <EtxekoTaldea>Mallorca Palma Futsal</EtxekoTaldea>
@@ -1602,7 +1586,6 @@
                     </Partidua>
                 </Jardunaldi>
                 <Jardunaldi zenbakia="8">
-                    <id>18</id>
                     <Partidua egoera="JokatuGabe">
                         <EtxekoEzkutua>jaen</EtxekoEzkutua>
                         <EtxekoTaldea>Jaén Paraíso Interior</EtxekoTaldea>
@@ -1623,7 +1606,6 @@
                     </Partidua>
                 </Jardunaldi>
                 <Jardunaldi zenbakia="9">
-                    <id>19</id>
                     <Partidua egoera="JokatuGabe">
                         <EtxekoEzkutua>elpozo</EtxekoEzkutua>
                         <EtxekoTaldea>ElPozo Murcia</EtxekoTaldea>
@@ -1644,7 +1626,6 @@
                     </Partidua>
                 </Jardunaldi>
                 <Jardunaldi zenbakia="10">
-                    <id>20</id>
                     <Partidua egoera="JokatuGabe">
                         <EtxekoEzkutua>inter</EtxekoEzkutua>
                         <EtxekoTaldea>Inter Movistar</EtxekoTaldea>
