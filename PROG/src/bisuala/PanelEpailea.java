@@ -259,7 +259,6 @@ public class PanelEpailea extends JPanel {
                     }
 
                     if (ondoGordeta) {
-                        if (app != null) app.setAldaketakDauden(true);
                         utils.LogKudeatzailea.gehituLog("Emaitza Eguneratua: " +
                                 p.getEtxekoTaldea().getIzena() + " " + golEtxekoa + " - " +
                                 golKanpokoa + " " + p.getKanpokoTaldea().getIzena());

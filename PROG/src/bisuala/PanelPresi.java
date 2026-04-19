@@ -122,7 +122,6 @@ public class PanelPresi extends JPanel {
 
             if (leihoa.isOndoSortuDa()) {
                 aplikazioNagusia.interfazeaFreskatu();
-                aplikazioNagusia.setAldaketakDauden(true);
             }
         });
         pnlBotoiak.add(btnHasi);
@@ -181,7 +180,6 @@ public class PanelPresi extends JPanel {
                 try {
                     Files.copy(jatorrizkoFitxategia.toPath(), helmugaFitxategia.toPath(), StandardCopyOption.REPLACE_EXISTING);
                     t.setEzkutua(fitxategiIzena);
-                    aplikazioNagusia.setAldaketakDauden(true);
                     ImageIcon ikonoBerria = new ImageIcon(helmugaFitxategia.getAbsolutePath());
                     Image irudia = ikonoBerria.getImage();
                     Image irudiaEskalatuta = irudia.getScaledInstance(90, 90, Image.SCALE_SMOOTH);

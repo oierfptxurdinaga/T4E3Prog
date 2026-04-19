@@ -26,7 +26,7 @@ public class DenboraldiDAO {
     public boolean txertatuDenboraldiaOsoa(Denboraldia denboraldia) {
         String sqlDenboraldia = "INSERT INTO denboraldiak (urtea) VALUES (?)";
         String sqlDenbTaldeak = "INSERT INTO denboraldi_taldeak (denboraldia_urtea, id_taldea) VALUES (?, ?)";
-        String sqlDenbJokalariak = "INSERT INTO denboraldi_jokalariak (denboraldia_urtea, id_taldea, id_jokalari) VALUES (?, ?, ?)";
+        String sqlDenbJokalariak = "INSERT INTO denboraldi_jokalariak (denboraldia_urtea, id_taldea, id_jokalaria) VALUES (?, ?, ?)";
         String sqlJardunaldia = "INSERT INTO jardunaldiak (zenbakia, denboraldia_urtea) VALUES (?, ?)";
         String sqlPartidua = "INSERT INTO partiduak (id_jardunaldia, etxeko_taldea_id, kanpoko_taldea_id, etxeko_golak, kanpoko_golak) VALUES (?, ?, ?, ?, ?)";
         try {

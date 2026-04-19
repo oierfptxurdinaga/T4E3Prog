@@ -252,7 +252,6 @@ public class PanelAdmin extends JPanel {
         }
 
         if (ondoGordeta) {
-            if (app != null) app.setAldaketakDauden(true);
             utils.LogKudeatzailea.gehituLog("DB EGUNERAKETA: " + hautatua.getIzena() + " " + hautatua.getAbizena() + " - " + hautatua.getDortsala() + " jokalariaren taldea aldatu da.");
         } else {
             JOptionPane.showMessageDialog(this, "Errorea egon da jokalaria datu-basean eguneratzean.", "Errorea DBan", JOptionPane.ERROR_MESSAGE);

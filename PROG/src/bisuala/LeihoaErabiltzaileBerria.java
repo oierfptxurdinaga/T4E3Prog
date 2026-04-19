@@ -139,9 +139,7 @@ public class LeihoaErabiltzaileBerria extends JDialog {
         JOptionPane.showMessageDialog(this, "Erabiltzailea ondo sortu da!");
         this.sortutakoa = berria;
 
-        if (app != null) {
-            app.setAldaketakDauden(true);
-        }
+
 
         dispose();
     }

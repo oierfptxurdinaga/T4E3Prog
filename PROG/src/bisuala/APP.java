@@ -46,8 +46,7 @@ public class APP extends JFrame {
 	/** Federazioaren datu-egitura nagusia. */
 	private Federazioa federazioa;
 
-	/** Aldaketak egin diren ala ez adierazten du. */
-	private boolean aldaketakDauden = false;
+
 
 	/**
 	 * APP leiho nagusia sortzen du erabiltzaile eta federazioarekin.
@@ -149,7 +148,7 @@ public class APP extends JFrame {
 		});
 
 		cbDenboraldiak.addActionListener(e -> tabsEguneratu());
-		btnLogout.addActionListener(e -> kudeatuIrteera(true));
+		btnLogout.addActionListener(e -> exekutatuIrteera(true));
 
 		tabsEguneratu();
 	}
@@ -217,7 +216,7 @@ public class APP extends JFrame {
 	 * Denboraldi berri bat sortu ondoren deitzen da.
 	 */
 	public void interfazeaFreskatu() {
-		this.aldaketakDauden = true;
+
 
 		ActionListener[] listeners = cbDenboraldiak.getActionListeners();
 		for (ActionListener al : listeners) {
@@ -243,23 +242,6 @@ public class APP extends JFrame {
 		tabsEguneratu();
 	}
 
-	/**
-	 * Aldaketak egin diren ala ez itzultzen du.
-	 *
-	 * @return true aldaketak badaude
-	 */
-	public boolean isAldaketakDauden() {
-		return aldaketakDauden;
-	}
-
-	/**
-	 * Aldaketen egoera ezartzen du.
-	 *
-	 * @param aldaketakDauden egoera berria
-	 */
-	public void setAldaketakDauden(boolean aldaketakDauden) {
-		this.aldaketakDauden = aldaketakDauden;
-	}
 
 	/**
 	 * Federazioaren datuak XML fitxategira esportatzen ditu.
@@ -283,32 +265,6 @@ public class APP extends JFrame {
 		}
 	}
 
-	/**
-	 * Irteera kudeatzen du: aldaketak badaude gorde nahi duen galdetzen du.
-	 *
-	 * @param isLogout true bada saioaren itxiera da; false bada programaren itxiera
-	 */
-	public void kudeatuIrteera(boolean isLogout) {
-		if (aldaketakDauden) {
-			int aukera = JOptionPane.showConfirmDialog(this, "Aldaketak egin dituzu. Gorde nahi dituzu irten aurretik?",
-					"Gorde aldaketak", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
-
-			if (aukera == JOptionPane.YES_OPTION) {
-				gordeDatuak();
-				exekutatuIrteera(isLogout);
-			} else if (aukera == JOptionPane.NO_OPTION) {
-				exekutatuIrteera(isLogout);
-			}
-		} else {
-			int aukera = JOptionPane.showConfirmDialog(this,
-					isLogout ? "Ziur zaude saioa itxi nahi duzula?" : "Ziur zaude programa itxi nahi duzula?",
-					"Konfirmatu", JOptionPane.YES_NO_OPTION);
-
-			if (aukera == JOptionPane.YES_OPTION) {
-				exekutatuIrteera(isLogout);
-			}
-		}
-	}
 
 	/**
 	 * Irteera benetan exekutatzen du: logout bada Login ikusten du, bestela programa ixten du.
