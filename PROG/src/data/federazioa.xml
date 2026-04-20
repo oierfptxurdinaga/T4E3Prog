@@ -1426,223 +1426,223 @@
                 </Talde>
                 <Talde>
                     <Aktiboa_dago>true</Aktiboa_dago>
-                    <Ezkutua>jaen</Ezkutua>
-                    <Hiria>Jaen</Hiria>
-                    <Informazioa>Jaén Paraíso Interior probintzia oso baten harrotasuna da eta talde apal batek erraldoiei nola aurre egin diezaiekeen erakusten duen adibide ezin hobea. Bere nortasuna "Marea Horiarekin" lotuta dago, Olivo Arena partida bakoitzean betetzen duen Europako zale oihulari eta fidelienetako bat. Klubak historia egin du Espainiako Kopa batzuk irabaziz, defentsako intentsitatean eta kontraeraso hilgarri batean oinarritutako lehiakortasuna erakutsiz.</Informazioa>
-                    <Izena>Jaén Paraíso Interior</Izena>
-                    <Sorrera_data>1980</Sorrera_data>
-                    <Futbol_zelaia>Olivo Arena</Futbol_zelaia>
+                    <Ezkutua>cartagena</Ezkutua>
+                    <Hiria>Cartagena</Hiria>
+                    <Informazioa>Jimbee Cartagenak asmo handiko proiektu gisa berpiztu da azken urteetan hirian. Inbertsio estrategiko batekin eta joko estilo ausart batekin, klubak muga historikoak apurtzea lortu du, bere lehen liga titulua irabaziz eta talde boteretsuenekin aurrez aurre lehiatuz. Bere proiektua ez da lehen taldean bakarrik zentratzen, Cartagena areto-futbol modernoaren potentzia bihurtzean baizik, punta-puntako instalazioekin eta nazioarteko izarrez betetako plantilla batekin.</Informazioa>
+                    <Izena>Jimbee Cartagena</Izena>
+                    <Sorrera_data>1993</Sorrera_data>
+                    <Futbol_zelaia>Palacio Deportes</Futbol_zelaia>
                 </Talde>
                 <Talde>
                     <Aktiboa_dago>true</Aktiboa_dago>
-                    <Ezkutua>valdepenas</Ezkutua>
-                    <Hiria>Valdepeñas</Hiria>
-                    <Informazioa>Viña Albali Valdepeñas Ciudad Realeko bihotza da areto-futbolaren elitean. Maila nagusira igo zenetik, klubak liga irauli du zale sutsu bati esker, Virgen de la Cabeza pabiloia presio-eltze bat bihurtuz. Tokiko ardogintzaren babes sendoarekin, taldeak liga eta kopa finalak jokatzea lortu du, bere entrega fisikoagatik, apaltasunagatik eta jokalarien eta Valdepeñasko herritarren arteko lotura bereziagatik nabarmenduz.</Informazioa>
-                    <Izena>Viña Albali Valdepeñas</Izena>
-                    <Sorrera_data>2002</Sorrera_data>
-                    <Futbol_zelaia>Virgen de la Cabeza</Futbol_zelaia>
+                    <Ezkutua>ribera</Ezkutua>
+                    <Hiria>Tudela</Hiria>
+                    <Informazioa>Tutera kokatua, Ribera Navarra FS kudeaketa eta biziraupen eredu bat da elitean, baliabide mugatuekin baina adimen taktiko handiarekin. Esfortzuaren eta konpromisoaren lelopean, klubak urteak daramatza Lehen Mailan mantentzea lortuz, bere etxean garaitzeko talde oso zaila izanik. Gazteak trebatzen adituak dira, eta jokalari hauek Europako klub handietara jauzi egiten dute askotan, beti ere ordena taktikoan eta baloiaren errespetuan oinarritutako nortasunari eutsiz.</Informazioa>
+                    <Izena>Aspil-Jumpers Ribera</Izena>
+                    <Sorrera_data>2001</Sorrera_data>
+                    <Futbol_zelaia>Ciudad de Tudela</Futbol_zelaia>
                 </Talde>
             </DenboraldikoTaldeak>
             <Jardunaldiak>
                 <Jardunaldi zenbakia="1">
                     <Partidua>
                         <Emaitza etxekoGolak="3" kanpokoGolak="2"/>
+                        <EtxekoEzkutua>ribera</EtxekoEzkutua>
+                        <EtxekoTaldea>Aspil-Jumpers Ribera</EtxekoTaldea>
+                        <KanpokoEzkutua>inter</KanpokoEzkutua>
+                        <KanpokoTaldea>Inter Movistar</KanpokoTaldea>
+                    </Partidua>
+                    <Partidua egoera="JokatuGabe">
+                        <EtxekoEzkutua>baleares</EtxekoEzkutua>
+                        <EtxekoTaldea>Mallorca Palma Futsal</EtxekoTaldea>
+                        <KanpokoEzkutua>elpozo</KanpokoEzkutua>
+                        <KanpokoTaldea>ElPozo Murcia</KanpokoTaldea>
+                    </Partidua>
+                    <Partidua egoera="JokatuGabe">
                         <EtxekoEzkutua>barcelona</EtxekoEzkutua>
                         <EtxekoTaldea>Barça Futsal</EtxekoTaldea>
-                        <KanpokoEzkutua>valdepenas</KanpokoEzkutua>
-                        <KanpokoTaldea>Viña Albali Valdepeñas</KanpokoTaldea>
-                    </Partidua>
-                    <Partidua egoera="JokatuGabe">
-                        <EtxekoEzkutua>inter</EtxekoEzkutua>
-                        <EtxekoTaldea>Inter Movistar</EtxekoTaldea>
-                        <KanpokoEzkutua>baleares</KanpokoEzkutua>
-                        <KanpokoTaldea>Mallorca Palma Futsal</KanpokoTaldea>
-                    </Partidua>
-                    <Partidua egoera="JokatuGabe">
-                        <EtxekoEzkutua>elpozo</EtxekoEzkutua>
-                        <EtxekoTaldea>ElPozo Murcia</EtxekoTaldea>
-                        <KanpokoEzkutua>jaen</KanpokoEzkutua>
-                        <KanpokoTaldea>Jaén Paraíso Interior</KanpokoTaldea>
+                        <KanpokoEzkutua>cartagena</KanpokoEzkutua>
+                        <KanpokoTaldea>Jimbee Cartagena</KanpokoTaldea>
                     </Partidua>
                 </Jardunaldi>
                 <Jardunaldi zenbakia="2">
                     <Partidua egoera="JokatuGabe">
-                        <EtxekoEzkutua>barcelona</EtxekoEzkutua>
-                        <EtxekoTaldea>Barça Futsal</EtxekoTaldea>
-                        <KanpokoEzkutua>baleares</KanpokoEzkutua>
-                        <KanpokoTaldea>Mallorca Palma Futsal</KanpokoTaldea>
-                    </Partidua>
-                    <Partidua egoera="JokatuGabe">
-                        <EtxekoEzkutua>valdepenas</EtxekoEzkutua>
-                        <EtxekoTaldea>Viña Albali Valdepeñas</EtxekoTaldea>
-                        <KanpokoEzkutua>jaen</KanpokoEzkutua>
-                        <KanpokoTaldea>Jaén Paraíso Interior</KanpokoTaldea>
+                        <EtxekoEzkutua>ribera</EtxekoEzkutua>
+                        <EtxekoTaldea>Aspil-Jumpers Ribera</EtxekoTaldea>
+                        <KanpokoEzkutua>elpozo</KanpokoEzkutua>
+                        <KanpokoTaldea>ElPozo Murcia</KanpokoTaldea>
                     </Partidua>
                     <Partidua egoera="JokatuGabe">
                         <EtxekoEzkutua>inter</EtxekoEzkutua>
                         <EtxekoTaldea>Inter Movistar</EtxekoTaldea>
-                        <KanpokoEzkutua>elpozo</KanpokoEzkutua>
-                        <KanpokoTaldea>ElPozo Murcia</KanpokoTaldea>
+                        <KanpokoEzkutua>cartagena</KanpokoEzkutua>
+                        <KanpokoTaldea>Jimbee Cartagena</KanpokoTaldea>
+                    </Partidua>
+                    <Partidua egoera="JokatuGabe">
+                        <EtxekoEzkutua>baleares</EtxekoEzkutua>
+                        <EtxekoTaldea>Mallorca Palma Futsal</EtxekoTaldea>
+                        <KanpokoEzkutua>barcelona</KanpokoEzkutua>
+                        <KanpokoTaldea>Barça Futsal</KanpokoTaldea>
                     </Partidua>
                 </Jardunaldi>
                 <Jardunaldi zenbakia="3">
                     <Partidua egoera="JokatuGabe">
-                        <EtxekoEzkutua>barcelona</EtxekoEzkutua>
-                        <EtxekoTaldea>Barça Futsal</EtxekoTaldea>
-                        <KanpokoEzkutua>jaen</KanpokoEzkutua>
-                        <KanpokoTaldea>Jaén Paraíso Interior</KanpokoTaldea>
+                        <EtxekoEzkutua>ribera</EtxekoEzkutua>
+                        <EtxekoTaldea>Aspil-Jumpers Ribera</EtxekoTaldea>
+                        <KanpokoEzkutua>cartagena</KanpokoEzkutua>
+                        <KanpokoTaldea>Jimbee Cartagena</KanpokoTaldea>
                     </Partidua>
                     <Partidua egoera="JokatuGabe">
-                        <EtxekoEzkutua>baleares</EtxekoEzkutua>
-                        <EtxekoTaldea>Mallorca Palma Futsal</EtxekoTaldea>
-                        <KanpokoEzkutua>elpozo</KanpokoEzkutua>
-                        <KanpokoTaldea>ElPozo Murcia</KanpokoTaldea>
+                        <EtxekoEzkutua>elpozo</EtxekoEzkutua>
+                        <EtxekoTaldea>ElPozo Murcia</EtxekoTaldea>
+                        <KanpokoEzkutua>barcelona</KanpokoEzkutua>
+                        <KanpokoTaldea>Barça Futsal</KanpokoTaldea>
                     </Partidua>
                     <Partidua egoera="JokatuGabe">
-                        <EtxekoEzkutua>valdepenas</EtxekoEzkutua>
-                        <EtxekoTaldea>Viña Albali Valdepeñas</EtxekoTaldea>
-                        <KanpokoEzkutua>inter</KanpokoEzkutua>
-                        <KanpokoTaldea>Inter Movistar</KanpokoTaldea>
+                        <EtxekoEzkutua>inter</EtxekoEzkutua>
+                        <EtxekoTaldea>Inter Movistar</EtxekoTaldea>
+                        <KanpokoEzkutua>baleares</KanpokoEzkutua>
+                        <KanpokoTaldea>Mallorca Palma Futsal</KanpokoTaldea>
                     </Partidua>
                 </Jardunaldi>
                 <Jardunaldi zenbakia="4">
                     <Partidua egoera="JokatuGabe">
-                        <EtxekoEzkutua>barcelona</EtxekoEzkutua>
-                        <EtxekoTaldea>Barça Futsal</EtxekoTaldea>
-                        <KanpokoEzkutua>elpozo</KanpokoEzkutua>
-                        <KanpokoTaldea>ElPozo Murcia</KanpokoTaldea>
+                        <EtxekoEzkutua>ribera</EtxekoEzkutua>
+                        <EtxekoTaldea>Aspil-Jumpers Ribera</EtxekoTaldea>
+                        <KanpokoEzkutua>barcelona</KanpokoEzkutua>
+                        <KanpokoTaldea>Barça Futsal</KanpokoTaldea>
                     </Partidua>
                     <Partidua egoera="JokatuGabe">
-                        <EtxekoEzkutua>jaen</EtxekoEzkutua>
-                        <EtxekoTaldea>Jaén Paraíso Interior</EtxekoTaldea>
+                        <EtxekoEzkutua>cartagena</EtxekoEzkutua>
+                        <EtxekoTaldea>Jimbee Cartagena</EtxekoTaldea>
+                        <KanpokoEzkutua>baleares</KanpokoEzkutua>
+                        <KanpokoTaldea>Mallorca Palma Futsal</KanpokoTaldea>
+                    </Partidua>
+                    <Partidua egoera="JokatuGabe">
+                        <EtxekoEzkutua>elpozo</EtxekoEzkutua>
+                        <EtxekoTaldea>ElPozo Murcia</EtxekoTaldea>
                         <KanpokoEzkutua>inter</KanpokoEzkutua>
                         <KanpokoTaldea>Inter Movistar</KanpokoTaldea>
-                    </Partidua>
-                    <Partidua egoera="JokatuGabe">
-                        <EtxekoEzkutua>baleares</EtxekoEzkutua>
-                        <EtxekoTaldea>Mallorca Palma Futsal</EtxekoTaldea>
-                        <KanpokoEzkutua>valdepenas</KanpokoEzkutua>
-                        <KanpokoTaldea>Viña Albali Valdepeñas</KanpokoTaldea>
                     </Partidua>
                 </Jardunaldi>
                 <Jardunaldi zenbakia="5">
                     <Partidua egoera="JokatuGabe">
+                        <EtxekoEzkutua>ribera</EtxekoEzkutua>
+                        <EtxekoTaldea>Aspil-Jumpers Ribera</EtxekoTaldea>
+                        <KanpokoEzkutua>baleares</KanpokoEzkutua>
+                        <KanpokoTaldea>Mallorca Palma Futsal</KanpokoTaldea>
+                    </Partidua>
+                    <Partidua egoera="JokatuGabe">
                         <EtxekoEzkutua>barcelona</EtxekoEzkutua>
                         <EtxekoTaldea>Barça Futsal</EtxekoTaldea>
                         <KanpokoEzkutua>inter</KanpokoEzkutua>
                         <KanpokoTaldea>Inter Movistar</KanpokoTaldea>
                     </Partidua>
                     <Partidua egoera="JokatuGabe">
-                        <EtxekoEzkutua>elpozo</EtxekoEzkutua>
-                        <EtxekoTaldea>ElPozo Murcia</EtxekoTaldea>
-                        <KanpokoEzkutua>valdepenas</KanpokoEzkutua>
-                        <KanpokoTaldea>Viña Albali Valdepeñas</KanpokoTaldea>
-                    </Partidua>
-                    <Partidua egoera="JokatuGabe">
-                        <EtxekoEzkutua>jaen</EtxekoEzkutua>
-                        <EtxekoTaldea>Jaén Paraíso Interior</EtxekoTaldea>
-                        <KanpokoEzkutua>baleares</KanpokoEzkutua>
-                        <KanpokoTaldea>Mallorca Palma Futsal</KanpokoTaldea>
+                        <EtxekoEzkutua>cartagena</EtxekoEzkutua>
+                        <EtxekoTaldea>Jimbee Cartagena</EtxekoTaldea>
+                        <KanpokoEzkutua>elpozo</KanpokoEzkutua>
+                        <KanpokoTaldea>ElPozo Murcia</KanpokoTaldea>
                     </Partidua>
                 </Jardunaldi>
                 <Jardunaldi zenbakia="6">
                     <Partidua egoera="JokatuGabe">
-                        <EtxekoEzkutua>valdepenas</EtxekoEzkutua>
-                        <EtxekoTaldea>Viña Albali Valdepeñas</EtxekoTaldea>
+                        <EtxekoEzkutua>inter</EtxekoEzkutua>
+                        <EtxekoTaldea>Inter Movistar</EtxekoTaldea>
+                        <KanpokoEzkutua>ribera</KanpokoEzkutua>
+                        <KanpokoTaldea>Aspil-Jumpers Ribera</KanpokoTaldea>
+                    </Partidua>
+                    <Partidua egoera="JokatuGabe">
+                        <EtxekoEzkutua>elpozo</EtxekoEzkutua>
+                        <EtxekoTaldea>ElPozo Murcia</EtxekoTaldea>
+                        <KanpokoEzkutua>baleares</KanpokoEzkutua>
+                        <KanpokoTaldea>Mallorca Palma Futsal</KanpokoTaldea>
+                    </Partidua>
+                    <Partidua egoera="JokatuGabe">
+                        <EtxekoEzkutua>cartagena</EtxekoEzkutua>
+                        <EtxekoTaldea>Jimbee Cartagena</EtxekoTaldea>
                         <KanpokoEzkutua>barcelona</KanpokoEzkutua>
                         <KanpokoTaldea>Barça Futsal</KanpokoTaldea>
-                    </Partidua>
-                    <Partidua egoera="JokatuGabe">
-                        <EtxekoEzkutua>baleares</EtxekoEzkutua>
-                        <EtxekoTaldea>Mallorca Palma Futsal</EtxekoTaldea>
-                        <KanpokoEzkutua>inter</KanpokoEzkutua>
-                        <KanpokoTaldea>Inter Movistar</KanpokoTaldea>
-                    </Partidua>
-                    <Partidua egoera="JokatuGabe">
-                        <EtxekoEzkutua>jaen</EtxekoEzkutua>
-                        <EtxekoTaldea>Jaén Paraíso Interior</EtxekoTaldea>
-                        <KanpokoEzkutua>elpozo</KanpokoEzkutua>
-                        <KanpokoTaldea>ElPozo Murcia</KanpokoTaldea>
                     </Partidua>
                 </Jardunaldi>
                 <Jardunaldi zenbakia="7">
                     <Partidua egoera="JokatuGabe">
-                        <EtxekoEzkutua>baleares</EtxekoEzkutua>
-                        <EtxekoTaldea>Mallorca Palma Futsal</EtxekoTaldea>
-                        <KanpokoEzkutua>barcelona</KanpokoEzkutua>
-                        <KanpokoTaldea>Barça Futsal</KanpokoTaldea>
-                    </Partidua>
-                    <Partidua egoera="JokatuGabe">
-                        <EtxekoEzkutua>jaen</EtxekoEzkutua>
-                        <EtxekoTaldea>Jaén Paraíso Interior</EtxekoTaldea>
-                        <KanpokoEzkutua>valdepenas</KanpokoEzkutua>
-                        <KanpokoTaldea>Viña Albali Valdepeñas</KanpokoTaldea>
-                    </Partidua>
-                    <Partidua egoera="JokatuGabe">
                         <EtxekoEzkutua>elpozo</EtxekoEzkutua>
                         <EtxekoTaldea>ElPozo Murcia</EtxekoTaldea>
+                        <KanpokoEzkutua>ribera</KanpokoEzkutua>
+                        <KanpokoTaldea>Aspil-Jumpers Ribera</KanpokoTaldea>
+                    </Partidua>
+                    <Partidua egoera="JokatuGabe">
+                        <EtxekoEzkutua>cartagena</EtxekoEzkutua>
+                        <EtxekoTaldea>Jimbee Cartagena</EtxekoTaldea>
                         <KanpokoEzkutua>inter</KanpokoEzkutua>
                         <KanpokoTaldea>Inter Movistar</KanpokoTaldea>
+                    </Partidua>
+                    <Partidua egoera="JokatuGabe">
+                        <EtxekoEzkutua>barcelona</EtxekoEzkutua>
+                        <EtxekoTaldea>Barça Futsal</EtxekoTaldea>
+                        <KanpokoEzkutua>baleares</KanpokoEzkutua>
+                        <KanpokoTaldea>Mallorca Palma Futsal</KanpokoTaldea>
                     </Partidua>
                 </Jardunaldi>
                 <Jardunaldi zenbakia="8">
                     <Partidua egoera="JokatuGabe">
-                        <EtxekoEzkutua>jaen</EtxekoEzkutua>
-                        <EtxekoTaldea>Jaén Paraíso Interior</EtxekoTaldea>
-                        <KanpokoEzkutua>barcelona</KanpokoEzkutua>
-                        <KanpokoTaldea>Barça Futsal</KanpokoTaldea>
+                        <EtxekoEzkutua>cartagena</EtxekoEzkutua>
+                        <EtxekoTaldea>Jimbee Cartagena</EtxekoTaldea>
+                        <KanpokoEzkutua>ribera</KanpokoEzkutua>
+                        <KanpokoTaldea>Aspil-Jumpers Ribera</KanpokoTaldea>
                     </Partidua>
                     <Partidua egoera="JokatuGabe">
-                        <EtxekoEzkutua>elpozo</EtxekoEzkutua>
-                        <EtxekoTaldea>ElPozo Murcia</EtxekoTaldea>
-                        <KanpokoEzkutua>baleares</KanpokoEzkutua>
-                        <KanpokoTaldea>Mallorca Palma Futsal</KanpokoTaldea>
-                    </Partidua>
-                    <Partidua egoera="JokatuGabe">
-                        <EtxekoEzkutua>inter</EtxekoEzkutua>
-                        <EtxekoTaldea>Inter Movistar</EtxekoTaldea>
-                        <KanpokoEzkutua>valdepenas</KanpokoEzkutua>
-                        <KanpokoTaldea>Viña Albali Valdepeñas</KanpokoTaldea>
-                    </Partidua>
-                </Jardunaldi>
-                <Jardunaldi zenbakia="9">
-                    <Partidua egoera="JokatuGabe">
-                        <EtxekoEzkutua>elpozo</EtxekoEzkutua>
-                        <EtxekoTaldea>ElPozo Murcia</EtxekoTaldea>
-                        <KanpokoEzkutua>barcelona</KanpokoEzkutua>
-                        <KanpokoTaldea>Barça Futsal</KanpokoTaldea>
-                    </Partidua>
-                    <Partidua egoera="JokatuGabe">
-                        <EtxekoEzkutua>inter</EtxekoEzkutua>
-                        <EtxekoTaldea>Inter Movistar</EtxekoTaldea>
-                        <KanpokoEzkutua>jaen</KanpokoEzkutua>
-                        <KanpokoTaldea>Jaén Paraíso Interior</KanpokoTaldea>
-                    </Partidua>
-                    <Partidua egoera="JokatuGabe">
-                        <EtxekoEzkutua>valdepenas</EtxekoEzkutua>
-                        <EtxekoTaldea>Viña Albali Valdepeñas</EtxekoTaldea>
-                        <KanpokoEzkutua>baleares</KanpokoEzkutua>
-                        <KanpokoTaldea>Mallorca Palma Futsal</KanpokoTaldea>
-                    </Partidua>
-                </Jardunaldi>
-                <Jardunaldi zenbakia="10">
-                    <Partidua egoera="JokatuGabe">
-                        <EtxekoEzkutua>inter</EtxekoEzkutua>
-                        <EtxekoTaldea>Inter Movistar</EtxekoTaldea>
-                        <KanpokoEzkutua>barcelona</KanpokoEzkutua>
-                        <KanpokoTaldea>Barça Futsal</KanpokoTaldea>
-                    </Partidua>
-                    <Partidua egoera="JokatuGabe">
-                        <EtxekoEzkutua>valdepenas</EtxekoEzkutua>
-                        <EtxekoTaldea>Viña Albali Valdepeñas</EtxekoTaldea>
+                        <EtxekoEzkutua>barcelona</EtxekoEzkutua>
+                        <EtxekoTaldea>Barça Futsal</EtxekoTaldea>
                         <KanpokoEzkutua>elpozo</KanpokoEzkutua>
                         <KanpokoTaldea>ElPozo Murcia</KanpokoTaldea>
                     </Partidua>
                     <Partidua egoera="JokatuGabe">
                         <EtxekoEzkutua>baleares</EtxekoEzkutua>
                         <EtxekoTaldea>Mallorca Palma Futsal</EtxekoTaldea>
-                        <KanpokoEzkutua>jaen</KanpokoEzkutua>
-                        <KanpokoTaldea>Jaén Paraíso Interior</KanpokoTaldea>
+                        <KanpokoEzkutua>inter</KanpokoEzkutua>
+                        <KanpokoTaldea>Inter Movistar</KanpokoTaldea>
+                    </Partidua>
+                </Jardunaldi>
+                <Jardunaldi zenbakia="9">
+                    <Partidua egoera="JokatuGabe">
+                        <EtxekoEzkutua>barcelona</EtxekoEzkutua>
+                        <EtxekoTaldea>Barça Futsal</EtxekoTaldea>
+                        <KanpokoEzkutua>ribera</KanpokoEzkutua>
+                        <KanpokoTaldea>Aspil-Jumpers Ribera</KanpokoTaldea>
+                    </Partidua>
+                    <Partidua egoera="JokatuGabe">
+                        <EtxekoEzkutua>baleares</EtxekoEzkutua>
+                        <EtxekoTaldea>Mallorca Palma Futsal</EtxekoTaldea>
+                        <KanpokoEzkutua>cartagena</KanpokoEzkutua>
+                        <KanpokoTaldea>Jimbee Cartagena</KanpokoTaldea>
+                    </Partidua>
+                    <Partidua egoera="JokatuGabe">
+                        <EtxekoEzkutua>inter</EtxekoEzkutua>
+                        <EtxekoTaldea>Inter Movistar</EtxekoTaldea>
+                        <KanpokoEzkutua>elpozo</KanpokoEzkutua>
+                        <KanpokoTaldea>ElPozo Murcia</KanpokoTaldea>
+                    </Partidua>
+                </Jardunaldi>
+                <Jardunaldi zenbakia="10">
+                    <Partidua egoera="JokatuGabe">
+                        <EtxekoEzkutua>baleares</EtxekoEzkutua>
+                        <EtxekoTaldea>Mallorca Palma Futsal</EtxekoTaldea>
+                        <KanpokoEzkutua>ribera</KanpokoEzkutua>
+                        <KanpokoTaldea>Aspil-Jumpers Ribera</KanpokoTaldea>
+                    </Partidua>
+                    <Partidua egoera="JokatuGabe">
+                        <EtxekoEzkutua>inter</EtxekoEzkutua>
+                        <EtxekoTaldea>Inter Movistar</EtxekoTaldea>
+                        <KanpokoEzkutua>barcelona</KanpokoEzkutua>
+                        <KanpokoTaldea>Barça Futsal</KanpokoTaldea>
+                    </Partidua>
+                    <Partidua egoera="JokatuGabe">
+                        <EtxekoEzkutua>elpozo</EtxekoEzkutua>
+                        <EtxekoTaldea>ElPozo Murcia</EtxekoTaldea>
+                        <KanpokoEzkutua>cartagena</KanpokoEzkutua>
+                        <KanpokoTaldea>Jimbee Cartagena</KanpokoTaldea>
                     </Partidua>
                 </Jardunaldi>
             </Jardunaldiak>
