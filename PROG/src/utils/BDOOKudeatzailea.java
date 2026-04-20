@@ -1,0 +1,30 @@
+package utils;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+import model.Erabiltzaile;
+
+public class BDOOKudeatzailea {
+
+    private static final String RUTA_BDOO = "src/data/erabiltzaileak.odb";
+
+    public static Erabiltzaile login(String usuario, String password) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory(RUTA_BDOO);
+        EntityManager em = emf.createEntityManager();
+        Erabiltzaile user = null;
+
+        try {
+            user = em.find(Erabiltzaile.class, usuario);
+            if (user != null && user.getPasahitza().equals(password)) {
+                return user; 
+            }
+        } finally {
+            em.close();
+            emf.close();
+        }
+
+        return null;
+    }
+}
